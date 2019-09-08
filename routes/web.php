@@ -14,3 +14,6 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'WelcomeController@index');
+
+/* Videos */
+Route::get('/video-list', 'VideosController@index');
