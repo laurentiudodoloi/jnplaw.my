@@ -40,21 +40,28 @@
                     <img src="{{ asset('images/joseph&partners.png') }}" width="209" alt="" class="logo">
                 </div>
 
-                <a href="#" class="menu-button w-inline-block overlay-hamburger">
-                    <div class="overlay-hamburger__line overlay-hamburger__line--01">
-                        <div class="overlay-hamburger__line-in overlay-hamburger__line-in--01 overlay-hamburger__line-in--demo-3"></div>
-                    </div>
-                    <div class="overlay-hamburger__line overlay-hamburger__line--02">
-                        <div class="overlay-hamburger__line-in overlay-hamburger__line-in--02 overlay-hamburger__line-in--demo-3"></div>
-                    </div>
-                    <div class="overlay-hamburger__line overlay-hamburger__line--03">
-                        <div class="overlay-hamburger__line-in overlay-hamburger__line-in--03 overlay-hamburger__line-in--demo-3"></div>
-                    </div>
-                    <div class="overlay-hamburger__line overlay-hamburger__line--cross01">
-                        <div class="overlay-hamburger__line-in overlay-hamburger__line-in--cross01 overlay-hamburger__line-in--demo-3"></div>
-                    </div>
-                    <div class="overlay-hamburger__line overlay-hamburger__line--cross02">
-                        <div class="overlay-hamburger__line-in overlay-hamburger__line-in--cross02 overlay-hamburger__line-in--demo-3"></div>
+                {{--<a href="#" class="menu-button w-inline-block overlay-hamburger">--}}
+                    {{--<div class="overlay-hamburger__line overlay-hamburger__line--01">--}}
+                        {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--01 overlay-hamburger__line-in--demo-3"></div>--}}
+                    {{--</div>--}}
+                    {{--<div class="overlay-hamburger__line overlay-hamburger__line--02">--}}
+                        {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--02 overlay-hamburger__line-in--demo-3"></div>--}}
+                    {{--</div>--}}
+                    {{--<div class="overlay-hamburger__line overlay-hamburger__line--03">--}}
+                        {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--03 overlay-hamburger__line-in--demo-3"></div>--}}
+                    {{--</div>--}}
+                    {{--<div class="overlay-hamburger__line overlay-hamburger__line--cross01">--}}
+                        {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--cross01 overlay-hamburger__line-in--demo-3"></div>--}}
+                    {{--</div>--}}
+                    {{--<div class="overlay-hamburger__line overlay-hamburger__line--cross02">--}}
+                        {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--cross02 overlay-hamburger__line-in--demo-3"></div>--}}
+                    {{--</div>--}}
+                {{--</a>--}}
+
+                <a href="#" class="menu-button w-inline-block overlay-hamburger overlay-hamburger-2">
+                    <div id="nav-icon3">
+                        <span class="global-menu__item"></span>
+                        <span class="global-menu__item"></span>
                     </div>
                 </a>
 
