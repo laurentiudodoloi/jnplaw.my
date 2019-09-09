@@ -2,6 +2,10 @@
 
 @section('content')
 
-ddgf
+    <div class="app-container">
+        <div id="vue-app">
+            <application/>
+        </div>
+    </div>
 
 @endsection

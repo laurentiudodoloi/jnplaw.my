@@ -1,6 +1,4 @@
 import Vue from 'vue'
-import Gallery from './components/Gallery'
-import ScrollableGallery from './components/ScrollableGallery'
+import Application from './components/Application'
 
-Vue.component('gallery', Gallery);
-Vue.component('scrollable-gallery', ScrollableGallery);
+Vue.component('application', Application);
