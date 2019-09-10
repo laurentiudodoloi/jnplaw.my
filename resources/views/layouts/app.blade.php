@@ -20,6 +20,7 @@
         {{-- CSS --}}
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/hamburger-menu.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
         <style>
