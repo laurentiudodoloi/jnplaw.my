@@ -17,3 +17,6 @@ Route::get('/', 'WelcomeController@index');
 
 /* Videos */
 Route::get('/video-list', 'VideosController@index');
+
+/* About */
+Route::get('/about-us', 'AboutController@index');
