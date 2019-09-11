@@ -39,6 +39,38 @@
                 <span class="hamburger-menu-text">MENU</span>
             </div>
 
+            <script>
+                var menu = document.querySelector('.hamburger-menu');
+
+                function toggleClass (el, classname) {
+                    if (!el.classList.contains(classname)) {
+                        el.classList.add(classname);
+                    } else {
+                        el.classList.remove(classname);
+                    }
+                }
+
+                menu.addEventListener('click', function (evt) {
+                    if (!menu.classList.contains('hamburger-menu-closed')) {
+                        menu.classList.add('hamburger-menu-closed');
+                        menu.querySelector('.hamburger-menu-text').classList.add('hamburger-menu-text-hidden');
+
+                        menu.querySelector('.hamburger-menu-text').classList.remove('show-text');
+
+                        menu.querySelector('.line-0').classList.remove('line-0-bounce');
+                        menu.querySelector('.line-1').classList.remove('line-1-bounce');
+                    } else {
+                        menu.classList.remove('hamburger-menu-closed');
+                        menu.querySelector('.hamburger-menu-text').classList.remove('hamburger-menu-text-hidden');
+
+                        menu.querySelector('.line-0').classList.add('line-0-bounce');
+                        menu.querySelector('.line-1').classList.add('line-1-bounce');
+
+                        menu.querySelector('.hamburger-menu-text').classList.add('show-text');
+                    }
+                });
+            </script>
+
             <a href="#" class="menu-button w-inline-block overlay-hamburger overlay-hamburger-2">
                 <div id="nav-icon3">
                     <span class="global-menu__item"></span>
@@ -94,35 +126,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        var menu = document.querySelector('.hamburger-menu');
-
-        function toggleClass (el, classname) {
-            if (!el.classList.contains(classname)) {
-                el.classList.add(classname);
-            } else {
-                el.classList.remove(classname);
-            }
-        }
-
-        menu.addEventListener('click', function (evt) {
-            if (!menu.classList.contains('hamburger-menu-closed')) {
-                menu.classList.add('hamburger-menu-closed');
-
-                menu.querySelector('.hamburger-menu-text').classList.remove('show-text');
-
-                menu.querySelector('.line-0').classList.remove('line-0-bounce');
-                menu.querySelector('.line-1').classList.remove('line-1-bounce');
-            } else {
-                menu.classList.remove('hamburger-menu-closed');
-
-                menu.querySelector('.line-0').classList.add('line-0-bounce');
-                menu.querySelector('.line-1').classList.add('line-1-bounce');
-
-                menu.querySelector('.hamburger-menu-text').classList.add('show-text');
-            }
-        });
-    </script>
 
 @endsection
