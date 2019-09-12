@@ -148,7 +148,7 @@
 
                     </div>
 
-                    <div class="item-left"></div>
+                    <div class="item-left item-right"></div>
                 </section>
 
                 <section class="section2">
@@ -179,7 +179,7 @@
                         </div>
                     </div>
 
-                    <div class="item-left"></div>
+                    <div class="item-left item-right"></div>
                 </section>
 
                 <section class="section4">
@@ -219,11 +219,196 @@
                         </div>
                     </div>
 
-                    <div class="item-left"></div>
+                    <div class="item-left item-right"></div>
                 </section>
 
+                <section class="section section6">
+                    <div class="item-wrapper">
+                        <div class="item">
+                            <div class="number">01.</div>
+                            <div class="title">Idea & Concept</div>
+                            <div class="description">
+                                Entering that gable-ended Spouter-Inn, you found yourself in a wide,
+                                low, straggling entry with wainscots, reminding one of the bulwarks.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-wrapper">
+                        <div class="item">
+                            <div class="number">02.</div>
+                            <div class="title">Development</div>
+                            <div class="description">
+                                Entering that gable-ended Spouter-Inn, you found yourself in a wide,
+                                low, straggling entry with wainscots, reminding one of the bulwarks.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item-wrapper">
+                        <div class="item">
+                            <div class="number">03.</div>
+                            <div class="title">Testing & Support</div>
+                            <div class="description">
+                                Entering that gable-ended Spouter-Inn, you found yourself in a wide,
+                                low, straggling entry with wainscots, reminding one of the bulwarks.
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+            <div class="post-navigation">
+                <div class="page-container">
+                    <div class="nav-container">
+                        <div class="nav-item-container">
+                            <div class="navigation-wrap navigation-left">
+                                <a href="#">
+                                    <span class="nav-icon">&leftarrow;</span>
+                                    <span class="nav-content">
+                                        <span class="nav-title">previous project</span>
+                                        <span class="nav-subtitle">Righteous Besét</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item-container">
+                            <div class="navigation-wrap navigation-right text-right">
+                                <a href="#">
+                                    <span class="nav-content">
+                                        <span class="nav-title">next project</span>
+                                        <span class="nav-subtitle">Crafted för Perfection</span>
+                                    </span>
+                                    <span class="nav-icon">&rightarrow;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comments">
+                <div class="page-container">
+                    <div class="container-fluid">
+                        <h3 class="title text-left">Post a Comment</h3>
+                        <div class="notes">
+                            Your email address will not be published.  Required fields are marked *
+                        </div>
+
+                        <form class="form">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" placeholder="Name*">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="email" class="form-control" placeholder="E-mail*">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" placeholder="Website">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea rows="8" class="form-control" placeholder="Comment"></textarea>
+                            </div>
+
+                            <input type="submit" class="btn btn-outline-dark btn-submit" value="Submit Comment">
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <footer class="footer">
+            <div class="page-container">
+                <div class="widgets">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div>
+                                    <div class="logo">
+                                        <a href="#">
+                                            <img src="https://colabrio.ams3.cdn.digitaloceanspaces.com/norebro_landing/demo9/2017/10/logo_footer.svg" class="svg-logo img-fluid" alt="Norebro">
+                                        </a>
+                                    </div>
+
+                                    <form class="form">
+                                        <div class="form-group">
+                                            <input type="email" name="email" class="form-control" placeholder="Enter your email">
+                                        </div>
+
+                                        <input type="submit" name="subscribe" class="btn-subscribe btn-submit" value="Subscribe">
+                                    </form>
+
+                                    <div class="text">
+                                        Be the first to find out about exclusive deals, the latest Lookbooks, and top trends.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div>
+                                    <div class="title">København</div>
+                                    <div class="text text2">
+                                        <p>Phone:+1 601 722 8001</p>
+                                        <p>Email:norebrotheme@colabr.io</p>
+                                        <p>Address:Fensmark 23, København N</p>
+                                    </div>
+
+                                    <div class="share">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div>
+                                    <div class="title">København</div>
+                                    <div class="text text3">
+                                        Sofia Helin &nbsp; <a href="#">Norebro is a creative WordPress Theme</a>
+                                    </div>
+                                    <div class="text text3">
+                                        Sofia Helin &nbsp; <a href="#"> on Misses About Bette Davis, Joan Crawford</a>
+                                    </div>
+                                    <div class="text text3">
+                                        Sofia Helin &nbsp; <a href="#"> on New Art Venue Opens in Downtown CF</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div>
+                                    <div>
+                                        <div class="title">København</div>
+                                        <div class="text text4">
+                                            <a href="#">Misses About Bette Davis, Joan Crawford</a>
+                                            September 27, 2017Business
+                                        </div>
+
+                                        <div class="text text4">
+                                            <a href="#">New Art Venue Opens in Downtown CF</a>
+                                            September 27, 2017Business
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copyright">
+                    <div>
+                        &copy; 2017, Nørebro Theme by
+                        <a href="#">Colabrio</a> |
+                        <a href="#">Privacy policy</a> |
+                        <a href="#">Sitemap</a>
+                    </div>
+                    <div>All Rights Reserved.</div>
+                </div>
+            </div>
+        </footer>
 
     </div>
 

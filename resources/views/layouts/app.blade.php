@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://use.fontawesome.com/d2154184d1.js"></script>
 
         {{-- Owl Carousel --}}
         <link href="{{ asset('owlcarousel/owl.carousel.min.css') }}" rel="stylesheet">
@@ -47,7 +47,7 @@
                     loop:true,
                     margin:10,
                     nav:true,
-                    navText:["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"],
+                    navText : ['<span>&leftarrow;</span>','<span>&rightarrow;</span>'],
                     responsiveClass:true,
                     responsive:{
                         0:{
