@@ -1,4 +1,6 @@
 import Vue from 'vue'
-import Application from './components/Application'
+import Slider from './components/Slider'
+import SliderItem from './components/SliderItem'
 
-Vue.component('application', Application);
+Vue.component('slider', Slider);
+Vue.component('slider-item', SliderItem);

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-        <title>Laravel</title>
+        <title>Joseph & Partners</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -23,6 +23,10 @@
         <link href="{{ asset('css/hamburger-menu.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
+        <script src="https://kit.fontawesome.com/0bee301056.js"></script>
+
+        @yield('includes')
+
         <style>
             html, body {
                 margin: 0;
@@ -38,6 +42,7 @@
 
         @yield('content')
 
+        <script src="{{ asset('js/vue-app.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
         {{--<script src="{{ asset('js/menu.js') }}"></script>--}}

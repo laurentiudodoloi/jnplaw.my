@@ -1,18 +1,32 @@
 <template>
   <div class="wrapper">
-    <h2 v-if="head" class="slider-header">
-      <a class="slider-header-title" href="#">
-        {{ head }}
+    <h2 class="rowHeader">
+      <a aria-label="drame" class="rowTitle" href="#" style="
+        font-size: 1.4vw;
+        color: #e5e5e5;
+        font-weight: bold;
+        margin: 0 4% 0.5em 4%;
+        text-decoration: none;
+        display: inline-block;
+        min-width: 6em;
+      ">
+        <div class="row-header-title"
+             style="
+              display: table-cell;
+              vertical-align: bottom;
+              line-height: 1.25vw;
+              font-size: 1.4vw;"
+        >{{ head }}
+        </div>
       </a>
     </h2>
 
     <div class="slider">
       <div :class="[{'moving': moving}, 'slider-mask']" ref="slider">
         <slider-item
-          v-for="(slide, key) in sliderItems"
-          :class="sizeClasses()"
+          v-for="(tv,key) in sliderItems"
           :key="key"
-          :slide="slide"
+          :tv="tv"
           :ref="'item_'+key"
           @mouseover="onEnter(key)"
           @mouseleave="onLeave(key)"
@@ -20,23 +34,13 @@
         </slider-item>
       </div>
 
-      <div v-if="currentSet > 0" class="slider-arrow-block left-arrow" @click.prevent="leftArrowClicked()">
-        <img
-          class="slider-arrow slider-arrow-left"
-          src="https://daks2k3a4ib2z.cloudfront.net/555f2ea71b40d3860bbb96ad/55761fe3c9f4c6a85c890ca5_arrow.svg"
-        >
+      <div class="arrow left-arrow" @click.prevent="leftArrowClicked()">
+        <i class="fa fa-angle-left"></i>
       </div>
 
-      <div v-if="currentSet <= noOfSets" class="slider-arrow-block right-arrow" @click.prevent="rightArrowClicked">
-        <img
-          class="slider-arrow slider-arrow-right"
-          src="https://daks2k3a4ib2z.cloudfront.net/555f2ea71b40d3860bbb96ad/55761fe3c9f4c6a85c890ca5_arrow.svg"
-        >
+      <div class="arrow right-arrow" @click.prevent="rightArrowClicked">
+        <i class="fa fa-angle-right"></i>
       </div>
-    </div>
-
-    <div class="slider-controls" hidden>
-      <div v-for="i in (1, showItems)" :class="{ active: i === activeIndex }" class="slider-dot"></div>
     </div>
   </div>
 </template>
@@ -54,39 +58,20 @@
 
     name: 'Slider',
 
-    props: {
-      slides: {
-        type: Array,
-        default: () => []
-      },
-
-      noOfSlides: {
-        type: Number,
-        defalut: 3
-      },
-
-      head: {
-        type: String | Boolean,
-        default: false
-      }
-    },
+    props: ['tvs', 'head'],
 
     data () {
       return {
-        slideItemsClasses: '',
         moving: false,
         click: false,
         mv: 0,
         startId: 0,
         showItems: 1,
         totalItems: 0,
-        activeIndex: 0,
         sliderItems: [],
         leftItem: [],
         centerItem: [],
         rightItem: [],
-        currentSet: 0,
-        noOfSets: 0,
         timer: null
       }
     },
@@ -95,23 +80,18 @@
       this.updateSliderState()
 
       window.addEventListener('resize', this.updateSliderState)
+      this.sliderItems = this.tvs
+      this.totalItems = this.tvs.length
 
       window.addEventListener('resize', this)
     },
 
-    created () {
-      this.sliderItems = this.slides
-      this.totalItems = this.slides.length
-    },
-
-    beforeDestroy () {
+    beforeDestroy: function () {
       window.removeEventListener('resize', this.updateSliderState)
     },
 
     methods: {
-      leftArrowClicked () {
-        this.currentSet--
-
+      leftArrowClicked: function () {
         console.log('left arrow clicked')
         this.startId = this.leftItem[1]
 
@@ -133,9 +113,7 @@
         }, 750)
       },
 
-      rightArrowClicked () {
-        this.currentSet++
-
+      rightArrowClicked: function () {
         console.log('right arrow clicked')
         this.startId = this.rightItem[0] ? this.rightItem[0] : this.startId + this.showItems
         this.moving = true
@@ -176,7 +154,7 @@
         }, 750)
       },
 
-      onEnter (i) {
+      onEnter: function (i) {
         const {showItems} = this.showItems
         let selectedItem = this.$refs['item_' + i][0].$el
         let rightItems = $(selectedItem).nextAll(':lt(' + this.showItems + ')')
@@ -228,7 +206,7 @@
         }, 400)
       },
 
-      onLeave (i) {
+      onLeave: function (i) {
         clearTimeout(this.timer)
 
         for (let j = 0; j < this.sliderItems.length; j++) {
@@ -237,7 +215,7 @@
         }
       },
 
-      updateSliderItems (baseShowItem = this.showItems) {
+      updateSliderItems(baseShowItem = this.showItems) {
         let {totalItems, startId} = this
         // left + center + right
         // [1] + [4] + [4] + [1]
@@ -291,9 +269,9 @@
         let selectIds = [...leftDataId, ...centerDataId, ...rightDataId]
         let sliderItems = []
 
-        if (this.slides.length) {
+        if (this.tvs.length) {
           selectIds.map((e) => {
-            sliderItems.push(this.slides[e])
+            sliderItems.push(this.tvs[e])
           })
         }
 
@@ -301,63 +279,34 @@
         this.rightItem = rightDataId
         this.leftItem = leftDataId
         this.sliderItems = sliderItems
-        // console.log(sliderItems)
+        console.log(sliderItems)
       },
 
-      updateSliderState () {
+      updateSliderState: function () {
         let windowWidth = window.innerWidth
-        let showItems = 3
+        let showItems = 1
 
-        let xl = 'xl-' + showItems
-        let xm = 'xm-' + showItems
-        let md = 'md-' + showItems
-        let sm = 'sm-1'
-        let xs = 'xs-1'
-
-        console.log('SDFDS', this.noOfSlides)
-        if (this.noOfSlides && windowWidth >= 980) {
-          showItems = this.noOfSlides
-          xl = 'xl-' + showItems
-          xm = 'xm-' + showItems
-          md = 'md-' + showItems
-        } else if (windowWidth >= 1800) { // xl
+        if (windowWidth > 1800) {
           showItems = 5
-          xl = 'xl-' + showItems
-        } else if (windowWidth >= 1260) { // xm
+        } else if (windowWidth > 1260) {
           showItems = 3
-          xm = 'xm-' + showItems
-        } else if (windowWidth >= 980) { // md
+        } else if (windowWidth > 980) {
           showItems = 3
-          md = 'md-' + showItems
-        } else if (windowWidth >= 768) { // sm
+        } else if (windowWidth > 768) {
           showItems = 2
-          sm = 'sm-' + showItems
-        } else if (windowWidth >= 600) { // xs
+        } else if (windowWidth > 600) {
           showItems = 1
-          xs = 'xs-' + showItems
         }
-
-        this.slideItemsClasses = xl + ' ' + xm + ' ' + md + ' ' + sm + ' ' + xs
-
-        console.log('HERE', this.slideItemsClasses)
 
         let mv = 100 / showItems
         this.showItems = showItems
         this.mv = mv
-
-        console.log('SHO', this.showItems)
-
-        this.noOfSets = this.totalItems / showItems
 
         if (this.click) {
           $(this.$refs.slider).css({
             'transform': 'translate3d(-1' + this.mv + '%, 0, 0)'
           })
         }
-      },
-
-      sizeClasses () {
-        return this.slideItemsClasses
       }
     }
   }
