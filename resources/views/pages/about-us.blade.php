@@ -5,6 +5,7 @@
     <link href="{{ asset('owlcarousel/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('owlcarousel/owl.theme.default.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/about.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/general.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
