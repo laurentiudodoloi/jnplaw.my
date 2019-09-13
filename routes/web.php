@@ -13,11 +13,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'WelcomeController@index');
+//Route::get('/', 'WelcomeController@index');
 
 /* Videos */
-Route::get('/video-list', 'VideosController@index');
-Route::get('/video', 'VideosController@video');
+//Route::get('/video-list', 'VideosController@index');
+Route::get('/video', 'VideosController@video')->name('videos');
 
 /* About */
-Route::get('/about-us', 'AboutController@index');
+Route::get('/', 'AboutController@index')->name('about-us');

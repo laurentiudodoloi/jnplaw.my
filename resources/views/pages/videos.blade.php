@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
-@section('includes')
-    <link href="{{ asset('css/videos-page.css') }}" rel="stylesheet">
+@section('head')
     <link href="{{ asset('css/general.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/videos-page.css') }}" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/0bee301056.js"></script>
 @endsection
 
 @section('content')
@@ -14,7 +16,7 @@
 
         <div id="vue-app" class="page-wrap">
             <div class="slider-rect">
-                <slider :slides="{{ json_encode($mainMovies) }}" :no-of-slides="1"></slider>
+                <slider :slides="{{ json_encode($mainMovies) }}" :no-of-slides="2"></slider>
             </div>
 
             <div class="">
@@ -81,4 +83,8 @@
         </div>
 
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/vue-app.js') }}"></script>
 @endsection

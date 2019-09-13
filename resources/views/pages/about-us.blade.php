@@ -6,6 +6,8 @@
     <link href="{{ asset('owlcarousel/owl.theme.default.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/about.css') }}" rel="stylesheet">
     <link href="{{ asset('css/general.css') }}" rel="stylesheet">
+
+    <script src="https://use.fontawesome.com/d2154184d1.js"></script>
 @endsection
 
 @section('content')
@@ -21,8 +23,9 @@
 
             <div class="section-wrapper">
                 <div class="header-wrap">
-                    <div class="brand">
-                        <img src="https://colabrio.ams3.cdn.digitaloceanspaces.com/norebro_landing/demo9/2017/10/logo_inverse.svg" class="svg-logo" alt="Norebro">
+                    <div class="brand" style="color: #ffffff;">
+                        Joseph & Partners
+                        <a style="color: #ffffff; padding: 0 12px;" href="{{ route('videos') }}">Videos</a>
                     </div>
 
                     <div class="header-right">

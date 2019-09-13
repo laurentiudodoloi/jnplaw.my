@@ -18,8 +18,6 @@
         <link href="{{ asset('css/hamburger-menu.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-        <script src="https://kit.fontawesome.com/0bee301056.js"></script>
-
         @yield('head')
 
         <style>

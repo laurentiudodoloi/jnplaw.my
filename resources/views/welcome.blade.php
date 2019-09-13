@@ -33,8 +33,8 @@
 
             <div class="global-menu">
                 <div class="global-menu__wrap">
-                    <a class="global-menu__item global-menu__item--demo-3 w--current" href="#about">About Us</a>
-                    <a class="global-menu__item global-menu__item--demo-3" href="#whatwedo">What We Do</a>
+                    <a class="global-menu__item global-menu__item--demo-3 w--current" href="{{ route('about-us') }}">About Us</a>
+                    <a class="global-menu__item global-menu__item--demo-3" href="{{ route('videos') }}">What We Do</a>
                     <a class="global-menu__item global-menu__item--demo-3" href="#people">Our People</a>
                     <a class="global-menu__item global-menu__item--demo-3" href="#knowledge">Our Knowledge</a>
                     <a class="global-menu__item global-menu__item--demo-3" href="#news">News</a>
