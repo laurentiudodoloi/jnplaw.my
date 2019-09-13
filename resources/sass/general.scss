@@ -1,0 +1,152 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 80px;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+  background-color: #333;
+  color: #bbb;
+  z-index: 60;
+
+  .menu {
+    padding: 25px 5px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+
+    &:hover {
+      color: #666;
+    }
+  }
+}
+
+.page-wrap {
+  margin-left: 80px;
+  background-color: #fff;
+}
+
+.section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  display: flex;
+
+  .item-left {
+    flex: 1;
+    padding: 0 15px;
+
+    .title {
+      font-size: 34px;
+      margin-bottom: 12px;
+      font-family: 'Poppins', sans-serif;
+      color: #282828;
+      font-weight: 600;
+    }
+
+    span {
+      font-size: 14px;
+      font-family: 'Rubik', sans-serif;
+      color: #888;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  }
+
+  .item-middle {
+    flex: 2;
+    padding: 0 15px;
+
+    .text {
+      color: #494949;
+      font-size: 14px;
+      font-family: 'Rubik', sans-serif;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.section6 {
+  display: flex;
+  flex-wrap: nowrap;
+
+  .item-wrapper {
+    flex: 1;
+    padding: 0 15px;
+
+    .item {
+      background-color: #f9f9f9;
+      padding: 30px;
+      position: relative;
+
+      .number {
+        color: #ebebeb;
+        font: bold 100px "Poppins", sans-serif;
+        position: absolute;
+        line-height: 1;
+        top: -45px;
+        left: 35px;
+        font-size: 90px;
+      }
+
+      .title {
+        font-family: 'Poppins',sans-serif;
+        color: #282828;
+        font-weight: 700;
+        margin-bottom: 10px;
+        padding-top: 20px;
+        font-size: 24px;
+      }
+
+      .description {
+        font-family: 'Rubik',sans-serif;
+        color: #494949;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+    }
+  }
+}
+
+.text {
+  color: #494949;
+  font-size: 14px;
+  font-family: 'Rubik', sans-serif;
+  margin-bottom: 10px;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+
+  .section {
+    display: block;
+
+    .item-left {
+      margin-bottom: 60px;
+    }
+
+    .item-right {
+      display: none;
+    }
+  }
+
+  .section6 {
+    display: block;
+
+    .item-wrapper {
+      margin-bottom: 50px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

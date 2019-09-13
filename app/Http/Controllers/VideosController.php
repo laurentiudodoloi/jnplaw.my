@@ -63,4 +63,62 @@ class VideosController extends Controller
 
         return view('pages.netflixpage', compact('mainMovies', 'movies'));
     }
+
+    public function video()
+    {
+      $mainMovies = [
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+        ],
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+        ],
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+        ],
+      ];
+
+      $movies = [
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+          'url' => 'video',
+        ],
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+          'url' => 'video',
+        ],
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+          'url' => 'video',
+        ],
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+          'url' => 'video',
+        ],
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+          'url' => 'video',
+        ],
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+          'url' => 'video',
+        ],
+        [
+          'name' => 'test',
+          'image' => 'https://picsum.photos/700/400?random=2',
+          'url' => 'video',
+        ]
+      ];
+
+      return view('pages.videos', compact('mainMovies', 'movies'));
+    }
 }
