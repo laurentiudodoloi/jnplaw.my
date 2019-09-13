@@ -11,21 +11,16 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">
-        <script src="https://use.fontawesome.com/d2154184d1.js"></script>
-
-        {{-- Owl Carousel --}}
-        <link href="{{ asset('owlcarousel/owl.carousel.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('owlcarousel/owl.theme.default.min.css') }}" rel="stylesheet">
 
         {{-- CSS --}}
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
         <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
         <link href="{{ asset('css/hamburger-menu.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
         <script src="https://kit.fontawesome.com/0bee301056.js"></script>
 
-        @yield('includes')
+        @yield('head')
 
         <style>
             html, body {
@@ -42,32 +37,8 @@
 
         @yield('content')
 
-        <script src="{{ asset('js/vue-app.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
-        {{--<script src="{{ asset('js/menu.js') }}"></script>--}}
 
-        <script>
-            $(document).ready(function(){
-                $('.owl-carousel').owlCarousel({
-                    loop:true,
-                    margin:10,
-                    nav:true,
-                    navText : ['<span>&leftarrow;</span>','<span>&rightarrow;</span>'],
-                    responsiveClass:true,
-                    responsive:{
-                        0:{
-                            items:1,
-                            autoplay:false,
-                            autoplayTimeout:5000,
-                            autoplayHoverPause:false
-                        },
-                        768:{
-                            items:2
-                        }
-                    }
-                })
-            });
-        </script>
+        @yield('scripts')
     </body>
 </html>

@@ -116,11 +116,12 @@ class ShapeOverlays {
     }
 }
 (function() {
-    const elmHamburger = document.querySelector('.overlay-hamburger');
+    const elmHamburger = document.querySelector('.hamburger-menu-click');
     const gNavItems = document.querySelectorAll('.global-menu__item');
     const copyright = document.querySelectorAll('.global-menu-copyright');
     const elmOverlay = document.querySelector('.shape-overlays');
     const overlay = new ShapeOverlays(elmOverlay);
+
     elmHamburger.addEventListener('click', () => {
         if (overlay.isAnimating) {
             return false;

@@ -2,81 +2,34 @@
 
 @section('content')
 
+    <div style="display: flex;">
+        <div style="padding: 12px 0; display: flex; justify-content: center; width: 100px; background: red;">
+            <div style="z-index: 100000;" class="hamburger-menu-block hamburger-menu hamburger-menu-click">
+                <span class="line line-0"></span>
+                <span class="line line-1"></span>
+                <span class="hamburger-menu-text">MENU</span>
+            </div>
+        </div>
+
+        <svg class="shape-overlays" viewbox="0 0 1 90" preserveaspectratio="none">
+            <path class="shape-overlays__path" d="M 0 100 C 100 100 100 100 100 100 V 100 H 0"></path>
+            <path class="shape-overlays__path" d="M 0 100 C 100 100 100 100 100 100 V 100 H 0"></path>
+            <path class="shape-overlays__path" d="M 0 100 C 100 100 100 100 100 100 V 100 H 0"></path>
+        </svg>
+    </div>
+
     <div id="gallery-target"></div>
+
     <div class="video-sliders" style="display: none;">
         <div class="video-slider">{{ asset('videos/street.jpg') }}</div>
         <div class="video-slider">{{ asset('videos/landscape-0.jpg') }}</div>
     </div>
 
     <div class="content-wrapper">
-
         <nav class="navigation">
             <div class="brand">
                 <img src="{{ asset('images/joseph&partners.png') }}" width="209" alt="" class="logo">
             </div>
-
-            {{--<a href="#" class="menu-button w-inline-block overlay-hamburger">--}}
-                {{--<div class="overlay-hamburger__line overlay-hamburger__line--01">--}}
-                    {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--01 overlay-hamburger__line-in--demo-3"></div>--}}
-                {{--</div>--}}
-                {{--<div class="overlay-hamburger__line overlay-hamburger__line--02">--}}
-                    {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--02 overlay-hamburger__line-in--demo-3"></div>--}}
-                {{--</div>--}}
-                {{--<div class="overlay-hamburger__line overlay-hamburger__line--03">--}}
-                    {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--03 overlay-hamburger__line-in--demo-3"></div>--}}
-                {{--</div>--}}
-                {{--<div class="overlay-hamburger__line overlay-hamburger__line--cross01">--}}
-                    {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--cross01 overlay-hamburger__line-in--demo-3"></div>--}}
-                {{--</div>--}}
-                {{--<div class="overlay-hamburger__line overlay-hamburger__line--cross02">--}}
-                    {{--<div class="overlay-hamburger__line-in overlay-hamburger__line-in--cross02 overlay-hamburger__line-in--demo-3"></div>--}}
-                {{--</div>--}}
-            {{--</a>--}}
-
-            <div class="hamburger-menu-block hamburger-menu">
-                <span class="line line-0"></span>
-                <span class="line line-1"></span>
-                <span class="hamburger-menu-text">MENU</span>
-            </div>
-
-            <script>
-                var menu = document.querySelector('.hamburger-menu');
-
-                function toggleClass (el, classname) {
-                    if (!el.classList.contains(classname)) {
-                        el.classList.add(classname);
-                    } else {
-                        el.classList.remove(classname);
-                    }
-                }
-
-                menu.addEventListener('click', function (evt) {
-                    if (!menu.classList.contains('hamburger-menu-closed')) {
-                        menu.classList.add('hamburger-menu-closed');
-                        menu.querySelector('.hamburger-menu-text').classList.add('hamburger-menu-text-hidden');
-
-                        menu.querySelector('.hamburger-menu-text').classList.remove('show-text');
-
-                        menu.querySelector('.line-0').classList.remove('line-0-bounce');
-                        menu.querySelector('.line-1').classList.remove('line-1-bounce');
-                    } else {
-                        menu.classList.remove('hamburger-menu-closed');
-                        menu.querySelector('.hamburger-menu-text').classList.remove('hamburger-menu-text-hidden');
-
-                        menu.querySelector('.line-0').classList.add('line-0-bounce');
-                        menu.querySelector('.line-1').classList.add('line-1-bounce');
-
-                        menu.querySelector('.hamburger-menu-text').classList.add('show-text');
-                    }
-                });
-            </script>
-
-            <a href="#" class="menu-button w-inline-block overlay-hamburger overlay-hamburger-2">
-                <div id="nav-icon3">
-                    <span class="global-menu__item"></span>
-                    <span class="global-menu__item"></span>
-                </div>
-            </a>
 
             <div class="global-menu">
                 <div class="global-menu__wrap">
@@ -91,11 +44,6 @@
                 <div class="global-menu-copyright">Copyright © Mr.X Sport Recovery Drink</div>
             </div>
 
-            <svg class="shape-overlays" viewbox="0 0 25 75" preserveaspectratio="none">
-                <path class="shape-overlays__path" d="M 0 100 C 50 100 50 100 100 100 V 100 H 0"></path>
-                <path class="shape-overlays__path" d="M 0 100 C 50 100 50 100 100 100 V 100 H 0"></path>
-                <path class="shape-overlays__path" d="M 0 100 C 50 100 50 100 100 100 V 100 H 0"></path>
-            </svg>
         </nav>
 
         <div class="container">
@@ -127,4 +75,40 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/menu.js') }}"></script>
+
+    <script>
+        var menu = document.querySelector('.hamburger-menu');
+
+        function toggleClass (el, classname) {
+            if (!el.classList.contains(classname)) {
+                el.classList.add(classname);
+            } else {
+                el.classList.remove(classname);
+            }
+        }
+
+        menu.addEventListener('click', function (evt) {
+            if (!menu.classList.contains('hamburger-menu-closed')) {
+                menu.classList.add('hamburger-menu-closed');
+                menu.querySelector('.hamburger-menu-text').classList.add('hamburger-menu-text-hidden');
+
+                menu.querySelector('.hamburger-menu-text').classList.remove('show-text');
+
+                menu.querySelector('.line-0').classList.remove('line-0-bounce');
+                menu.querySelector('.line-1').classList.remove('line-1-bounce');
+            } else {
+                menu.classList.remove('hamburger-menu-closed');
+                menu.querySelector('.hamburger-menu-text').classList.remove('hamburger-menu-text-hidden');
+
+                menu.querySelector('.line-0').classList.add('line-0-bounce');
+                menu.querySelector('.line-1').classList.add('line-1-bounce');
+
+                menu.querySelector('.hamburger-menu-text').classList.add('show-text');
+            }
+        });
+    </script>
 @endsection

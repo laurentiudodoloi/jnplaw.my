@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('head')
+    {{-- Owl Carousel --}}
+    <link href="{{ asset('owlcarousel/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('owlcarousel/owl.theme.default.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/about.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
     <div class="about-us-page">
@@ -412,4 +419,31 @@
 
     </div>
 
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.owl-carousel').owlCarousel({
+                loop:true,
+                margin:10,
+                nav:true,
+                navText : ['<span>&leftarrow;</span>','<span>&rightarrow;</span>'],
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:1,
+                        autoplay:false,
+                        autoplayTimeout:5000,
+                        autoplayHoverPause:false
+                    },
+                    768:{
+                        items:2
+                    }
+                }
+            })
+        });
+    </script>
 @endsection

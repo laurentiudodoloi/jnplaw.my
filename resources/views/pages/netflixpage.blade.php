@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('includes')
+@section('head')
     <link href="{{ asset('css/videos-page.css') }}" rel="stylesheet">
 @endsection
 
@@ -34,4 +34,8 @@
             ></slider>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/vue-app.js') }}"></script>
 @endsection
