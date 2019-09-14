@@ -16,7 +16,6 @@
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
         <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
         <link href="{{ asset('css/hamburger-menu.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
         @yield('head')
 
