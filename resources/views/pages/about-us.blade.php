@@ -19,7 +19,7 @@
         </div>
 
         <section class="open-page">
-            <img class="open-image" src="https://picsum.photos/id/276/4250/2801" alt="background">
+            <img class="open-image" src="https://picsum.photos/id/276/2580/1900" alt="background">
 
             <div class="section-wrapper">
                 <div class="header-wrap">
@@ -32,22 +32,22 @@
                         <ul class="nav">
                             <li class="nav-item">
                                 <a class="nav-link active text-white" href="#">
-                                    <i class="fa fa-facebook">f</i>
+                                    <i class="fa fa-facebook"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="#">
-                                    <i class="fa fa-twitter">t</i>
+                                    <i class="fa fa-twitter"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="#">
-                                    <i class="fa fa-dribbble">o</i>
+                                    <i class="fa fa-dribbble"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="#">
-                                    <i class="fa fa-search">s</i>
+                                    <i class="fa fa-search"></i>
                                 </a>
                             </li>
                         </ul>
