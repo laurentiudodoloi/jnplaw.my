@@ -49,7 +49,9 @@ class ScrollableGallery extends Component {
         document.querySelector('canvas').style.overflow = 'hidden'
 
         window.addEventListener('resize', this._onResize)
-        window.addEventListener('wheel', this._onWheel)
+
+        this.addWheelEvent()
+
         // window.addEventListener('scroll', this._onWheel)
         window.addEventListener('touchmove', this._onWheel)
 
@@ -57,8 +59,19 @@ class ScrollableGallery extends Component {
         this._tick()
     }
 
+    addWheelEvent () {
+        window.addEventListener('wheel', this._onWheel)
+    }
+
+    removeWheelEvent () {
+        window.removeEventListener('wheel', this._onWheel)
+    }
+
     componentWillUnmount() {
         window.removeEventListener('resize', this._onResize)
+        this.addWheelEvent()
+        window.removeEventListener('touchmove', this._onWheel)
+
         if (this._tickRaf) {
             raf.cancel(this._tickRaf)
             this._tickRaf = null
@@ -138,7 +151,7 @@ class ScrollableGallery extends Component {
             onChange
         } = this.props
 
-        // this._gallery.update()
+        this._gallery.update()
         this._gallery.render()
 
         if (this._current !== this._gallery.currentSlideIndex) {

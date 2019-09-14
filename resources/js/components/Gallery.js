@@ -148,11 +148,10 @@ export default class Gallery {
     }
 
     onScroll = (event) => {
-        this._speed += event.deltaY * 0.0037
+        this._speed += event.deltaY * 0.0007
     }
 
     update () {
-        console.log('Update')
         this._time += 0.15
         this._material.uniforms.time.value = this._time
 
