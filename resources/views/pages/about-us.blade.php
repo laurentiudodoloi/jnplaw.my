@@ -433,22 +433,22 @@
             })
         });
 
-        $(window).scroll(function () {
+        if (window.matchMedia('(max-width: 768px)').matches) {
 
-            // Scroll top button
-            if (window.matchMedia('(max-width: 767px)').matches) {
+            $(window).scroll(function () {
+                // Scroll top button
                 if ($(window).scrollTop() > 800) {
                     $('#page-scroll-top').fadeIn(600);
                 } else {
                     $('#page-scroll-top').fadeOut(600);
                 }
+            });
 
-                $('.scroll-top').on('click', function () {
-                    $('html, body').animate({scrollTop: 0}, 500);
-                    return false;
-                });
-            }
+            $('.scroll-top').on('click', function () {
+                $('html, body').animate({scrollTop: 0}, 500);
+                return false;
+            });
 
-        });
+        }
     </script>
 @endsection
