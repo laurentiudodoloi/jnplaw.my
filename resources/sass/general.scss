@@ -94,6 +94,26 @@
   }
 }
 
+.scroll-top {
+  display: none;
+  position: fixed;
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  right: 40px;
+  bottom: 100px;
+  color: #888;
+  line-height: 45px;
+  border: 1px solid #888;
+  border-radius: 100%;
+  z-index: 1000;
+
+  img {
+    width: 11px;
+    vertical-align: middle;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .section {
     display: block;

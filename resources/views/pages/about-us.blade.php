@@ -13,6 +13,9 @@
 @section('content')
 
     <div class="about-us-page">
+        <a class="scroll-top" id="page-scroll-top">
+            <img src="https://norebro.colabr.io/demo9/wp-content/themes/norebro/assets/images/scroll-top.svg" alt="Scroll to top">
+        </a>
 
         <section class="open-page">
             <img class="open-image" src="https://picsum.photos/id/276/2580/1900" alt="background">
@@ -72,7 +75,7 @@
         </section>
 
         <div class="page-wrap">
-            <div class="page-container">
+            <div class="container">
 
                 <section class="section section1">
                     <div class="item-left">
@@ -281,7 +284,7 @@
             </div>
 
             <div class="comments">
-                <div class="page-container">
+                <div class="container">
                     <div class="container-fluid">
                         <h3 class="title text-left">Post a Comment</h3>
                         <div class="notes">
@@ -313,7 +316,7 @@
         </div>
 
         <footer class="footer">
-            <div class="page-container">
+            <div class="container">
                 <div class="widgets">
                     <div class="container-fluid">
                         <div class="row">
@@ -428,6 +431,24 @@
                     }
                 }
             })
+        });
+
+        $(window).scroll(function () {
+
+            // Scroll top button
+            if (window.matchMedia('(max-width: 767px)').matches) {
+                if ($(window).scrollTop() > 800) {
+                    $('#page-scroll-top').fadeIn(600);
+                } else {
+                    $('#page-scroll-top').fadeOut(600);
+                }
+
+                $('.scroll-top').on('click', function () {
+                    $('html, body').animate({scrollTop: 0}, 500);
+                    return false;
+                });
+            }
+
         });
     </script>
 @endsection
