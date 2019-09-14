@@ -1,31 +1,4 @@
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 80px;
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
-  background-color: #333;
-  color: #bbb;
-  z-index: 60;
-
-  .menu {
-    padding: 25px 5px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    cursor: pointer;
-
-    &:hover {
-      color: #666;
-    }
-  }
-}
-
 .page-wrap {
-  margin-left: 80px;
   background-color: #fff;
 }
 
@@ -122,10 +95,6 @@
 }
 
 @media screen and (max-width: 767px) {
-  .sidebar {
-    display: none;
-  }
-
   .section {
     display: block;
 

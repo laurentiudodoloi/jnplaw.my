@@ -9,11 +9,6 @@
     padding: 0 15px;
   }
 
-  .page-wrap {
-    margin-left: 80px;
-    margin-bottom: 476px;
-  }
-
   .form-control {
     font-family: 'Rubik', sans-serif;
     padding: 12px 0;
@@ -41,36 +36,9 @@
     font-size: 13px;
   }
 
-  .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    width: 80px;
-    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
-    background-color: #333;
-    color: #bbb;
-    z-index: 60;
-
-    .menu {
-      padding: 25px 5px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      cursor: pointer;
-
-      &:hover {
-        color: #666;
-      }
-    }
-  }
-
   .open-page {
     position: relative;
     font-family: 'Rubik', sans-serif;
-    margin-left: 80px;
 
     img.open-image {
       height: 100vh;
@@ -96,8 +64,13 @@
         border-bottom: 1px solid rgba(255,255,255,0.08);
         height: 80px;
 
-        .brand img {
-          max-height: 20px;
+        .brand {
+          padding-left: 6em;
+          padding-right: 2em;
+
+          img {
+            max-height: 20px;
+          }
         }
 
         .nav {
@@ -165,7 +138,7 @@
 
     .scroll {
       position: absolute;
-      bottom: 85px;
+      bottom: 50px;
       font-size: 16px;
       color: #fff;
       left: 20%;
@@ -540,21 +513,19 @@
   }
 
   .footer {
-    position: fixed;
-    bottom: 0;
-    width: calc(100% - 80px);
+    z-index: 1;
+    position: relative;
+    width: 100%;
     background: #303030;
     background-size: cover;
     color: #9a9a9a;
     display: block;
-    z-index: -1;
-    margin-left: 80px;
     opacity: 1;
     padding-top: 0;
     padding-bottom: 0;
 
     .widgets {
-      padding: 135px 0 55px;
+      padding: 70px 0 55px;
 
       .logo {
         margin-bottom: 25px;
@@ -676,8 +647,11 @@
     }
 
     .open-page {
-      margin-left: 0;
       width: 100%;
+
+      .section-wrapper .header-wrap .brand {
+        padding-left: 4em;
+      }
 
       .section-wrapper .content-wrap {
         height: calc(100vh - 80px);
@@ -702,12 +676,8 @@
       }
 
       .scroll {
-        left: 6px;
+        display: none;
       }
-    }
-
-    .sidebar {
-      display: none;
     }
 
     .section {
@@ -757,17 +727,6 @@
 
       .form-control:not(:last-child) {
         margin-bottom: 0;
-      }
-    }
-
-    .footer {
-      width: 100%;
-      margin-left: 0;
-      z-index: 1;
-      position: relative;
-
-      .widgets {
-        padding-top: 40px;
       }
     }
   }
