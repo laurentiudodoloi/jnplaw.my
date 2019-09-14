@@ -10,10 +10,6 @@
 @section('content')
     <div class="videos">
 
-        <div class="sidebar">
-            <div class="menu">&#9776;</div>
-        </div>
-
         <div id="vue-app" class="page-wrap">
             <div class="slider-rect">
                 <slider :slides="{{ json_encode($mainMovies) }}" :no-of-slides="2"></slider>

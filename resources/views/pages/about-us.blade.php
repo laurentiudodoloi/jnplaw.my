@@ -14,10 +14,6 @@
 
     <div class="about-us-page">
 
-        <div class="sidebar">
-            <div class="menu">&#9776;</div>
-        </div>
-
         <section class="open-page">
             <img class="open-image" src="https://picsum.photos/id/276/2580/1900" alt="background">
 
