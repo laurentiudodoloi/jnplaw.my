@@ -13,7 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-`Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index');
 
 Route::get('/about', 'AboutController@index')->name('about-us');
 
