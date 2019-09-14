@@ -254,7 +254,7 @@
             </div>
 
             <div class="post-navigation">
-                <div class="page-container">
+                <div class="container">
                     <div class="nav-container">
                         <div class="nav-item-container">
                             <div class="navigation-wrap navigation-left">
