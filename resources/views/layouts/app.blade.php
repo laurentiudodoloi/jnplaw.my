@@ -59,7 +59,6 @@
                 <a class="global-menu__item global-menu__item--demo-3" href="#events">Events</a>
                 <a class="global-menu__item global-menu__item--demo-3" href="#contact">Contact Us</a>
             </div>
-            <div class="global-menu-copyright">Copyright © Mr.X Sport Recovery Drink</div>
         </div>
 
         @yield('content')
