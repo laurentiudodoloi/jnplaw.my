@@ -21,26 +21,10 @@
                 <div class="header-wrap">
                     <div class="brand" style="color: #ffffff;">
                         Joseph & Partners
-                        <a style="color: #ffffff; padding: 0 12px;" href="{{ route('videos') }}">Videos</a>
                     </div>
 
                     <div class="header-right">
                         <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link active text-white" href="#">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa fa-dribbble"></i>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="#">
                                     <i class="fa fa-search"></i>
