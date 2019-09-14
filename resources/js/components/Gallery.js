@@ -151,7 +151,8 @@ export default class Gallery {
         this._speed += event.deltaY * 0.0037
     }
 
-    update() {
+    update () {
+        console.log('Update')
         this._time += 0.15
         this._material.uniforms.time.value = this._time
 

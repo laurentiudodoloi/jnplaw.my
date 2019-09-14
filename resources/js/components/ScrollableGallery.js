@@ -138,7 +138,7 @@ class ScrollableGallery extends Component {
             onChange
         } = this.props
 
-        this._gallery.update()
+        // this._gallery.update()
         this._gallery.render()
 
         if (this._current !== this._gallery.currentSlideIndex) {
