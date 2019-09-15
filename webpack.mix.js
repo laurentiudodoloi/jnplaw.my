@@ -22,4 +22,5 @@ mix
     .sass('resources/sass/about.scss', 'public/css')
     .sass('resources/sass/videos-page.scss', 'public/css')
     .sass('resources/sass/general.scss', 'public/css')
-    .sass('resources/sass/landing-page.scss', 'public/css');
+    .sass('resources/sass/landing-page.scss', 'public/css')
+    .sass('resources/sass/admin/sidebar.scss', 'public/css');
