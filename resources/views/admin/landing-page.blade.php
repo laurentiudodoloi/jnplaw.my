@@ -22,11 +22,11 @@
 
                         <div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="image" name="image" class="custom-control-input">
+                                <input type="radio" id="image" name="file" class="custom-control-input" checked>
                                 <label class="custom-control-label" for="image">Upload image</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="video" name="video" class="custom-control-input">
+                                <input type="radio" id="video" name="file" class="custom-control-input">
                                 <label class="custom-control-label" for="video">Upload video</label>
                             </div>
                         </div>
