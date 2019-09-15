@@ -40,7 +40,9 @@
         <div class="content-wrap">
             @include('inc.admin.navbar')
 
-            @yield('admin')
+            <div class="content">
+                @yield('admin')
+            </div>
         </div>
 
         <script src="{{ asset('js/bootstrap.js') }}"></script>
