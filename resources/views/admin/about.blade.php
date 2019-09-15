@@ -16,7 +16,7 @@
             </thead>
             <tbody>
             <tr>
-                <th scope="row">1</th>
+                <th scope="row" class="text-center">1</th>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
@@ -31,7 +31,7 @@
                 </td>
             </tr>
             <tr>
-                <th scope="row">2</th>
+                <th scope="row" class="text-center">2</th>
                 <td>Jacob</td>
                 <td>Thornton</td>
                 <td>@fat</td>
@@ -46,7 +46,7 @@
                 </td>
             </tr>
             <tr>
-                <th scope="row">3</th>
+                <th scope="row" class="text-center">3</th>
                 <td>Larry</td>
                 <td>the Bird</td>
                 <td>@twitter</td>
