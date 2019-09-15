@@ -47,19 +47,33 @@
 
               <div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                  <input
+                    :checked="isChecked('image')"
+                    type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"
+                         @change="switchResourceType('image')"
+                  >
                   <label class="custom-control-label" for="customRadioInline1">Image</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                  <input :checked="isChecked('video')"
+                         type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input"
+                         @change="switchResourceType('video')"
+                  >
                   <label class="custom-control-label" for="customRadioInline2">Video</label>
                 </div>
               </div>
+
+              <img v-if="isChecked('image') && image" :src="resourceUrl()" class="img-fluid">
+
+              <video v-if="isChecked('video') && image" width="320" height="240" controls>
+                <source v-if="resourceUrl() && isChecked('video') && image" :src="resourceUrl()" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
             </div>
 
-            <div class="form-group">
+            <div v-if="entity.resource_type" class="form-group">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile">
+                <input type="file" class="custom-file-input" id="customFile" @change="onImageChange">
                 <label class="custom-file-label" for="customFile">Choose file</label>
               </div>
             </div>
@@ -100,8 +114,9 @@
           title: '',
           description: '',
           resource_url: '',
-          resource_type: ''
+          resource_type: false
         },
+        image: false,
         editMode: false
       }
     },
@@ -118,7 +133,9 @@
       resetEntity () {
         this.entity = {
           title: '',
-          description: ''
+          description: '',
+          resource_url: '',
+          resource_type: ''
         }
       },
 
@@ -141,6 +158,8 @@
       edit (index) {
         this.entity = this.rows[index]
 
+        this.image = this.entity.resource_url
+
         this.editMode = true
       },
 
@@ -150,7 +169,8 @@
 
           axios
             .post('/admin/project/store/' + this.entity.id, {
-              ...this.entity
+              ...this.entity,
+              image: this.image
             })
             .then(r => {
               this.rows.splice(index, 1, r.data)
@@ -158,7 +178,8 @@
         } else {
           axios
             .post('/admin/project/store', {
-              ...this.entity
+              ...this.entity,
+              image: this.image
             })
             .then(r => {
               this.rows.push(r.data)
@@ -184,6 +205,45 @@
           .then(r => {
             this.rows = r.data
           })
+      },
+
+      onImageChange (e) {
+        let files = e.target.files || e.dataTransfer.files
+        if (!files.length)
+          return;
+
+        console.log('FILES', files)
+        this.createImage(files[0])
+      },
+
+      createImage (file) {
+        let reader = new FileReader();
+        this.entity.resource_url = file.name
+
+        let vm = this
+        reader.onload = (e) => {
+          vm.image = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      },
+
+      switchResourceType (type) {
+        this.image = false
+
+        this.entity.resource_type = type
+      },
+
+      isChecked (type) {
+        return this.entity.resource_type === type
+      },
+
+      resourceUrl () {
+        if (this.entity.id && this.entity.resource_url) {
+          this.image = 'uploads/' + this.entity.resource_url
+        }
+
+        return this.image
       }
     }
   }

@@ -13,8 +13,9 @@
         <div id="gallery-target"></div>
 
         <div class="video-sliders" style="display: none;">
-            <div class="video-slider">{{ asset('videos/street.jpg') }}</div>
-            <div class="video-slider">{{ asset('videos/landscape-0.jpg') }}</div>
+            @foreach($projects as $project)
+                <div class="video-slider">{{ asset("uploads/{$project->resource_url}") }}</div>
+            @endforeach
         </div>
 
         <ul class="onepage-dots slider-vertical-numbers">

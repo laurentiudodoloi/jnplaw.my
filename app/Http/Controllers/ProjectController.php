@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Eloquent\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -28,16 +30,34 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
+            'image' => 'required|string',
         ]);
 
         $entity = false;
         if ($new) {
+            $resourceUrl = $request->input('resource_url');
+
             $entity = Project::query()->create([
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
-                'resource_url' => 'test',
-                'resource_type' => 'image',
+                'resource_url' => $resourceUrl,
+                'resource_type' => $request->input('resource_type'),
             ]);
+
+            if ($entity) {
+                $image = $request->input('image');
+
+                $image = str_replace('data:image/jpeg;base64,', '', $image);
+                $image = str_replace('data:image/jpg;base64,', '', $image);
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace('data:video/mp4;base64,', '', $image);
+
+                $image = str_replace(' ', '+', $image);
+
+                $imageName = $resourceUrl;
+
+                Storage::disk('uploads')->put($imageName, base64_decode($image));
+            }
         } else {
             $entity = Project::query()
                 ->updateOrCreate([
@@ -45,8 +65,8 @@ class ProjectController extends Controller
                 ], [
                     'title' => $request->input('title'),
                     'description' => $request->input('description'),
-                    'resource_url' => 'test',
-                    'resource_type' => 'image',
+                    'resource_url' => $request->input('resource_url'),
+                    'resource_type' => $request->input('resource_type'),
                 ]);
         }
 
