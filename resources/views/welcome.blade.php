@@ -45,6 +45,8 @@
             <div class="content-wrap">
 
                 <div class="content">
+                    <span class="date text-uppercase">march 20, 2017</span>
+
                     <div class="mb-3">
                         <span class="tag text-uppercase">architecture</span>
                     </div>
@@ -60,6 +62,10 @@
             </div>
 
             <div class="scroll">Scroll</div>
+        </div>
+
+        <div class="message-box">
+            <i class="fa fa-envelope"></i>
         </div>
     </div>
 

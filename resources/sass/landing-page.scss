@@ -142,8 +142,33 @@
   @keyframes come-in {
     to { transform: translateY(0); opacity: 1}
   }
+}
 
-  @media screen and (max-width: 767px) {
+.open-page .landing-page .scroll {
+  bottom: 20px;
+  left: 40%;
+  transform: none;
+}
 
+.message-box {
+  position: fixed;
+  right: 24px;
+  bottom: 20px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 100%;
+  padding: 10px;
+  height: 60px;
+  width: 60px;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(350deg);
+}
+
+@media screen and (max-width: 767px) {
+  .message-box {
+    display: none;
   }
 }

@@ -55,6 +55,18 @@
         width: 60%;
         margin: 0 auto;
         padding: 30px 0;
+        position: relative;
+
+        .date {
+          position: absolute;
+          top: 210px;
+          left: -70px;
+          font-size: 11px;
+          color: #888;
+          transform: rotate(-90deg) translateY(-50%) translateX(100%);
+          font-weight: 600;
+          font-family: "Rubik", sans-serif;
+        }
 
         .tag {
           border-radius: 0;
@@ -227,7 +239,7 @@
   line-height: 45px;
   border: 1px solid #888;
   border-radius: 100%;
-  z-index: 1000;
+  z-index: 98;
 
   img {
     width: 11px;
@@ -350,6 +362,10 @@
             .list-item {
               margin-right: 0;
             }
+          }
+
+          .date {
+            display: none;
           }
         }
       }
