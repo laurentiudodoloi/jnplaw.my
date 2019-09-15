@@ -6,6 +6,7 @@
     <link href="{{ asset('owlcarousel/owl.theme.default.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/about.css') }}" rel="stylesheet">
     <link href="{{ asset('css/general.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/floating-animations.css') }}" rel="stylesheet">
 
     <script src="https://use.fontawesome.com/d2154184d1.js"></script>
 @endsection
@@ -23,7 +24,7 @@
             <div class="section-wrapper">
                 <div class="header-wrap">
                     <div class="brand" style="color: #ffffff;">
-                        Joseph & Partners
+                        <a class="text-decoration-none text-white" href="{{ route('welcome') }}">Joseph & Partners</a>
                     </div>
 
                     <div class="header-right">
@@ -43,9 +44,9 @@
                         <div class="mb-3">
                             <span class="tag text-uppercase">architecture</span>
                         </div>
-                        <h2 class="title text-left">Spacé Decor Restore</h2>
+                        <h2 class="title text-left floating-up-short">Spacé Decor Restore</h2>
 
-                        <div class="info-list">
+                        <div class="info-list floating-up-short-delayed">
                             <div class="list-item">
                                 <div class="top text-uppercase">date</div>
                                 <div class="bottom">March 26, 2017</div>
@@ -70,7 +71,7 @@
 
                 </div>
 
-                <div class="scroll">Scroll</div>
+                <div class="scroll float-bottom-short">Scroll</div>
             </div>
         </section>
 
@@ -409,6 +410,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/page-text-floats.js') }}"></script>
     <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
 
     <script>

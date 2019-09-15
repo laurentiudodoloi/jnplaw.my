@@ -51,12 +51,12 @@
         <div class="global-menu">
             <div class="global-menu__wrap">
                 <a class="global-menu__item global-menu__item--demo-3 w--current" href="{{ route('about-us') }}">About Us</a>
-                <a class="global-menu__item global-menu__item--demo-3" href="{{ route('videos') }}">What We Do</a>
-                <a class="global-menu__item global-menu__item--demo-3" href="#people">Our People</a>
-                <a class="global-menu__item global-menu__item--demo-3" href="#knowledge">Our Knowledge</a>
-                <a class="global-menu__item global-menu__item--demo-3" href="#news">News</a>
-                <a class="global-menu__item global-menu__item--demo-3" href="#events">Events</a>
-                <a class="global-menu__item global-menu__item--demo-3" href="#contact">Contact Us</a>
+                <a class="global-menu__item global-menu__item--demo-3" href="{{ route('what-we-do') }}">What We Do</a>
+                <a class="global-menu__item global-menu__item--demo-3" href="{{ route('our-people') }}">Our People</a>
+                <a class="global-menu__item global-menu__item--demo-3" href="{{ route('our-knowledge') }}">Our Knowledge</a>
+                <a class="global-menu__item global-menu__item--demo-3" href="{{ route('news') }}">News</a>
+                <a class="global-menu__item global-menu__item--demo-3" href="{{ route('events') }}">Events</a>
+                <a class="global-menu__item global-menu__item--demo-3" href="{{ route('contact-us') }}">Contact Us</a>
             </div>
         </div>
 

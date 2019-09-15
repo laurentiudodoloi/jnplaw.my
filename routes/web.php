@@ -13,8 +13,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index')->name('welcome');
 
-Route::get('/about', 'AboutController@index')->name('about-us');
+Route::get('/about-us', 'AboutController@index')->name('about-us');
+Route::get('/what-we-do', 'AboutController@index')->name('what-we-do');
+Route::get('/our-people', 'AboutController@index')->name('our-people');
+Route::get('/our-knowledge', 'AboutController@index')->name('our-knowledge');
+Route::get('/news', 'AboutController@index')->name('news');
+Route::get('/events', 'AboutController@index')->name('events');
+Route::get('/contact-us', 'AboutController@index')->name('contact-us');
 
 Route::get('/video', 'VideosController@video')->name('videos');
