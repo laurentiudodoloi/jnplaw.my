@@ -20,8 +20,8 @@
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#pagesAccordion">
                     <div class="card-body text">
                         <ul class="list-unstyled">
-                            <li><a href="#">Landing page</a></li>
-                            <li class="active"><a href="#">About us</a></li>
+                            <li><a href="{{ route('landing-page') }}">Landing page</a></li>
+                            <li class="active"><a href="{{ route('about') }}">About us</a></li>
                             <li><a href="#">What we do</a></li>
                             <li><a href="#">Our people</a></li>
                             <li><a href="#">Our knowledge</a></li>

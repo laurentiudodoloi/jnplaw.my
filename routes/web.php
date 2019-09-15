@@ -26,3 +26,5 @@ Route::get('/contact-us', 'AboutController@index')->name('contact-us');
 Route::get('/video', 'VideosController@video')->name('videos');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin/landing-page', 'AdminController@index')->name('landing-page');
+Route::get('/admin/about-us', 'AdminController@about')->name('about');

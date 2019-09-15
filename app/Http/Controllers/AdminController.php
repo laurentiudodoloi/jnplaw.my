@@ -10,4 +10,9 @@ class AdminController extends Controller
     {
       return view('admin.landing-page');
     }
+
+    public function about()
+    {
+      return view('admin.about');
+    }
 }
