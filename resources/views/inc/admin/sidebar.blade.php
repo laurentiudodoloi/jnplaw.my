@@ -1,6 +1,6 @@
 <div class="sidebar-wrap">
     <div class="brand">
-        <img src="{{ asset('images/joseph&partners.png') }}" alt="Joseph & Partners logo" class="img-fluid">
+        <img src="{{ asset('images/company_logo.png') }}" alt="Joseph & Partners logo" class="img-fluid">
     </div>
 
     <div class="sidebar-content">
