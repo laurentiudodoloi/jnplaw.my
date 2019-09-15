@@ -9,17 +9,19 @@
       </button>
 
       <button v-else class="btn btn-outline-danger btn-sm font-weight-bold" @click.prevent="toggleEditMode">
-        <i class="fa fa-plus"> </i>
+        <i class="fa fa-chevron-left"> </i>
         Back to table
       </button>
     </div>
 
+    <p v-if="!rows.length" class="py-2">There are no entities at the moment.</p>
+
     <data-table
-      v-if="!editMode"
+      v-if="!editMode && rows.length"
       :headers="headers()"
-      :rows="tableRows()"
+      :rows="rows"
       @edit="edit"
-      @delete="remove"
+      @remove="remove"
     />
 
     <div v-if="editMode" class="container">
@@ -30,13 +32,6 @@
               <label for="title" class=" font-weight-bold">Title</label>
               <input v-model="entity.title" type="text" name="title" class="form-control form-control-sm" id="title"
                      placeholder="Enter title"
-              >
-            </div>
-
-            <div class="form-group">
-              <label for="category" class=" font-weight-bold">Category</label>
-              <input v-model="entity.category" type="text" name="category" class="form-control form-control-sm"
-                     id="category" placeholder="Enter category"
               >
             </div>
 
@@ -68,7 +63,14 @@
                 <label class="custom-file-label" for="customFile">Choose file</label>
               </div>
             </div>
-            <button type="submit" name="landing" class="btn btn-primary btn-sm">Submit</button>
+
+            <button
+              type="submit"
+              name="landing"
+              class="btn btn-outline-primary btn-md"
+              @click.prevent="save"
+            >Save
+            </button>
           </form>
         </div>
       </div>
@@ -79,6 +81,8 @@
 <script>
 
   import DataTable from './DataTable'
+  import { cloneDeep } from 'lodash'
+  import axios from 'axios'
 
   export default {
     components: {
@@ -91,10 +95,12 @@
 
     data () {
       return {
+        rows: [],
         entity: {
           title: '',
-          category: '',
-          description: ''
+          description: '',
+          resource_url: '',
+          resource_type: ''
         },
         editMode: false
       }
@@ -105,54 +111,80 @@
     },
 
     created() {
-      //
+      this.fetchProjects()
     },
 
     methods: {
+      resetEntity () {
+        this.entity = {
+          title: '',
+          description: ''
+        }
+      },
+
       headers () {
         return [
           'Project title',
-          'Category',
           'Description',
           'Media'
         ]
       },
 
-      tableRows () {
-        return [
-          {
-            title: 'Project 1',
-            category: 'Category 1',
-            description: 'Project 1 in category 1',
-            media: 'Media 1'
-          },
-          {
-            title: 'Project 2',
-            category: 'Category 2',
-            description: 'Project 2 in category 2',
-            media: 'Media 2'
-          },
-          {
-            title: 'Project 3',
-            category: 'Category 3',
-            description: 'Project 3 in category 3',
-            media: 'Media 3'
-          }
-        ]
-      },
-
       toggleEditMode () {
         this.editMode = !this.editMode
+
+        if (this.editMode) {
+          this.resetEntity()
+        }
       },
 
       edit (index) {
-        console.log('edit', index)
+        this.entity = this.rows[index]
+
+        this.editMode = true
+      },
+
+      save () {
+        if (this.entity.id) {
+          const index = this.rows.findIndex(i => this.entity.id === i.id)
+
+          axios
+            .post('/admin/project/store/' + this.entity.id, {
+              ...this.entity
+            })
+            .then(r => {
+              this.rows.splice(index, 1, r.data)
+            })
+        } else {
+          axios
+            .post('/admin/project/store', {
+              ...this.entity
+            })
+            .then(r => {
+              this.rows.push(r.data)
+            })
+        }
+
+        this.editMode = false
       },
 
       remove (index) {
-        console.log('remove', index)
+        axios
+          .post('/admin/project/destroy/' + this.rows[index].id)
+          .then(r => {
+            if (r.data) {
+              this.rows.splice(index, 1)
+            }
+          })
       },
 
+      fetchProjects () {
+        axios
+          .get('/admin/projects')
+          .then(r => {
+            this.rows = r.data
+          })
+      }
     }
   }
 
