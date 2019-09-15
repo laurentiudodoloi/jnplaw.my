@@ -48,7 +48,19 @@
       }
     }
 
-    tbody td {
+    tbody {
+      tr:last-child {
+        th:first-child {
+          border-bottom-left-radius: 10px;
+          border-bottom: none;
+        }
+
+        td:last-child {
+          border-bottom-right-radius: 10px;
+          border-bottom: none;
+        }
+      }
+
       a, a:hover {
         text-decoration: none;
       }

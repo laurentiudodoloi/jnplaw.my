@@ -22,11 +22,11 @@
                 <td>@mdo</td>
                 <td class="text-center">
                     <a href="#">
-                        <i class="fa fa-times text-danger mx-1"></i>
+                        <i class="fa fa-pencil text-success mx-1"></i>
                     </a>
 
                     <a href="#">
-                        <i class="fa fa-pencil text-success mx-1"></i>
+                        <i class="fa fa-times text-danger mx-1"></i>
                     </a>
                 </td>
             </tr>
@@ -37,11 +37,11 @@
                 <td>@fat</td>
                 <td class="text-center">
                     <a href="#">
-                        <i class="fa fa-times text-danger mx-1"></i>
+                        <i class="fa fa-pencil text-success mx-1"></i>
                     </a>
 
                     <a href="#">
-                        <i class="fa fa-pencil text-success mx-1"></i>
+                        <i class="fa fa-times text-danger mx-1"></i>
                     </a>
                 </td>
             </tr>
@@ -52,11 +52,11 @@
                 <td>@twitter</td>
                 <td class="text-center">
                     <a href="#">
-                        <i class="fa fa-times text-danger mx-1"></i>
+                        <i class="fa fa-pencil text-success mx-1"></i>
                     </a>
 
                     <a href="#">
-                        <i class="fa fa-pencil text-success mx-1"></i>
+                        <i class="fa fa-times text-danger mx-1"></i>
                     </a>
                 </td>
             </tr>
