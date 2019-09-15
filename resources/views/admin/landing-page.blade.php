@@ -22,12 +22,12 @@
 
                         <div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>
+                                <input type="radio" id="image" name="image" class="custom-control-input">
+                                <label class="custom-control-label" for="image">Upload image</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadioInline2">Or toggle this other custom radio</label>
+                                <input type="radio" id="video" name="video" class="custom-control-input">
+                                <label class="custom-control-label" for="video">Upload video</label>
                             </div>
                         </div>
                     </div>
