@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <sidebar/>
 
     <div class="content-wrap">

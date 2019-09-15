@@ -8,7 +8,9 @@
 
       <div class="accordion" id="pagesAccordion">
         <div class="card">
-          <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
+               aria-expanded="true" aria-controls="collapseOne"
+          >
             <div>
               <i class="fa fa-window-maximize"></i>
               Pages
@@ -21,32 +23,32 @@
           <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#pagesAccordion">
             <div class="card-body text">
               <ul class="list-unstyled">
-                <li :class="{ active: currentRoute() === '/landing-page' }">
-                  <router-link to="/landing-page">Landing page</router-link>
+                <li :class="{ active: currentRoute() === '/landing-page-setup' }">
+                  <router-link to="/landing-page-setup">Landing page</router-link>
                 </li>
 
-                <li :class="{ active: currentRoute() === '/about-us' }">
-                  <router-link to="/about-us">About us</router-link>
+                <li :class="{ active: currentRoute() === '/about-us-setup' }">
+                  <router-link to="/about-us-setup">About us</router-link>
                 </li>
 
-                <li :class="{ active: currentRoute() === '/our-people' }">
-                  <router-link to="/our-people">Our people</router-link>
+                <li :class="{ active: currentRoute() === '/our-people-setup' }">
+                  <router-link to="/our-people-setup">Our people</router-link>
                 </li>
 
-                <li :class="{ active: currentRoute() === '/our-knowledge' }">
-                  <router-link to="/our-knowledge">Our knowledge</router-link>
+                <li :class="{ active: currentRoute() === '/our-knowledge-setup' }">
+                  <router-link to="/our-knowledge-setup">Our knowledge</router-link>
                 </li>
 
-                <li :class="{ active: currentRoute() === '/news' }">
-                  <router-link to="/news">News</router-link>
+                <li :class="{ active: currentRoute() === '/news-setup' }">
+                  <router-link to="/news-setup">News</router-link>
                 </li>
 
-                <li :class="{ active: currentRoute() === '/events' }">
-                  <router-link to="/events">Events</router-link>
+                <li :class="{ active: currentRoute() === '/events-setup' }">
+                  <router-link to="/events-setup">Events</router-link>
                 </li>
 
-                <li :class="{ active: currentRoute() === '/contact-us' }">
-                  <router-link to="/contact-us">Contact us</router-link>
+                <li :class="{ active: currentRoute() === '/contact-us-setup' }">
+                  <router-link to="/contact-us-setup">Contact us</router-link>
                 </li>
               </ul>
             </div>

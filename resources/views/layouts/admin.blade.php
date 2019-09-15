@@ -35,7 +35,7 @@
 
     <body>
 
-        <div id="vue-app">
+        <div id="vue-app" style="height: 100%;">
             <admin-dashboard></admin-dashboard>
         </div>
 

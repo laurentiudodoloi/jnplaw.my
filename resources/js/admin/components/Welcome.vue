@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>There are no settings at the moment.</p>
+    <h3>Welcome to Admin Panel !</h3>
   </div>
 </template>
 
