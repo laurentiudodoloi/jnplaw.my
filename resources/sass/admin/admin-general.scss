@@ -25,4 +25,33 @@
   .form {
     padding: 15px 0;
   }
+
+  .custom-table {
+    margin: 15px 0;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 5px;
+    font-size: 14px;
+
+    thead th {
+      font-weight: 400;
+      padding-top: .5em;
+      padding-bottom: .5em;
+
+      &:first-child {
+        border-top-left-radius: 10px;
+        border-top: none;
+      }
+
+      &:last-child {
+        border-top-right-radius: 10px;
+        border-top: none;
+      }
+    }
+
+    tbody td {
+      a, a:hover {
+        text-decoration: none;
+      }
+    }
+  }
 }
