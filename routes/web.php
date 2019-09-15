@@ -24,3 +24,5 @@ Route::get('/events', 'AboutController@index')->name('events');
 Route::get('/contact-us', 'AboutController@index')->name('contact-us');
 
 Route::get('/video', 'VideosController@video')->name('videos');
+
+Route::get('/admin', 'AdminController@index')->name('admin');
