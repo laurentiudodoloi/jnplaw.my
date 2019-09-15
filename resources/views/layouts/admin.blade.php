@@ -16,6 +16,7 @@
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
         <link href="{{ asset('css/admin-general.css') }}" rel="stylesheet">
         <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
 
         <script src="https://use.fontawesome.com/d2154184d1.js"></script>
 
