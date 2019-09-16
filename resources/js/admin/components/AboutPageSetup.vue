@@ -89,24 +89,49 @@
             <div class="col-md-10">
               <form class="form admin-form">
 
-                <div class="form-row">
-                  <div class="form-group col-md-7">
-                    <input type="text" name="section-title" class="form-control form-control-sm" id="s-title"
-                           placeholder="Section title"
-                    >
+                <div class="form-group mb-5">
+                  <div class="form-row">
+                    <div class="form-group col-md-7">
+                      <input type="text" name="section-title" class="form-control form-control-sm" id="s-title"
+                             placeholder="Section title"
+                      >
+                    </div>
+
+                    <div class="form-group col-md-5">
+                      <input type="text" name="section-subtitle" class="form-control form-control-sm" id="s-subtitle"
+                             placeholder="Section subtitle"
+                      >
+                    </div>
                   </div>
 
-                  <div class="form-group col-md-5">
-                    <input type="text" name="section-subtitle" class="form-control form-control-sm" id="s-subtitle"
-                           placeholder="Section subtitle"
-                    >
+                  <div class="form-group">
+                    <textarea rows="6" name="section-description" class="form-control form-control-sm"
+                              id="s-description" placeholder="Section description"
+                    ></textarea>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <textarea rows="6" name="section-description" class="form-control form-control-sm"
-                            id="s-description" placeholder="Section description"
-                  ></textarea>
+                  <div class="custom-control custom-checkbox mb-2">
+                    <input type="checkbox" class="custom-control-input" id="hasSubsections">
+                    <label class="custom-control-label" for="hasSubsections">
+                      Has subsections
+                    </label>
+                  </div>
+
+                  <div class="mb-5">
+                    <div class="form-group">
+                      <input type="text" name="title" class="form-control form-control-sm" id="subsection-title"
+                             placeholder="Subsection title"
+                      >
+                    </div>
+
+                    <div class="form-group">
+                      <textarea rows="6" name="description" class="form-control form-control-sm"
+                                id="subsection-content" placeholder="Subsection content"
+                      ></textarea>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
@@ -117,7 +142,7 @@
                     </label>
                   </div>
 
-                  <div class="custom-file">
+                  <div class="custom-file mb-5">
                     <input type="file" class="custom-file-input" id="imageFile" @change="">
                     <label class="custom-file-label" for="imageFile">Choose image</label>
                   </div>
@@ -131,7 +156,7 @@
                     </label>
                   </div>
 
-                  <div class="custom-file">
+                  <div class="custom-file mb-5">
                     <input type="file" class="custom-file-input" id="imageSliderFile" @change="">
                     <label class="custom-file-label" for="imageSliderFile">Choose image</label>
                   </div>
@@ -145,24 +170,26 @@
                     </label>
                   </div>
 
-                  <div class="form-row">
-                    <div class="form-group col-md-7">
-                      <input type="text" name="title" class="form-control form-control-sm" id="header-text"
-                             placeholder="Title"
-                      >
+                  <div class="mb-5">
+                    <div class="form-row">
+                      <div class="form-group col-md-7">
+                        <input type="text" name="title" class="form-control form-control-sm" id="header-text"
+                               placeholder="Header text"
+                        >
+                      </div>
+
+                      <div class="form-group col-md-5">
+                        <input type="text" name="title" class="form-control form-control-sm" id="title"
+                               placeholder="Title"
+                        >
+                      </div>
                     </div>
 
-                    <div class="form-group col-md-5">
-                      <input type="text" name="subtitle" class="form-control form-control-sm" id="subtitle"
-                             placeholder="Subtitle"
-                      >
+                    <div class="form-group">
+                      <textarea rows="6" name="description" class="form-control form-control-sm"
+                                id="content" placeholder="Content"
+                      ></textarea>
                     </div>
-                  </div>
-
-                  <div class="form-group">
-                    <textarea rows="6" name="description" class="form-control form-control-sm"
-                              id="description" placeholder="Description"
-                    ></textarea>
                   </div>
                 </div>
 
