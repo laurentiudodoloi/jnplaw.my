@@ -23,7 +23,7 @@
     background-color: rgba(0, 0, 0, .5);
 
     .header-wrap {
-      padding: 25px;
+      padding: 15px 25px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -32,14 +32,14 @@
 
       .brand {
         img {
-          max-height: 20px;
+          max-height: 30px;
         }
       }
 
       .nav {
         justify-content: flex-end;
-        padding-left: 2em;
-        padding-right: 4em;
+        padding-left: 1em;
+        padding-right: 3em;
       }
     }
 
@@ -81,6 +81,12 @@
           font-family: 'Poppins', sans-serif;
           margin-bottom: 30px;
           font-weight: 500;
+        }
+
+        .info-text {
+          color: #fff;
+          font-family: 'Rubik', sans-serif;
+          font-size: 12px;
         }
 
         .info-list {
@@ -339,6 +345,12 @@
 
     .open-page {
       width: 100%;
+
+      .section-wrapper .header-wrap {
+        .nav {
+          padding-right: 2em;
+        }
+      }
 
       .section-wrapper .content-wrap {
         height: calc(100vh - 80px);

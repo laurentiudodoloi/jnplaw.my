@@ -29,7 +29,9 @@
         <div class="landing-page section-wrapper">
             <div class="header-wrap">
                 <div class="brand" style="color: #ffffff;">
-                    <a class="text-decoration-none text-white" href="{{ route('welcome') }}">Joseph & Partners</a>
+                    <a class="text-decoration-none text-white" href="{{ route('welcome') }}">
+                        <img src="{{ asset("images/company_logo.png") }}" alt="Company logo" class="img-fluid">
+                    </a>
                 </div>
 
                 <div class="header-right">

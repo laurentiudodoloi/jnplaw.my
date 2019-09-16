@@ -24,7 +24,9 @@
             <div class="section-wrapper">
                 <div class="header-wrap">
                     <div class="brand" style="color: #ffffff;">
-                        <a class="text-decoration-none text-white" href="{{ route('welcome') }}">Joseph & Partners</a>
+                        <a class="text-decoration-none text-white" href="{{ route('welcome') }}">
+                            <img src="{{ asset("images/company_logo.png") }}" alt="Company logo" class="img-fluid">
+                        </a>
                     </div>
 
                     <div class="header-right">
@@ -219,8 +221,8 @@
                             <div class="col-md-3">
                                 <div>
                                     <div class="logo">
-                                        <a href="#">
-                                            <img src="https://colabrio.ams3.cdn.digitaloceanspaces.com/norebro_landing/demo9/2017/10/logo_footer.svg" class="svg-logo img-fluid" alt="Norebro">
+                                        <a href="{{ route('welcome') }}">
+                                            <img src="{{ asset("images/company_logo.png") }}" class="img-fluid" alt="Company logo">
                                         </a>
                                     </div>
 
@@ -233,18 +235,23 @@
                                     </form>
 
                                     <div class="text">
-                                        Be the first to find out about exclusive deals, the latest Lookbooks, and top trends.
+                                        Sign up for e-updates and be the first to hear about latest developments in Malaysian maritime law.
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div>
-                                    <div class="title">København</div>
+                                    <div class="title">Contact Us</div>
                                     <div class="text text2">
-                                        <p>Phone:+1 601 722 8001</p>
-                                        <p>Email:norebrotheme@colabr.io</p>
-                                        <p>Address:Fensmark 23, København N</p>
+                                        <p>Phone:+603 6203 7877</p>
+                                        <p>Email:info@jnplaw.my</p>
+                                        <p>Address:Suite J-7-2 <br>
+                                                   Solaris Mont Kiara <br>
+                                                   Jalan Solaris <br>
+                                                   50480 Kuala Lumpur <br>
+                                                   Malaysia
+                                        </p>
                                     </div>
 
                                     <div class="share">
@@ -255,15 +262,27 @@
 
                             <div class="col-md-3">
                                 <div>
-                                    <div class="title">København</div>
+                                    <div class="title">About J&P</div>
                                     <div class="text text3">
-                                        Sofia Helin &nbsp; <a href="#">Norebro is a creative WordPress Theme</a>
+                                        <a href="{{ route('about-us') }}">About Us</a>
                                     </div>
                                     <div class="text text3">
-                                        Sofia Helin &nbsp; <a href="#"> on Misses About Bette Davis, Joan Crawford</a>
+                                        <a href="{{ route('about-us') }}">What We Do</a>
                                     </div>
                                     <div class="text text3">
-                                        Sofia Helin &nbsp; <a href="#"> on New Art Venue Opens in Downtown CF</a>
+                                        <a href="{{ route('about-us') }}">Our People</a>
+                                    </div>
+                                    <div class="text text3">
+                                        <a href="{{ route('about-us') }}">Our Knowledge</a>
+                                    </div>
+                                    <div class="text text3">
+                                        <a href="{{ route('about-us') }}">News</a>
+                                    </div>
+                                    <div class="text text3">
+                                        <a href="{{ route('about-us') }}">Events</a>
+                                    </div>
+                                    <div class="text text3">
+                                        <a href="{{ route('about-us') }}">Contact Us</a>
                                     </div>
                                 </div>
                             </div>
@@ -271,15 +290,33 @@
                             <div class="col-md-3">
                                 <div>
                                     <div>
-                                        <div class="title">København</div>
+                                        <div class="title">Community</div>
                                         <div class="text text4">
-                                            <a href="#">Misses About Bette Davis, Joan Crawford</a>
-                                            September 27, 2017Business
+                                            <a href="#">
+                                                <i class="fa fa-facebook mr-1"></i>
+                                                Facebook
+                                            </a>
                                         </div>
 
                                         <div class="text text4">
-                                            <a href="#">New Art Venue Opens in Downtown CF</a>
-                                            September 27, 2017Business
+                                            <a href="#">
+                                                <i class="fa fa-twitter mr-1"></i>
+                                                Twitter
+                                            </a>
+                                        </div>
+
+                                        <div class="text text4">
+                                            <a href="#">
+                                                <i class="fa fa-facebook mr-1"></i>
+                                                G-mail
+                                            </a>
+                                        </div>
+
+                                        <div class="text text4">
+                                            <a href="#">
+                                                <i class="fa fa-instagram mr-1"></i>
+                                                Instagram
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -290,10 +327,7 @@
 
                 <div class="copyright">
                     <div>
-                        &copy; 2017, Nørebro Theme by
-                        <a href="#">Colabrio</a> |
-                        <a href="#">Privacy policy</a> |
-                        <a href="#">Sitemap</a>
+                        &copy; 2019, Joseph & Partners
                     </div>
                     <div>All Rights Reserved.</div>
                 </div>

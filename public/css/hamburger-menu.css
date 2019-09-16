@@ -168,13 +168,13 @@
     position: absolute;
     top: 16px;
     color: #fff;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: bold;
     transition:
         color .6s,
         opacity .5s;
     transition-delay: .4s;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Inconsolata, monospace;
 }
 
 .hamburger-menu-text-hidden {
