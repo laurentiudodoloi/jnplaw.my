@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Eloquent\AboutUsSection;
-use App\Eloquent\AboutUsSectionImage;
-use App\Eloquent\AboutUsSectionTextBox;
 use App\Eloquent\AboutUsSetting;
-use App\Eloquent\AboutUsSubSection;
-use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {
