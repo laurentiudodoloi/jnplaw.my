@@ -94,6 +94,16 @@
 
                     menu.querySelector('.hamburger-menu-text').classList.add('show-text');
                 }
+
+                var menuColor = '#fff';
+                if ($(window).scrollTop() > 700 && !menu.classList.contains('hamburger-menu-closed')) {
+                    menuColor = '#000';
+                }
+
+                menu.querySelectorAll('.line').forEach(el => {
+                    el.style.backgroundColor = menuColor;
+                })
+                menu.querySelector('.hamburger-menu-text').style.color = menuColor;
             });
         </script>
 

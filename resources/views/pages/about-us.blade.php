@@ -328,6 +328,21 @@
                     }
                 }
             })
+
+            const hamburgerMenu = document.querySelector('.hamburger-menu')
+            $(window).scroll(function (evt) {
+                if ($(window).scrollTop() > 708 && !hamburgerMenu.classList.contains('hamburger-menu-closed')) {
+                    hamburgerMenu.querySelectorAll('.line').forEach(el => {
+                        el.style.backgroundColor = '#000';
+                    })
+                    hamburgerMenu.querySelector('.hamburger-menu-text').style.color = '#000';
+                } else {
+                    hamburgerMenu.querySelectorAll('.line').forEach(el => {
+                        el.style.backgroundColor = '#fff';
+                    })
+                    hamburgerMenu.querySelector('.hamburger-menu-text').style.color = '#fff';
+                }
+            });
         });
 
         if (window.matchMedia('(max-width: 768px)').matches) {
@@ -347,17 +362,5 @@
             });
 
         }
-    </script>
-@endsection
-
-@section('scripts')
-    <script>
-        window.addEventListener('wheel', () => {
-            console.log('SCROLL.')
-            let y = 1 + (window.scrollY || window.pageYOffset) / 150
-            y = y < 1 ? 1 : y // ensure y is always >= 1 (due to Safari's elastic scroll)
-            const [r, g, b] = [red/y, green/y, blue/y].map(Math.round)
-            section1.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
-        })
     </script>
 @endsection

@@ -170,7 +170,9 @@
     color: #fff;
     font-size: 11px;
     font-weight: bold;
-    transition: opacity .5s;
+    transition:
+        color .6s,
+        opacity .5s;
     transition-delay: .4s;
     font-family: Helvetica, Arial, sans-serif;
 }
