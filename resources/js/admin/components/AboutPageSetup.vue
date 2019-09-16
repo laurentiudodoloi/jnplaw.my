@@ -65,6 +65,7 @@
 
       </div>
 
+      <about-page-sections :value="sections"/>
       <div class="tab-pane" id="sections">
 
         <div class="add-sections">
@@ -217,14 +218,30 @@
 
 <script>
 
+  import AboutPageSections from "./AboutPageSections";
+  import axios from 'axios'
+
   export default {
+    components: {
+      AboutPageSections
+    },
+
     props: {
       //
     },
 
     data () {
       return {
-        //
+        general: {
+          show_add_comment_form: true
+        },
+        header: {
+          title: '',
+          subtitle: '',
+          description: '',
+          image_url: '',
+        },
+        sections: []
       }
     },
 
@@ -233,7 +250,8 @@
     },
 
     created() {
-      //
+      axios
+        .get('/admin/')
     },
 
     methods: {
