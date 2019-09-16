@@ -49,9 +49,8 @@
 {{--            </div>--}}
 {{--        </div>--}}
 
-{{--        <script src="{{ asset('js/bootstrap.js') }}"></script>--}}
-
 {{--        @yield('scripts')--}}
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
 
         <script src="{{ asset('js/vue-admin-app.js') }}"></script>
     </body>
