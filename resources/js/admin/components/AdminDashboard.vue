@@ -3,9 +3,7 @@
     <sidebar/>
 
     <div class="content-wrap">
-      <navbar/>
-
-      <div class="content">
+      <div class="content" style="padding: 0 15px;">
         <router-view/>
       </div>
     </div>

@@ -1,6 +1,5 @@
 <template>
   <div class="tab-pane" id="sections">
-
     <div class="float-right">
       <button class="btn btn-outline-info btn-sm" @click.prevent="addSection">
         <i class="fa fa-plus mr-1"></i>
@@ -10,69 +9,15 @@
 
     <div v-if="sections.length" class="container-fluid">
 
-      <div v-for="(section, index) in sections">
-        <div class="row justify-content-center">
-          <div class="col-md-10">
-            <form class="form admin-form">
+      <div v-for="(section, index) in sections" :key="'sectionIndex' + index">
+        <b>Section {{ index + 1 }}</b>
 
-              <div class="form-row">
-                <div class="form-group col-md-7">
-                  <input v-model="sections[index].title" type="text" name="section-title" class="form-control form-control-sm" id="s-title"
-                         placeholder="Section title"
-                  >
-                </div>
-
-                <div class="form-group col-md-5">
-                  <input v-model="sections[index].subtitle" type="text" name="section-subtitle" class="form-control form-control-sm" id="s-subtitle"
-                         placeholder="Section subtitle"
-                  >
-                </div>
-              </div>
-
-              <div class="form-group">
-                  <textarea v-model="sections[index].description" rows="6" name="section-description" class="form-control form-control-sm"
-                            id="s-description" placeholder="Section description"
-                  ></textarea>
-              </div>
-
-              <div class="form-group">
-                <div class="custom-control custom-checkbox mb-2">
-                  <input v-model="section.has_image" type="checkbox" class="custom-control-input" id="hasImage">
-                  <label class="custom-control-label" for="hasImage">
-                    Has image
-                  </label>
-                </div>
-
-                <div v-if="section.has_image" class="custom-file">
-                  <input type="file" class="custom-file-input" id="imageFile" @change="">
-                  <label class="custom-file-label" for="imageFile">Choose image</label>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="custom-control custom-checkbox mb-2">
-                  <input v-model="section.has_image_slider" type="checkbox" class="custom-control-input" id="hasImageSlider">
-                  <label class="custom-control-label" for="hasImageSlider">
-                    Has image slider
-                  </label>
-                </div>
-
-                <div v-if="section.has_image_slider" class="custom-file">
-                  <input type="file" class="custom-file-input" id="imageSliderFile" @change="">
-                  <label class="custom-file-label" for="imageSliderFile">Choose image</label>
-                </div>
-              </div>
-
-              <about-page-text-boxes :checked="!!section.has_text_boxes" @checked="onHasBoxesChange"/>
-            </form>
-          </div>
-
-        </div>
-
-        <hr>
+        <about-page-section :index="index" :value="section" @input="onChangeSection($event, index)"/>
       </div>
 
       <button v-if="sections.length" class="btn btn-danger btn-sm">Save</button>
+
+      <hr style="border: 1px solid #000000;">
     </div>
 
   </div>
@@ -80,15 +25,16 @@
 
 <script>
 
-  import AboutPageTextBoxes from "./AboutPageTextBoxes";
+  import AboutPageSection from "./AboutPageSection";
+  import { cloneDeep } from 'lodash'
 
   export default {
     components: {
-      AboutPageTextBoxes
+      AboutPageSection
     },
 
     props: {
-      sections: {
+      value: {
         type: Array,
         default: () => []
       }
@@ -96,6 +42,8 @@
 
     data () {
       return {
+        sectionImages: [],
+        sections: [],
         hasSections: false,
         section: {
           title: '',
@@ -110,8 +58,13 @@
       }
     },
 
-    mounted() {
-      //
+    watch: {
+      value: {
+        handler (val) {
+          this.sections = cloneDeep(val)
+        },
+        immediate: true
+      }
     },
 
     methods: {
@@ -119,8 +72,14 @@
         this.$emit('add', this.section)
       },
 
-      onHasBoxesChange (val) {
-        this.section.has_text_boxes = val
+      onChangeSection (value, index) {
+        this.sections[index] = cloneDeep(value)
+
+        this.onChange()
+      },
+
+      onChange () {
+        this.$emit('input', cloneDeep(this.sections))
       }
     }
   }

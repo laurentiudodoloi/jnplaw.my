@@ -14,6 +14,8 @@
           </li>
         </ul>
       </div>
+
+      <button class="btn btn-sm btn-outline-success" @click.prevent="save">Save</button>
     </div>
 
     <div id="my-tab-content" class="tab-content">
@@ -36,45 +38,47 @@
 
         <form class="form admin-form">
 
-        <div class="form-row">
-          <div class="form-group col-md-7">
-            <input v-model="settings.title" type="text" name="title" class="form-control form-control-sm" id="title"
-                   placeholder="Title"
-            >
+          <div class="form-row">
+            <div class="form-group col-md-7">
+              <input v-model="settings.title" type="text" name="title" class="form-control form-control-sm" id="setting-title"
+                     placeholder="Title"
+              >
+            </div>
+
+            <div class="form-group col-md-5">
+              <input v-model="settings.subtitle" type="text" name="subtitle" class="form-control form-control-sm"
+                     id="setting-subtitle"
+                     placeholder="Subtitle"
+              >
+            </div>
           </div>
 
-          <div class="form-group col-md-5">
-            <input v-model="settings.subtitle" type="text" name="subtitle" class="form-control form-control-sm" id="subtitle"
-                   placeholder="Subtitle"
-            >
-          </div>
-        </div>
-
-        <div class="form-group">
+          <div class="form-group">
             <textarea v-model="settings.description" rows="6" name="description" class="form-control form-control-sm"
-                      id="description" placeholder="Description"
+                      id="setting-description" placeholder="Description"
             ></textarea>
-        </div>
-
-        <div class="form-group">
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile" @change="">
-            <label class="custom-file-label" for="customFile">Choose image</label>
           </div>
-        </div>
 
-        <img v-if="settings.image_url" :src="settings.image_url"/>
-      </form>
+          <div class="form-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="setting-customFile" @change="onHeaderImageChange">
+              <label class="custom-file-label" for="setting-customFile">Choose image</label>
+            </div>
+          </div>
+
+          <img v-if="getHeaderImage()" :src="getHeaderImage()" class="img-fluid mt-1 mb-1"/>
+        </form>
 
       </div>
 
-      <about-page-sections :sections="sections" @add="addSection"/>
-      <div class="tab-pane" id="sections">
+      <about-page-sections v-if="sections.length" :value="sections" @add="addSection" @input="onChangeSections"/>
+
+      <div class="tab-pane" id="setting-sections">
 
         <div class="add-sections">
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="hasSections">
-            <label class="custom-control-label" for="hasSections">
+            <input type="checkbox" class="custom-control-input" id="setting-hasSections">
+            <label class="custom-control-label" for="setting-hasSections">
               Has sections
             </label>
           </div>
@@ -87,132 +91,6 @@
           </div>
         </div>
 
-        <div class="container-fluid">
-
-          <div class="row justify-content-center">
-            <div class="col-md-10">
-              <form class="form admin-form">
-
-                <div class="form-group mb-5">
-                  <div class="form-row">
-                    <div class="form-group col-md-7">
-                      <input type="text" name="section-title" class="form-control form-control-sm" id="s-title"
-                             placeholder="Section title"
-                      >
-                    </div>
-
-                    <div class="form-group col-md-5">
-                      <input type="text" name="section-subtitle" class="form-control form-control-sm" id="s-subtitle"
-                             placeholder="Section subtitle"
-                      >
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <textarea rows="6" name="section-description" class="form-control form-control-sm"
-                              id="s-description" placeholder="Section description"
-                    ></textarea>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="add-sections">
-                    <div class="custom-control custom-checkbox mb-2">
-                      <input type="checkbox" class="custom-control-input" id="hasSubsections">
-                      <label class="custom-control-label" for="hasSubsections">
-                        Has subsections
-                      </label>
-                    </div>
-
-                    <div>
-                      <button class="btn btn-outline-info btn-sm">
-                        <i class="fa fa-plus mr-1"></i>
-                        Add subsection
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="mb-5">
-                    <div class="form-group">
-                      <input type="text" name="title" class="form-control form-control-sm" id="subsection-title"
-                             placeholder="Subsection title"
-                      >
-                    </div>
-
-                    <div class="form-group">
-                      <textarea rows="6" name="description" class="form-control form-control-sm"
-                                id="subsection-content" placeholder="Subsection content"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="custom-control custom-checkbox mb-2">
-                    <input type="checkbox" class="custom-control-input" id="hasImage">
-                    <label class="custom-control-label" for="hasImage">
-                      Has image
-                    </label>
-                  </div>
-
-                  <div class="custom-file mb-5">
-                    <input type="file" class="custom-file-input" id="imageFile" @change="">
-                    <label class="custom-file-label" for="imageFile">Choose image</label>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="custom-control custom-checkbox mb-2">
-                    <input type="checkbox" class="custom-control-input" id="hasImageSlider">
-                    <label class="custom-control-label" for="hasImageSlider">
-                      Has image slider
-                    </label>
-                  </div>
-
-                  <div class="custom-file mb-5">
-                    <input type="file" class="custom-file-input" id="imageSliderFile" @change="">
-                    <label class="custom-file-label" for="imageSliderFile">Choose image</label>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="custom-control custom-checkbox mb-2">
-                    <input type="checkbox" class="custom-control-input" id="hasTextBoxes">
-                    <label class="custom-control-label" for="hasTextBoxes">
-                      Has text boxes
-                    </label>
-                  </div>
-
-                  <div class="mb-5">
-                    <div class="form-row">
-                      <div class="form-group col-md-7">
-                        <input type="text" name="title" class="form-control form-control-sm" id="header-text"
-                               placeholder="Header text"
-                        >
-                      </div>
-
-                      <div class="form-group col-md-5">
-                        <input type="text" name="title" class="form-control form-control-sm" id="title"
-                               placeholder="Title"
-                        >
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <textarea rows="6" name="description" class="form-control form-control-sm"
-                                id="content" placeholder="Content"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <button class="btn btn-danger btn-sm btn-block">Save</button>
-              </form>
-            </div>
-          </div>
-
-        </div>
-
       </div>
     </div>
 
@@ -223,6 +101,7 @@
 
   import AboutPageSections from "./AboutPageSections";
   import axios from 'axios'
+  import { cloneDeep } from 'lodash'
 
   export default {
     components: {
@@ -235,6 +114,7 @@
 
     data () {
       return {
+        headerImage: false,
         settings: {},
         sections: []
       }
@@ -254,8 +134,50 @@
     },
 
     methods: {
-      addSection (section) {
+      addSection(section) {
         this.sections.push(section)
+      },
+
+      onHeaderImageChange (e) {
+        let files = e.target.files || e.dataTransfer.files
+        if (!files.length)
+          return;
+
+        this.createImage(files[0])
+      },
+
+      createImage (file) {
+        let reader = new FileReader()
+        this.settings.image_url = file.name
+
+        let vm = this
+        reader.onload = (e) => {
+          vm.headerImage = e.target.result
+        };
+
+        reader.readAsDataURL(file)
+      },
+
+      getHeaderImage () {
+        if (!this.headerImage && this.settings.image_url && this.settings.image_url !== '') {
+          return this.settings.image_url
+        }
+
+        return this.headerImage
+      },
+
+      onChangeSections (value) {
+        this.sections = value
+      },
+
+      save () {
+        console.log('SAVE.', {
+          settings: {
+            ...this.settings,
+            image: this.headerImage
+          },
+          sections: this.sections
+        })
       }
     }
   }
