@@ -1,23 +1,14 @@
 <template>
   <div class="tab-pane" id="sections">
 
-    <div class="add-sections">
-      <div class="custom-control custom-checkbox">
-        <input v-model="hasSections" type="checkbox" class="custom-control-input" id="hasSections">
-        <label class="custom-control-label" for="hasSections">
-          Has sections
-        </label>
-      </div>
-
-      <div v-if="hasSections">
-        <button class="btn btn-outline-info btn-sm" @click.prevent="addSection">
-          <i class="fa fa-plus mr-1"></i>
-          Add section
-        </button>
-      </div>
+    <div class="float-right">
+      <button class="btn btn-outline-info btn-sm" @click.prevent="addSection">
+        <i class="fa fa-plus mr-1"></i>
+        Add section
+      </button>
     </div>
 
-    <div v-if="hasSections" class="container-fluid">
+    <div v-if="sections.length" class="container-fluid">
 
       <div v-for="(section, index) in sections">
         <div class="row justify-content-center">
@@ -72,7 +63,7 @@
                 </div>
               </div>
 
-              <about-page-text-boxes :checked="section.has_text_boxes" @checked="onHasBoxesChange"/>
+              <about-page-text-boxes :checked="!!section.has_text_boxes" @checked="onHasBoxesChange"/>
             </form>
           </div>
 
@@ -97,7 +88,7 @@
     },
 
     props: {
-      value: {
+      sections: {
         type: Array,
         default: () => []
       }
@@ -105,7 +96,6 @@
 
     data () {
       return {
-        sections: [],
         hasSections: false,
         section: {
           title: '',
@@ -124,13 +114,9 @@
       //
     },
 
-    created() {
-      //
-    },
-
     methods: {
       addSection () {
-        this.sections.push(this.section)
+        this.$emit('add', this.section)
       },
 
       onHasBoxesChange (val) {

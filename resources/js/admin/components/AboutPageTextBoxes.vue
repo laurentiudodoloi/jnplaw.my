@@ -8,7 +8,7 @@
         </label>
       </div>
 
-      <button class="btn btn-outline-info btn-sm"><i class="fa fa-plus mr-1"></i>
+      <button v-if="checked" class="btn btn-outline-info btn-sm"><i class="fa fa-plus mr-1"></i>
         Add text box
       </button>
     </div>
@@ -68,7 +68,7 @@
 
     methods: {
       onCheckedChange (el) {
-        this.$emit('checked', el.target.checked)
+        this.$emit('checked', !!el.target.checked)
       }
     }
   }

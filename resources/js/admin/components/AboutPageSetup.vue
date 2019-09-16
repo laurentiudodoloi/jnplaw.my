@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="nav-tabs-navigation">
       <div class="nav-tabs-wrapper">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -22,7 +21,9 @@
       <div class="tab-pane active" id="general">
 
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <input v-model="settings.show_add_comment_form" type="checkbox" class="custom-control-input"
+                 id="customCheck1"
+          >
           <label class="custom-control-label" for="customCheck1">
             Show section
             <span class="font-weight-bold"><em>Post a comment</em></span>
@@ -37,20 +38,20 @@
 
         <div class="form-row">
           <div class="form-group col-md-7">
-            <input type="text" name="title" class="form-control form-control-sm" id="title"
+            <input v-model="settings.title" type="text" name="title" class="form-control form-control-sm" id="title"
                    placeholder="Title"
             >
           </div>
 
           <div class="form-group col-md-5">
-            <input type="text" name="subtitle" class="form-control form-control-sm" id="subtitle"
+            <input v-model="settings.subtitle" type="text" name="subtitle" class="form-control form-control-sm" id="subtitle"
                    placeholder="Subtitle"
             >
           </div>
         </div>
 
         <div class="form-group">
-            <textarea rows="6" name="description" class="form-control form-control-sm"
+            <textarea v-model="settings.description" rows="6" name="description" class="form-control form-control-sm"
                       id="description" placeholder="Description"
             ></textarea>
         </div>
@@ -61,11 +62,13 @@
             <label class="custom-file-label" for="customFile">Choose image</label>
           </div>
         </div>
+
+        <img v-if="settings.image_url" :src="settings.image_url"/>
       </form>
 
       </div>
 
-      <about-page-sections :value="sections"/>
+      <about-page-sections :sections="sections" @add="addSection"/>
       <div class="tab-pane" id="sections">
 
         <div class="add-sections">
@@ -232,15 +235,7 @@
 
     data () {
       return {
-        general: {
-          show_add_comment_form: true
-        },
-        header: {
-          title: '',
-          subtitle: '',
-          description: '',
-          image_url: '',
-        },
+        settings: {},
         sections: []
       }
     },
@@ -251,11 +246,17 @@
 
     created() {
       axios
-        .get('/admin/')
+        .get('/admin/about-us-content')
+        .then(r => {
+          this.settings = r.data.settings
+          this.sections = r.data.sections
+        })
     },
 
     methods: {
-      //
+      addSection (section) {
+        this.sections.push(section)
+      }
     }
   }
 
