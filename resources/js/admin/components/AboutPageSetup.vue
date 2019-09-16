@@ -112,11 +112,20 @@
                 </div>
 
                 <div class="form-group">
-                  <div class="custom-control custom-checkbox mb-2">
-                    <input type="checkbox" class="custom-control-input" id="hasSubsections">
-                    <label class="custom-control-label" for="hasSubsections">
-                      Has subsections
-                    </label>
+                  <div class="add-sections">
+                    <div class="custom-control custom-checkbox mb-2">
+                      <input type="checkbox" class="custom-control-input" id="hasSubsections">
+                      <label class="custom-control-label" for="hasSubsections">
+                        Has subsections
+                      </label>
+                    </div>
+
+                    <div>
+                      <button class="btn btn-outline-info btn-sm">
+                        <i class="fa fa-plus mr-1"></i>
+                        Add subsection
+                      </button>
+                    </div>
                   </div>
 
                   <div class="mb-5">
