@@ -3,11 +3,10 @@
 
     <div class="add-sections">
       <div class="custom-control custom-checkbox mb-2">
-        <input :checked="checked" type="checkbox" class="custom-control-input"
-               id="hasSubsections"
+        <input :id="'hasSubsections' + index" :checked="checked" type="checkbox" class="custom-control-input"
                @change="onCheckedChange"
         >
-        <label class="custom-control-label" for="hasSubsections">
+        <label :for="'hasSubsections' + index" class="custom-control-label">
           Has subsections
         </label>
       </div>
@@ -59,6 +58,11 @@
       checked: {
         type: Boolean,
         default: false
+      },
+
+      index: {
+        type: Number,
+        required: true
       }
     },
 

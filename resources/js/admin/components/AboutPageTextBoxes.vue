@@ -2,9 +2,11 @@
   <div class="form-group">
     <div class="add-sections">
       <div class="custom-control custom-checkbox">
-        <input :value="checked" type="checkbox" class="custom-control-input" id="hasTextBoxes"
-               @change="onCheckedChange">
-        <label class="custom-control-label" for="hasTextBoxes">
+        <input :id="'hasTextBoxes' + index"
+               :checked="checked" type="checkbox" class="custom-control-input"
+               @change="onCheckedChange"
+        >
+        <label :for="'hasTextBoxes' + index" class="custom-control-label">
           Has text boxes
         </label>
       </div>
@@ -18,17 +20,17 @@
     </div>
 
     <div v-if="checked">
-      <div v-for="item in localValue" class="form-row">
+      <div v-for="(item, boxIndex) in localValue" class="form-row mb-4">
         <div class="form-group col-md-7">
-          <input v-model="item.header_text" type="text" name="title" class="form-control form-control-sm"
-                 id="header-text"
+          <input v-model="item.header_text" :id="'box-header-text' + index" type="text" name="title" class="form-control form-control-sm"
                  placeholder="Header text"
                  @input="onChange"
           >
         </div>
 
         <div class="form-group col-md-5">
-          <input v-model="item.title" type="text" name="subtitle" class="form-control form-control-sm" id="subtitle"
+          <input :id="'box-subtitle' + boxIndex"
+                 v-model="item.title" type="text" name="subtitle" class="form-control form-control-sm"
                  placeholder="Title"
                  @input="onChange"
           >
@@ -39,6 +41,12 @@
                               id="description" placeholder="Description"
                               @input="onChange"
                     ></textarea>
+        </div>
+
+        <div class="text-right">
+          <button class="btn btn-sm btn-outline-danger" @click.prevent="remove(index)">
+            Delete
+          </button>
         </div>
       </div>
     </div>
@@ -59,6 +67,11 @@
       checked: {
         type: Boolean,
         default: false
+      },
+
+      index: {
+        type: Number,
+        required: true
       }
     },
 
@@ -88,6 +101,12 @@
           title: '',
           content: ''
         })
+
+        this.onChange()
+      },
+
+      remove (index) {
+        this.localValue.splice(index, 1)
 
         this.onChange()
       },

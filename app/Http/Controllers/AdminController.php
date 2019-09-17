@@ -53,38 +53,41 @@ class AdminController extends Controller
         AboutUsSectionTextBox::query()->delete();
 
         $setting = AboutUsSetting::query()->create([
-            'show_add_comment_form' => $header['show_add_comment_form'],
-            'title' => $header['title'],
-            'subtitle' => $header['subtitle'],
-            'description' => $header['description'],
-            'image_url' => $header['image_url'],
+            'show_add_comment_form' => isset($header['show_add_comment_form']) ? $header['show_add_comment_form'] : false,
+            'title' => isset($header['title']) ? $header['title'] : '',
+            'subtitle' => isset($header['subtitle']) ? $header['subtitle'] : '',
+            'description' => isset($header['description']) ? $header['description'] : '',
+            'image_url' => isset($header['image_url']) ? $header['image_url'] : '',
         ]);
 
         if (!$setting) {
             return response()->json(false, 500);
         }
 
-        if ($header['image']) {
+        if ($header['image'] && isset($header['image_url']) && $header['image_url'] !== '') {
             $this->uploadImage($header['image'], $header['image_url']);
         }
 
         foreach ($sections as $section) {
             $tempSection = AboutUsSection::query()->create([
-                'title' => $section['title'],
-                'subtitle' => $section['subtitle'],
-                'description' => $section['description'],
-                'image_url' => $section['image_url'],
-                'has_subsections' => $section['has_subsections'],
-                'has_image' => $section['has_image'],
-                'has_image_slider' => $section['has_image_slider'],
-                'has_text_boxes' => $section['has_text_boxes'],
+                'title' => isset($section['title']) ? $section['title'] : '',
+                'subtitle' => isset($section['subtitle']) ? $section['subtitle'] : '',
+                'description' => isset($section['description']) ? $section['description'] : '',
+                'image_url' => isset($section['image_url']) ? $section['image_url'] : '',
+                'has_subsections' => isset($section['has_subsections']) ? $section['has_subsections'] : false,
+                'has_image' => isset($section['has_image']) ? $section['has_image'] : false,
+                'has_image_slider' => isset($section['has_image_slider']) ? $section['has_image_slider'] : false,
+                'has_text_boxes' => isset($section['has_text_boxes']) ? $section['has_text_boxes'] : false,
             ]);
 
             if (!$tempSection) {
                 return response()->json(false, 500);
             }
 
-            if ($section['has_image'] && isset($section['image']) && strpos($section['image'], 'http') === false) {
+            if ($section['has_image'] &&
+                isset($section['image']) && $section['image'] && $section['image_url'] &&
+                strpos($section['image'], 'http') === false
+            ) {
                 $this->uploadImage($section['image'], $section['image_url']);
             }
 
@@ -92,20 +95,24 @@ class AdminController extends Controller
                 foreach ($section['subsections'] as $subsection) {
                     AboutUsSubSection::query()->create([
                         'section_id' => $tempSection->id,
-                        'title' => $subsection['title'],
-                        'content' => $subsection['content'],
+                        'title' => isset($subsection['title']) ? $subsection['title'] : '',
+                        'content' => isset($subsection['content']) ? $subsection['content'] : '',
                     ]);
                 }
             }
 
-            if ($section['has_image_slider']) {
+            if ($section['has_image_slider'] && isset($section['images'])) {
                 // $section['slider_images']
                 foreach ($section['images'] as $index => $sliderImage) {
-                    $url = 'a-p-slide-'.$index.'-.png';
+                    if (!$sliderImage) {
+                        continue;
+                    }
+
+                    $url = 'a-p-slide-'.$index.'.png';
 
                     AboutUsSectionImage::query()->create([
                         'section_id' => $tempSection->id,
-                        'image_url' => $url,
+                        'image_url' => isset($url) ? $url : '',
                     ]);
 
                     $this->uploadImage($sliderImage, $url);
@@ -116,9 +123,9 @@ class AdminController extends Controller
                 foreach ($section['text_boxes'] as $textBox) {
                     AboutUsSectionTextBox::query()->create([
                         'section_id' => $tempSection->id,
-                        'header_text' => $textBox['header_text'],
-                        'title' => $textBox['title'],
-                        'content' => $textBox['content'],
+                        'header_text' => isset($textBox['header_text']) ? $textBox['header_text'] : '',
+                        'title' => isset($textBox['title']) ? $textBox['title'] : '',
+                        'content' => isset($textBox['content']) ? $textBox['content'] : '',
                     ]);
                 }
             }

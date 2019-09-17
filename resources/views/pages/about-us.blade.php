@@ -102,9 +102,9 @@
                     </section>
 
                     @if($section->has_image && $section->image_url)
-                        <section class="section2">
+                        <section class="section2 mb-2">
                             <div class="img-wrap">
-                                <img src="{{ $section->image_url }}"
+                                <img src="{{ 'uploads/'.$section->image_url }}"
                                      alt="" class="img-fluid"
                                 >
 
@@ -117,7 +117,7 @@
                     @endif
 
                     @if($section->has_image_slider)
-                        <section class="section4">
+                        <section class="section4 mb-2">
                             <div class="owl-carousel owl-theme">
                                 @foreach($section->images as $image)
                                     <div>
@@ -136,7 +136,7 @@
                             @foreach($section->textBoxes as $textBox)
                                 <div class="item-wrapper">
                                     <div class="item">
-                                        <div class="number">{{ $textBox->headerText }}</div>
+                                        <div class="number">{{ $textBox->header_text }}</div>
                                         <div class="title">{{ $textBox->title }}</div>
                                         <div class="description">
                                             {{ $textBox->content }}

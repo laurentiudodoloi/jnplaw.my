@@ -13,8 +13,13 @@
         <b>Section {{ index + 1 }}</b>
 
         <about-page-section :index="index" :value="section" @input="onChangeSection($event, index)"/>
-      </div>
 
+        <div class="text-right">
+          <button class="btn btn-sm btn-outline-danger" @click.prevent="removeSection(index)">
+            Delete
+          </button>
+        </div>
+      </div>
       <hr style="border: 1px solid #000000;">
     </div>
 
@@ -51,7 +56,8 @@
           has_subsections: false,
           has_image: false,
           has_image_slider: false,
-          has_text_boxes: false
+          has_text_boxes: false,
+          image: false
         }
       }
     },
@@ -72,6 +78,12 @@
 
       onChangeSection (value, index) {
         this.sections[index] = cloneDeep(value)
+
+        this.onChange()
+      },
+
+      removeSection (index) {
+        this.sections.splice(index, 1)
 
         this.onChange()
       },

@@ -10,6 +10,11 @@ Vue.component('admin-dashboard', AdminDashboard);
 
 Vue.use(VueRouter)
 
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+Vue.use(Loading);
+
 require('./admin-components');
 
 import { routes } from './admin-routes'

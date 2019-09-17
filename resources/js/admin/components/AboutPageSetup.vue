@@ -1,5 +1,10 @@
 <template>
   <div>
+    <vue-loading
+      :active.sync="loading"
+      :is-full-page="loadingFullScreen"
+    />
+
     <div class="nav-tabs-navigation">
       <div class="nav-tabs-wrapper">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -40,7 +45,8 @@
 
           <div class="form-row">
             <div class="form-group col-md-7">
-              <input v-model="settings.title" type="text" name="title" class="form-control form-control-sm" id="setting-title"
+              <input v-model="settings.title" type="text" name="title" class="form-control form-control-sm"
+                     id="setting-title"
                      placeholder="Title"
               >
             </div>
@@ -104,10 +110,12 @@
 
   import AboutPageSections from "./AboutPageSections";
   import axios from 'axios'
-  import { cloneDeep } from 'lodash'
+  import {cloneDeep} from 'lodash'
+  import VueLoading from "vue-loading-overlay/src/js/Component";
 
   export default {
     components: {
+      VueLoading,
       AboutPageSections
     },
 
@@ -115,10 +123,19 @@
       //
     },
 
-    data () {
+    data() {
       return {
+        loading: false,
+        loadingFullScreen: true,
         headerImage: false,
-        settings: {},
+        settings: {
+          show_add_comment_form: false,
+          title: '',
+          subtitle: '',
+          description: '',
+          image_url: '',
+          image: false
+        },
         sections: []
       }
     },
@@ -127,7 +144,7 @@
       axios
         .get('/admin/about-us-content')
         .then(r => {
-          this.settings = r.data.settings
+          this.settings = r.data.settings || this.settings
           this.sections = r.data.sections
         })
     },
@@ -137,7 +154,9 @@
         this.sections.push(section)
       },
 
-      onHeaderImageChange (e) {
+      onHeaderImageChange(e) {
+        this.loading = true
+
         let files = e.target.files || e.dataTransfer.files
         if (!files.length)
           return;
@@ -145,7 +164,7 @@
         this.createImage(files[0])
       },
 
-      createImage (file) {
+      createImage(file) {
         let reader = new FileReader()
         this.settings.image_url = file.name
 
@@ -157,21 +176,22 @@
         reader.readAsDataURL(file)
       },
 
-      getHeaderImage () {
-        console.log('HERE', this.headerImage, this.settings.image_url)
-
+      getHeaderImage() {
         if (!this.headerImage && this.settings.image_url && this.settings.image_url !== '') {
           return 'uploads/' + this.settings.image_url
         }
 
+        this.loading = false
         return this.headerImage
       },
 
-      onChangeSections (value) {
+      onChangeSections(value) {
         this.sections = value
       },
 
-      save () {
+      save() {
+        this.loading = true
+
         axios
           .post('/admin/about-us-update-content', {
             settings: {
@@ -181,7 +201,7 @@
             sections: this.sections
           })
           .then(r => {
-            console.log('result', r.data)
+            this.loading = false
           })
       }
     }

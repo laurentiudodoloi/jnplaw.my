@@ -43,12 +43,13 @@
             <label :for="'imageFile' + index" class="custom-file-label">Choose image</label>
           </div>
 
-          <img v-if="section.has_image"
-               :src="section.image || 'uploads/' + section.image_url"
+          <img v-if="section.has_image && sectionImage()"
+               :src="sectionImage()"
                class="img-fluid mt-1 mb-1">
         </div>
 
         <about-page-subquestions
+          :index="index"
           :value="section.subsections"
           :checked="!!section.has_subsections"
           @input="onChangeSubquestions"
@@ -59,6 +60,7 @@
           <div class="custom-control custom-checkbox mb-2">
             <input :id="'hasImageSlider' + index" v-model="section.has_image_slider" type="checkbox"
                    class="custom-control-input"
+                   @change="onChangeHasSlider"
             >
             <label :for="'hasImageSlider' + index" class="custom-control-label">
               Has image slider
@@ -70,7 +72,9 @@
             <label :for="'imageSliderFile' + index" class="custom-file-label">Choose image</label>
           </div>
 
-          <div v-for="(image, imageIndex) in sliders" style="display: inline-block;" :key="'imageIndex' + imageIndex">
+          <div v-if="section.has_image_slider" v-for="(image, imageIndex) in sliders" style="display: inline-block;"
+               :key="'imageIndex' + imageIndex"
+          >
             <div class="d-flex justify-content-center align-items-center flex-column">
               <img :src="image" class="img-fluid"
                    style="max-width: 120px; max-height: 120px; padding: 12px 16px;"
@@ -84,12 +88,14 @@
         </div>
 
         <about-page-text-boxes
-          :value="section.text_boxes" :checked="!!section.has_text_boxes"
-          @checked="onHasBoxesChange" @input="onChangeTextBoxes"
+          :index="index"
+          :value="section.text_boxes"
+          :checked="!!section.has_text_boxes"
+          @checked="onHasBoxesChange"
+          @input="onChangeTextBoxes"
         />
       </form>
     </div>
-
   </div>
 </template>
 
@@ -143,9 +149,16 @@
 
       sliders: {
         handler (val) {
-          console.log('Sliders', val)
           this.onChange()
         }
+      }
+    },
+
+    created () {
+      if (this.value.images) {
+        this.value.images.forEach(image => {
+          this.sliders.push('uploads/' + image.image_url)
+        })
       }
     },
 
@@ -172,14 +185,23 @@
         this.onChange()
       },
 
-      onChangeHasSlider(el) {
+      onChangeHasSlider (el) {
         this.section.has_image_slider = el.target.checked
+
+        if (!this.section.has_image_slider) {
+          this.sliders = []
+        }
 
         this.onChange()
       },
 
-      onChangeHasImage(el) {
+      onChangeHasImage (el) {
         this.section.has_image = el.target.checked
+
+        if (!this.section.has_image) {
+          this.section.image = false
+          this.section.image_url = false
+        }
 
         this.onChange()
       },
@@ -192,7 +214,7 @@
         this.onChange()
       },
 
-      onSectionImageChange(e) {
+      onSectionImageChange (e) {
         let files = e.target.files || e.dataTransfer.files
         if (!files.length)
           return;
@@ -239,8 +261,17 @@
         this.onChange()
       },
 
+      sectionImage () {
+        const hasImage = this.section.has_image && (this.section.image, this.section.image_url && parseInt(this.section.image_url) !== 0)
+        if (!hasImage) {
+          return false
+        }
+
+        return this.section.image ? this.section.image : 'uploads/' + this.section.image_url
+      },
+
       onChange () {
-        this.$emit('input', { ...this.section, image: this.image, images: this.sliders })
+        this.$emit('input', { ...this.section, image: this.image, images: [...this.sliders] })
       }
     }
   }
