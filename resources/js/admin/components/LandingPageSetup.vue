@@ -1,5 +1,10 @@
 <template>
   <div>
+    <vue-loading
+      :active.sync="loading"
+      :is-full-page="loadingFullScreen"
+    />
+
     <div class="action-navbar">
       <h4>Landing Page Setup</h4>
 
@@ -97,10 +102,12 @@
   import DataTable from './DataTable'
   import { cloneDeep } from 'lodash'
   import axios from 'axios'
+  import VueLoading from "vue-loading-overlay/src/js/Component";
 
   export default {
     components: {
-      DataTable
+      DataTable,
+      VueLoading
     },
 
     props: {
@@ -109,6 +116,8 @@
 
     data () {
       return {
+        loading: false,
+        loadingFullScreen: true,
         rows: [],
         entity: {
           title: '',
@@ -164,6 +173,8 @@
       },
 
       save () {
+        this.loading = true
+
         if (this.entity.id) {
           const index = this.rows.findIndex(i => this.entity.id === i.id)
 
@@ -174,6 +185,8 @@
             })
             .then(r => {
               this.rows.splice(index, 1, r.data)
+
+              this.loading = false
             })
         } else {
           axios
@@ -183,6 +196,8 @@
             })
             .then(r => {
               this.rows.push(r.data)
+
+              this.loading = false
             })
         }
 
@@ -190,24 +205,34 @@
       },
 
       remove (index) {
+        this.loading = true
+
         axios
           .post('/admin/project/destroy/' + this.rows[index].id)
           .then(r => {
             if (r.data) {
               this.rows.splice(index, 1)
             }
+
+            this.loading = false
           })
       },
 
       fetchProjects () {
+        this.loading = true
+
         axios
           .get('/admin/projects')
           .then(r => {
             this.rows = r.data
+
+            this.loading = false
           })
       },
 
       onImageChange (e) {
+        this.loading = true
+
         let files = e.target.files || e.dataTransfer.files
         if (!files.length)
           return;
@@ -226,6 +251,8 @@
         };
 
         reader.readAsDataURL(file);
+
+        this.loading = false
       },
 
       switchResourceType (type) {

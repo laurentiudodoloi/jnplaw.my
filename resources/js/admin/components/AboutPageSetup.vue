@@ -123,7 +123,7 @@
       //
     },
 
-    data() {
+    data () {
       return {
         loading: false,
         loadingFullScreen: true,
@@ -140,12 +140,16 @@
       }
     },
 
-    created() {
+    created () {
+      this.loading = true
+
       axios
         .get('/admin/about-us-content')
         .then(r => {
           this.settings = r.data.settings || this.settings
           this.sections = r.data.sections
+
+          this.loading = false
         })
     },
 

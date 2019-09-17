@@ -56,8 +56,10 @@
 <script>
 
   import {cloneDeep} from 'lodash'
+  import VueLoading from "vue-loading-overlay/src/js/Component";
 
   export default {
+    components: {VueLoading},
     props: {
       value: {
         type: Array,
@@ -84,14 +86,16 @@
       }
     },
 
-    data() {
+    data () {
       return {
-        localValue: {}
+        localValue: {},
+        loading: false,
+        loadingFullScreen: true,
       }
     },
 
     methods: {
-      onCheckedChange(el) {
+      onCheckedChange (el) {
         this.$emit('checked', !!el.target.checked)
       },
 
