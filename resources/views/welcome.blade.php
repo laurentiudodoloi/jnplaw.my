@@ -60,6 +60,23 @@
                         shipping legal firm used by companies not just in Malaysia but internationally.
                         We provide clear, comprehensive advice on all aspects of shipping law.
                     </div>
+
+                    <div class="play-video norebro-video-module-sc video-module">
+                        <div class="btn-play">
+                            <a href="#">
+                                <i class="fa fa-play"></i>
+                            </a>
+                        </div>
+                        <div class="content-center">
+                            <div class="wrap">
+                                <div class="play-content">
+                                    <a href="#">
+                                        Play video
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
