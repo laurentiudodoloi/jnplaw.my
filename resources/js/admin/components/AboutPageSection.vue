@@ -34,7 +34,7 @@
             <input :id="'hasImage' + index" :checked="!!section.has_image" type="checkbox" class="custom-control-input"
                    @change="onChangeHasImage">
             <label :for="'hasImage' + index" class="custom-control-label">
-              Has   image
+              Has image
             </label>
           </div>
 
@@ -43,8 +43,8 @@
             <label :for="'imageFile' + index" class="custom-file-label">Choose image</label>
           </div>
 
-          <img v-if="section.has_image && image"
-               :src="image"
+          <img v-if="section.has_image"
+               :src="section.image || 'uploads/' + section.image_url"
                class="img-fluid mt-1 mb-1">
         </div>
 
@@ -66,13 +66,13 @@
           </div>
 
           <div v-if="section.has_image_slider" class="custom-file">
-            <input :id="'imageSliderFile' + index" type="file" class="custom-file-input" @change="">
+            <input :id="'imageSliderFile' + index" type="file" class="custom-file-input" @change="onChangeSliderInput">
             <label :for="'imageSliderFile' + index" class="custom-file-label">Choose image</label>
           </div>
 
-          <div v-for="(item, imageIndex) in section.images" style="display: inline-block;" :key="'imageIndex' + imageIndex">
+          <div v-for="(image, imageIndex) in sliders" style="display: inline-block;" :key="'imageIndex' + imageIndex">
             <div class="d-flex justify-content-center align-items-center flex-column">
-              <img :src="item.image_url" class="img-fluid"
+              <img :src="image" class="img-fluid"
                    style="max-width: 120px; max-height: 120px; padding: 12px 16px;"
               >
 
@@ -83,7 +83,10 @@
           </div>
         </div>
 
-        <about-page-text-boxes :checked="!!section.has_text_boxes" @checked="onHasBoxesChange"/>
+        <about-page-text-boxes
+          :value="section.text_boxes" :checked="!!section.has_text_boxes"
+          @checked="onHasBoxesChange" @input="onChangeTextBoxes"
+        />
       </form>
     </div>
 
@@ -114,12 +117,12 @@
       }
     },
 
-    data() {
+    data () {
       return {
+        sliders: [],
         section: {},
         image: false,
         sectionImages: [],
-        sections: [],
         hasSections: false
       }
     },
@@ -130,6 +133,19 @@
           this.section = cloneDeep(val)
         },
         immediate: true
+      },
+
+      image: {
+        handler (val) {
+          this.onChange()
+        }
+      },
+
+      sliders: {
+        handler (val) {
+          console.log('Sliders', val)
+          this.onChange()
+        }
       }
     },
 
@@ -138,50 +154,40 @@
         this.$emit('add', this.section)
       },
 
-      onHasBoxesChange(el) {
-        let sections = cloneDeep(this.sections)
-
-        this.section.has_text_boxes = el.target.checked
+      onHasBoxesChange (val) {
+        this.section.has_text_boxes = val
 
         this.onChange()
       },
 
       onHasSubsectionsChecked (checked) {
-        let sections = cloneDeep(this.sections)
-
         this.section.has_subsections = checked
 
         this.onChange()
       },
 
       onChangeSubquestions(values) {
-        let sections = cloneDeep(this.sections)
-
         this.section.subsections = values
 
         this.onChange()
       },
 
       onChangeHasSlider(el) {
-        let sections = cloneDeep(this.sections)
-
         this.section.has_image_slider = el.target.checked
 
         this.onChange()
       },
 
       onChangeHasImage(el) {
-        let sections = cloneDeep(this.sections)
-
         this.section.has_image = el.target.checked
 
         this.onChange()
       },
 
       removeSliderImage(imageIndex) {
-        let sections = cloneDeep(this.sections)
+        this.sliders.splice(imageIndex, 1)
 
-        this.section.images.splice(imageIndex, 1)
+        this.section.images = this.sliders
 
         this.onChange()
       },
@@ -191,6 +197,7 @@
         if (!files.length)
           return;
 
+        this.image = false
         this.createImage(files[0])
       },
 
@@ -199,17 +206,41 @@
         this.section.image_url = file.name
 
         let vm = this
+        vm.image = false
         reader.onload = (e) => {
           vm.image = e.target.result
         };
 
         reader.readAsDataURL(file)
+      },
+
+      onChangeSliderInput (e) {
+        let files = e.target.files || e.dataTransfer.files
+        if (!files.length)
+          return;
+
+        this.createSliderImage(files[0])
+      },
+
+      createSliderImage (file) {
+        let reader = new FileReader()
+
+        let vm = this
+        reader.onload = (e) => {
+          vm.sliders.push(e.target.result)
+        };
+
+        reader.readAsDataURL(file)
+      },
+
+      onChangeTextBoxes (val) {
+        this.section.text_boxes = val
 
         this.onChange()
       },
 
       onChange () {
-        this.$emit('input', { ...this.section, image: this.image })
+        this.$emit('input', { ...this.section, image: this.image, images: this.sliders })
       }
     }
   }

@@ -12,7 +12,7 @@
         </label>
       </div>
 
-      <div v-if="checked && localValue.length">
+      <div v-if="checked">
         <button class="btn btn-outline-info btn-sm" @click.prevent="addSubsection">
           <i class="fa fa-plus mr-1"></i>
           Add subsection
@@ -26,18 +26,20 @@
           <input :id="'subsection-title' + subIndex" v-model="localValue[subIndex].title" type="text" name="title"
                  class="form-control form-control-sm"
                  placeholder="Subsection title"
+                 @input="update"
           >
         </div>
 
-        <div class="form-group">
+        <div class="form-group">`
                       <textarea :id="'subsection-content' + subIndex"
                                 v-model="localValue[subIndex].content" rows="6" name="description"
                                 class="form-control form-control-sm"
                                 placeholder="Subsection content"
+                                @input="update"
                       ></textarea>
         </div>
 
-        <button class="btn btn-sm btn-outline-danger" @click.prevent="remove(subIndex)">Remove</button>
+        <button class="btn btn-sm btn-outline-danger" @click.prevent="remove(subIndex)">Delete</button>
       </div>
     </div>
   </div>
@@ -104,7 +106,7 @@
       },
 
       update () {
-        this.$emit('input', cloneDeep(val))
+        this.$emit('input', cloneDeep(this.localValue))
       }
     }
   }

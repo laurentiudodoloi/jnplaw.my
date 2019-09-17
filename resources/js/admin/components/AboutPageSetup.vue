@@ -66,12 +66,15 @@
             </div>
           </div>
 
-          <img v-if="getHeaderImage()" :src="getHeaderImage()" class="img-fluid mt-1 mb-1"/>
+          Selected image:
+          <div class="text-center">
+            <img v-if="getHeaderImage()" :src="getHeaderImage()" class="img-fluid mt-1 mb-1" style="max-width: 60%"/>
+          </div>
         </form>
 
       </div>
 
-      <about-page-sections v-if="sections.length" :value="sections" @add="addSection" @input="onChangeSections"/>
+      <about-page-sections :value="sections" @add="addSection" @input="onChangeSections"/>
 
       <div class="tab-pane" id="setting-sections">
 
@@ -120,10 +123,6 @@
       }
     },
 
-    mounted() {
-      //
-    },
-
     created() {
       axios
         .get('/admin/about-us-content')
@@ -159,8 +158,10 @@
       },
 
       getHeaderImage () {
+        console.log('HERE', this.headerImage, this.settings.image_url)
+
         if (!this.headerImage && this.settings.image_url && this.settings.image_url !== '') {
-          return this.settings.image_url
+          return 'uploads/' + this.settings.image_url
         }
 
         return this.headerImage
@@ -171,13 +172,17 @@
       },
 
       save () {
-        console.log('SAVE.', {
-          settings: {
-            ...this.settings,
-            image: this.headerImage
-          },
-          sections: this.sections
-        })
+        axios
+          .post('/admin/about-us-update-content', {
+            settings: {
+              ...this.settings,
+              image: this.headerImage
+            },
+            sections: this.sections
+          })
+          .then(r => {
+            console.log('result', r.data)
+          })
       }
     }
   }

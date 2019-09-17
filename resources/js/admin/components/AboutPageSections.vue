@@ -15,8 +15,6 @@
         <about-page-section :index="index" :value="section" @input="onChangeSection($event, index)"/>
       </div>
 
-      <button v-if="sections.length" class="btn btn-danger btn-sm">Save</button>
-
       <hr style="border: 1px solid #000000;">
     </div>
 

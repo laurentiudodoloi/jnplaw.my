@@ -8,6 +8,7 @@ use App\Eloquent\AboutUsSectionTextBox;
 use App\Eloquent\AboutUsSetting;
 use App\Eloquent\AboutUsSubSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -42,30 +43,7 @@ class AdminController extends Controller
 
     public function updateAboutContent(Request $request)
     {
-        $data = [
-            'general' => [
-                'show_add_comment_form',
-            ],
-            'header' => [
-                'title',
-                'subtitle',
-                'description',
-                'image_url',
-            ],
-            'sections' => [
-                'title',
-                'subtitle',
-                'description',
-                'image_url',
-                'has_subsections',
-                'has_image',
-                'has_image_slider',
-                'has_text_boxes',
-            ],
-        ];
-
-        $general = $request->input('general');
-        $header = $request->input('header');
+        $header = $request->input('settings');
         $sections = $request->input('sections');
 
         AboutUsSetting::query()->delete();
@@ -75,7 +53,7 @@ class AdminController extends Controller
         AboutUsSectionTextBox::query()->delete();
 
         $setting = AboutUsSetting::query()->create([
-            'show_add_comment_form' => $general['show_add_comment_form'],
+            'show_add_comment_form' => $header['show_add_comment_form'],
             'title' => $header['title'],
             'subtitle' => $header['subtitle'],
             'description' => $header['description'],
@@ -86,10 +64,12 @@ class AdminController extends Controller
             return response()->json(false, 500);
         }
 
-        // $header['image']
+        if ($header['image']) {
+            $this->uploadImage($header['image'], $header['image_url']);
+        }
 
         foreach ($sections as $section) {
-            $tempSection = AboutUsSubSection::query()->create([
+            $tempSection = AboutUsSection::query()->create([
                 'title' => $section['title'],
                 'subtitle' => $section['subtitle'],
                 'description' => $section['description'],
@@ -104,8 +84,8 @@ class AdminController extends Controller
                 return response()->json(false, 500);
             }
 
-            if ($section['has_image']) {
-                // $section['image']
+            if ($section['has_image'] && isset($section['image']) && strpos($section['image'], 'http') === false) {
+                $this->uploadImage($section['image'], $section['image_url']);
             }
 
             if ($section['has_subsections']) {
@@ -120,26 +100,45 @@ class AdminController extends Controller
 
             if ($section['has_image_slider']) {
                 // $section['slider_images']
-                foreach ($section['slider_images'] as $sliderImage) {
+                foreach ($section['images'] as $index => $sliderImage) {
+                    $url = 'a-p-slide-'.$index.'-.png';
+
                     AboutUsSectionImage::query()->create([
                         'section_id' => $tempSection->id,
-                        'image_url' => $sliderImage->image_url,
+                        'image_url' => $url,
                     ]);
+
+                    $this->uploadImage($sliderImage, $url);
                 }
             }
 
             if ($section['has_text_boxes']) {
                 foreach ($section['text_boxes'] as $textBox) {
-                    AboutUsSectionImage::query()->create([
+                    AboutUsSectionTextBox::query()->create([
                         'section_id' => $tempSection->id,
-                        'header_text' => $textBox->header_text,
-                        'title' => $textBox->title,
-                        'content' => $textBox->content,
+                        'header_text' => $textBox['header_text'],
+                        'title' => $textBox['title'],
+                        'content' => $textBox['content'],
                     ]);
                 }
             }
         }
 
         return response()->json(true);
+    }
+
+    public function uploadImage($uploadImage, $name)
+    {
+        $image = $uploadImage;
+
+        $image = str_replace('data:image/jpeg;base64,', '', $image);
+        $image = str_replace('data:image/jpg;base64,', '', $image);
+        $image = str_replace('data:image/png;base64,', '', $image);
+
+        $image = str_replace(' ', '+', $image);
+
+        $imageName = $name;
+
+        Storage::disk('uploads')->put($imageName, base64_decode($image));
     }
 }

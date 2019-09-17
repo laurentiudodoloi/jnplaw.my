@@ -2,34 +2,42 @@
   <div class="form-group">
     <div class="add-sections">
       <div class="custom-control custom-checkbox">
-        <input :value="checked" type="checkbox" class="custom-control-input" id="hasTextBoxes" @change="onCheckedChange">
+        <input :value="checked" type="checkbox" class="custom-control-input" id="hasTextBoxes"
+               @change="onCheckedChange">
         <label class="custom-control-label" for="hasTextBoxes">
           Has text boxes
         </label>
       </div>
 
-      <button v-if="checked" class="btn btn-outline-info btn-sm"><i class="fa fa-plus mr-1"></i>
-        Add text box
-      </button>
+      <div v-if="checked">
+        <button class="btn btn-outline-info btn-sm" @click.prevent="addNewEntity()">
+          <i class="fa fa-plus mr-1"></i>
+          Add text box
+        </button>
+      </div>
     </div>
 
     <div v-if="checked">
-      <div class="form-row">
+      <div v-for="item in localValue" class="form-row">
         <div class="form-group col-md-7">
-          <input type="text" name="title" class="form-control form-control-sm" id="header-text"
-                 placeholder="Title"
+          <input v-model="item.header_text" type="text" name="title" class="form-control form-control-sm"
+                 id="header-text"
+                 placeholder="Header text"
+                 @input="onChange"
           >
         </div>
 
         <div class="form-group col-md-5">
-          <input type="text" name="subtitle" class="form-control form-control-sm" id="subtitle"
-                 placeholder="Subtitle"
+          <input v-model="item.title" type="text" name="subtitle" class="form-control form-control-sm" id="subtitle"
+                 placeholder="Title"
+                 @input="onChange"
           >
         </div>
 
         <div class="form-group col-md-12">
-                    <textarea rows="6" name="description" class="form-control form-control-sm"
+                    <textarea v-model="item.content" rows="6" name="description" class="form-control form-control-sm"
                               id="description" placeholder="Description"
+                              @input="onChange"
                     ></textarea>
         </div>
       </div>
@@ -38,6 +46,8 @@
 </template>
 
 <script>
+
+  import {cloneDeep} from 'lodash'
 
   export default {
     props: {
@@ -52,23 +62,38 @@
       }
     },
 
-    data () {
-      return {
-        textBoxes: []
+    watch: {
+      value: {
+        handler(val) {
+          this.localValue = cloneDeep(val)
+        },
+        immediate: true
       }
     },
 
-    mounted() {
-      //
-    },
-
-    created() {
-      //
+    data() {
+      return {
+        localValue: {}
+      }
     },
 
     methods: {
-      onCheckedChange (el) {
+      onCheckedChange(el) {
         this.$emit('checked', !!el.target.checked)
+      },
+
+      addNewEntity () {
+        this.localValue.push({
+          header_text: '',
+          title: '',
+          content: ''
+        })
+
+        this.onChange()
+      },
+
+      onChange() {
+        this.$emit('input', cloneDeep(this.localValue))
       }
     }
   }

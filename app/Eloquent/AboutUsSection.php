@@ -4,6 +4,17 @@ namespace App\Eloquent;
 
 class AboutUsSection extends Model
 {
+    protected $fillable = [
+        'title',
+        'subtitle',
+        'description',
+        'image_url',
+        'has_subsections',
+        'has_image',
+        'has_image_slider',
+        'has_text_boxes',
+    ];
+
     public function subsections()
     {
         return $this->hasMany(AboutUsSubSection::class, 'section_id');

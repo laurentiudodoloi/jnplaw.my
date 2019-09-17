@@ -19,7 +19,7 @@
         </a>
 
         <section class="open-page">
-            <img class="open-image" src="https://picsum.photos/id/276/2580/1900" alt="background">
+            <img class="open-image" src="{{ asset('uploads/'.(isset($settings) ? $settings->image_url : '')) }}" alt="Cover image">
 
             <div class="section-wrapper">
                 <div class="header-wrap">
@@ -44,12 +44,12 @@
 
                     <div class="content">
                         <div class="mb-3">
-                            <span class="tag text-uppercase">{{ $settings->subtitle ?? '' }}</span>
+                            <span class="tag text-uppercase">{{ isset($settings) ? $settings->subtitle : '' }}</span>
                         </div>
-                        <h2 class="title text-left floating-up-short">{{ $settings->title }}</h2>
+                        <h2 class="title text-left floating-up-short">{{ isset($settings) ? $settings->title : '' }}</h2>
 
                         <div class="info-list floating-up-short-delayed">
-                            {{ $settings->description }}
+                            {{ isset($settings) ? $settings->description : '' }}
                         </div>
                     </div>
 
@@ -121,8 +121,9 @@
                             <div class="owl-carousel owl-theme">
                                 @foreach($section->images as $image)
                                     <div>
-                                        <img src="{{ $image->image_url }}"
+                                        <img src="{{ asset('uploads/'.$image->image_url) }}"
                                              class="img-fluid" alt=""
+                                             style="max-height: 320px;"
                                         >
                                     </div>
                                 @endforeach
@@ -148,7 +149,7 @@
                 @endforeach
             </div>
 
-            @if($settings->show_add_comment_form)
+            @if(isset($settings) && $settings->show_add_comment_form)
                 <div class="post-navigation">
                     <div class="container">
                         <div class="nav-container">
