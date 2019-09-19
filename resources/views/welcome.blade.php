@@ -37,7 +37,7 @@
                 <div class="header-right">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">
+                            <a class="nav-link text-white hidden" href="#">
                                 <i class="fa fa-search"></i>
                             </a>
                         </li>
@@ -51,13 +51,13 @@
                     <span class="date text-uppercase">march 20, 2017</span>
 
                     <div class="mb-3">
-                        <span class="tag text-uppercase">architecture</span>
+                        <span class="tag text-capitalize">A Leading Maritime & Commercial Law Firm</span>
                     </div>
-                    <h2 class="title text-left">Spacé Decor Restore</h2>
+                    <h2 class="title text-left">Niche Firm, Big Difference</h2>
 
                     <div class="info-list">
-                        We are specialists in all aspects of shipping law and are a trusted
-                        shipping legal firm used by companies not just in Malaysia but internationally.
+                        We are specialists in all aspects of shipping law and are a trusted shipping
+                        legal firm used by companies not just in Malaysia but internationally.
                         We provide clear, comprehensive advice on all aspects of shipping law.
                     </div>
 

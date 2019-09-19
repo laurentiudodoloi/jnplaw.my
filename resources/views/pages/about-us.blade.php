@@ -32,7 +32,7 @@
                     <div class="header-right">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
+                                <a class="nav-link text-white hidden" href="#">
                                     <i class="fa fa-search"></i>
                                 </a>
                             </li>
@@ -44,7 +44,7 @@
 
                     <div class="content">
                         <div class="mb-3">
-                            <span class="tag text-uppercase">{{ isset($settings) ? $settings->subtitle : '' }}</span>
+                            <span class="tag">{{ isset($settings) ? $settings->subtitle : '' }}</span>
                         </div>
                         <h2 class="title text-left floating-up-short">{{ isset($settings) ? $settings->title : '' }}</h2>
 
@@ -70,7 +70,7 @@
 
                         <div class="item-middle">
 
-                            <div class="text text1">
+                            <div class="text text1 text-justify">
                                 {{ $section->description }}
                             </div>
 

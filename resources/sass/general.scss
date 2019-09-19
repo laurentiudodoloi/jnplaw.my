@@ -2,9 +2,14 @@
   background-color: #fff;
 }
 
+.hidden {
+  display: none;
+}
+
 .open-page {
   position: relative;
   font-family: 'Rubik', sans-serif;
+  height: 100vh;
 
   img.open-image {
     height: 100vh;
@@ -70,7 +75,6 @@
         .tag {
           border-radius: 0;
           padding: 9px 15px 7px;
-          //border: 1px solid #fff;
           font-weight: 500;
           font-size: 11px;
           border: none;
@@ -93,6 +97,8 @@
           display: flex;
           align-items: center;
           font-family: 'Rubik', sans-serif;
+          font-size: 15px;
+          max-width: 60%;
 
           .list-item {
             margin-right: 40px;
@@ -176,6 +182,7 @@
       font-size: 14px;
       font-family: 'Rubik', sans-serif;
       margin-bottom: 10px;
+      line-height: 1.7;
     }
   }
 }
@@ -357,7 +364,7 @@
 
         .content {
           width: 100%;
-          padding-left: 30px;
+          padding-left: 25px;
           padding-right: 30px;
 
           .title {
@@ -366,6 +373,7 @@
 
           .info-list {
             display: block;
+            max-width: 100%;
 
             .list-item {
               margin-right: 0;

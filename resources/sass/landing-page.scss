@@ -136,8 +136,6 @@
 
     .content-wrap .content {
       .info-list {
-        font-size: 11px;
-        width: 90%;
         color: #fff;
       }
     }
@@ -295,5 +293,15 @@
 @media screen and (max-width: 767px) {
   .message-box {
     display: none;
+  }
+
+  .open-page {
+    .section-wrapper .content-wrap {
+      .content {
+        .info-list {
+          max-width: 85%;
+        }
+      }
+    }
   }
 }
