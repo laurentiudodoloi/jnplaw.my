@@ -17,7 +17,8 @@ class CreateAboutUsSectionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('subtitle')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
+            $table->string('image_url');
             $table->boolean('has_subsections')->default(false);
             $table->boolean('has_image')->default(false);
             $table->boolean('has_image_slider')->default(false);
