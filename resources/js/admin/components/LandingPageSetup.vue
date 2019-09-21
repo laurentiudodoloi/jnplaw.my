@@ -32,7 +32,7 @@
     <div v-if="editMode" class="container">
       <div class="row justify-content-center">
         <div class="col-md-8">
-          <form class="form">
+          <form class="form" @submit.prevent="save">
             <div class="form-group">
               <label for="title" class=" font-weight-bold">Title</label>
               <input v-model="entity.title" type="text" name="title" class="form-control form-control-sm" id="title"
@@ -87,7 +87,6 @@
               type="submit"
               name="landing"
               class="btn btn-outline-primary btn-md"
-              @click.prevent="save"
             >Save
             </button>
           </form>
@@ -116,6 +115,8 @@
 
     data () {
       return {
+        localPath: 'uploads/',
+        livePath: 'jnplaw.local.my/public/uploads/',
         loading: false,
         loadingFullScreen: true,
         rows: [],
@@ -173,26 +174,45 @@
       },
 
       save () {
+        console.log('SAVE')
         this.loading = true
+
+        let formData = new FormData()
+        formData.append('test', 123)
+        formData.append('file', this.image)
 
         if (this.entity.id) {
           const index = this.rows.findIndex(i => this.entity.id === i.id)
 
           axios
             .post('/admin/project/store/' + this.entity.id, {
-              ...this.entity,
-              image: this.image
+              // ...this.entity,
+              formData
+            },
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
             })
             .then(r => {
               this.rows.splice(index, 1, r.data)
 
               this.loading = false
             })
+            .catch(r => {
+              console.log('Error occured.')
+            })
         } else {
+          console.log('Request.')
           axios
             .post('/admin/project/store', {
-              ...this.entity,
-              image: this.image
+              // ...this.entity,
+              formData
+            },
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data charset=utf-8; boundary=' + Math.random().toString().substr(2)
+              }
             })
             .then(r => {
               this.rows.push(r.data)
@@ -267,7 +287,7 @@
 
       resourceUrl () {
         if (this.entity.id && this.entity.resource_url) {
-          this.image = 'uploads/' + this.entity.resource_url
+          this.image = this.localPath + this.entity.resource_url
         }
 
         return this.image

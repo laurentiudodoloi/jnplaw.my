@@ -6,10 +6,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form class="form">
+                <form class="form" action="{{ route('projects.create') }}" method="post">
+                    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+
                     <div class="form-group">
                         <label for="title" class=" font-weight-bold">Title</label>
-                        <input type="email" name="title" class="form-control form-control-sm" id="title" placeholder="Tile">
+                        <input type="text" name="title" class="form-control form-control-sm" id="title" placeholder="Tile">
                     </div>
 
                     <div class="form-group">
@@ -34,7 +36,7 @@
 
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile">
+                            <input type="file" class="custom-file-input" id="customFile" name="image">
                             <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                     </div>

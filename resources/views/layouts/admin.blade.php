@@ -35,19 +35,19 @@
 
     <body>
 
-        <div id="vue-app" style="height: 100%;">
-            <admin-dashboard></admin-dashboard>
-        </div>
-
-{{--        @include('inc.admin.sidebar')--}}
-
-{{--        <div class="content-wrap">--}}
-{{--            @include('inc.admin.navbar')--}}
-
-{{--            <div class="content">--}}
-{{--                @yield('admin')--}}
-{{--            </div>--}}
+{{--        <div id="vue-app" style="height: 100%;">--}}
+{{--            <admin-dashboard></admin-dashboard>--}}
 {{--        </div>--}}
+
+        @include('inc.admin.sidebar')
+
+        <div class="content-wrap">
+            @include('inc.admin.navbar')
+
+            <div class="content">
+                @yield('admin')
+            </div>
+        </div>
 
 {{--        @yield('scripts')--}}
         <script src="{{ asset('js/bootstrap.js') }}"></script>

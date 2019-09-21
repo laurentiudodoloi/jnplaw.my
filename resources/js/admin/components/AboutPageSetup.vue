@@ -5,6 +5,12 @@
       :is-full-page="loadingFullScreen"
     />
 
+    <notifications
+      :duration="300"
+      group="save"
+      position="bottom right"
+    />
+
     <div class="nav-tabs-navigation">
       <div class="nav-tabs-wrapper">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -20,7 +26,7 @@
         </ul>
       </div>
 
-      <button class="btn btn-sm btn-outline-success" @click.prevent="save">Save</button>
+      <button v-if="hasChanges" class="btn btn-sm btn-outline-success" @click.prevent="save">Save</button>
     </div>
 
     <div id="my-tab-content" class="tab-content">
@@ -30,6 +36,7 @@
         <div class="custom-control custom-checkbox">
           <input v-model="settings.show_add_comment_form" type="checkbox" class="custom-control-input"
                  id="customCheck1"
+                 @change="somethingChanged"
           >
           <label class="custom-control-label" for="customCheck1">
             Show section
@@ -48,6 +55,7 @@
               <input v-model="settings.title" type="text" name="title" class="form-control form-control-sm"
                      id="setting-title"
                      placeholder="Title"
+                     @change="somethingChanged"
               >
             </div>
 
@@ -55,6 +63,7 @@
               <input v-model="settings.subtitle" type="text" name="subtitle" class="form-control form-control-sm"
                      id="setting-subtitle"
                      placeholder="Subtitle"
+                     @change="somethingChanged"
               >
             </div>
           </div>
@@ -62,6 +71,7 @@
           <div class="form-group">
             <textarea v-model="settings.description" rows="6" name="description" class="form-control form-control-sm"
                       id="setting-description" placeholder="Description"
+                      @change="somethingChanged"
             ></textarea>
           </div>
 
@@ -125,6 +135,8 @@
 
     data () {
       return {
+        localPath: 'uploads/',
+        livePath: 'jnplaw/public/uploads/',
         loading: false,
         loadingFullScreen: true,
         headerImage: false,
@@ -136,7 +148,8 @@
           image_url: '',
           image: false
         },
-        sections: []
+        sections: [],
+        hasChanges: false
       }
     },
 
@@ -154,11 +167,18 @@
     },
 
     methods: {
-      addSection(section) {
+      somethingChanged () {
+        this.hasChanges = true
+      },
+
+      addSection (section) {
+        this.hasChanges = true
+
         this.sections.push(section)
       },
 
       onHeaderImageChange(e) {
+        this.hasChanges = true
         this.loading = true
 
         let files = e.target.files || e.dataTransfer.files
@@ -182,18 +202,19 @@
 
       getHeaderImage() {
         if (!this.headerImage && this.settings.image_url && this.settings.image_url !== '') {
-          return 'uploads/' + this.settings.image_url
+          return this.livePath + this.settings.image_url
         }
 
         this.loading = false
         return this.headerImage
       },
 
-      onChangeSections(value) {
+      onChangeSections (value) {
+        this.hasChanges = true
         this.sections = value
       },
 
-      save() {
+      save () {
         this.loading = true
 
         axios
@@ -206,6 +227,13 @@
           })
           .then(r => {
             this.loading = false
+            this.hasChanges = false
+
+            this.$notify({
+              group: 'save',
+              title: 'Saved !',
+              text: 'Your changes have been saved.'
+            })
           })
       }
     }
