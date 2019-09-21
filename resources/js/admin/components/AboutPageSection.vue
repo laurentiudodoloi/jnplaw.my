@@ -125,6 +125,8 @@
 
     data () {
       return {
+        localPath: 'uploads/',
+        livePath: 'jnplaw/public/uploads/',
         sliders: [],
         section: {},
         image: false,
@@ -157,7 +159,7 @@
     created () {
       if (this.value.images) {
         this.value.images.forEach(image => {
-          this.sliders.push('uploads/' + image.image_url)
+          this.sliders.push(this.livePath + image.image_url)
         })
       }
     },
@@ -267,7 +269,7 @@
           return false
         }
 
-        return this.section.image ? this.section.image : 'uploads/' + this.section.image_url
+        return this.section.image ? this.section.image : this.livePath + this.section.image_url
       },
 
       onChange () {

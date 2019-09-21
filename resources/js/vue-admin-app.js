@@ -12,8 +12,10 @@ Vue.use(VueRouter)
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import Notifications from 'vue-notification'
 
 Vue.use(Loading);
+Vue.use(Notifications);
 
 require('./admin-components');
 

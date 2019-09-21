@@ -19,7 +19,7 @@
         </a>
 
         <section class="open-page">
-            <img class="open-image" src="{{ asset('uploads/'.(isset($settings) ? $settings->image_url : '')) }}" alt="Cover image">
+            <img class="open-image" src="{{ $path.(isset($settings) ? $settings->image_url : '') }}" alt="Cover image">
 
             <div class="section-wrapper">
                 <div class="header-wrap">
@@ -104,7 +104,7 @@
                     @if($section->has_image && $section->image_url)
                         <section class="section2 mb-2">
                             <div class="img-wrap">
-                                <img src="{{ 'uploads/'.$section->image_url }}"
+                                <img src="{{ $path.$section->image_url }}"
                                      alt="" class="img-fluid"
                                 >
 
@@ -121,7 +121,7 @@
                             <div class="owl-carousel owl-theme">
                                 @foreach($section->images as $image)
                                     <div>
-                                        <img src="{{ asset('uploads/'.$image->image_url) }}"
+                                        <img src="{{ $path.$image->image_url }}"
                                              class="img-fluid" alt=""
                                              style="max-height: 320px;"
                                         >

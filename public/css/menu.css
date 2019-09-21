@@ -144,13 +144,13 @@
     fill: #fff;
 }
 .shape-overlays__path:nth-of-type(2) {
-    fill: #f82c34;
+    fill: #303546;
 }
 .shape-overlays__path:nth-of-type(3) {
-    fill: #000;
+    fill: #282828;
 }
 .shape-overlays__path:nth-of-type(4) {
-    fill: #f82c34;
+    fill: #303546;
 }
 @-webkit-keyframes intervalHamburgerBorder {
     0% {

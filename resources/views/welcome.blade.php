@@ -14,8 +14,10 @@
 
         <div class="video-sliders" style="display: none;">
             @foreach($projects as $project)
-                <div class="video-slider">{{ asset("uploads/{$project->resource_url}") }}</div>
+                <div class="video-slider">{{ $path.$project->resource_url }}</div>
             @endforeach
+                <div class="video-slider">{{ asset('images/landscape-0.jpg') }}</div>
+                <div class="video-slider">{{ asset('images/street.jpg') }}</div>
         </div>
 
         <ul class="onepage-dots slider-vertical-numbers">
