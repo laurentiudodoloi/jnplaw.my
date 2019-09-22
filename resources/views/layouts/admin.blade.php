@@ -35,23 +35,30 @@
 
     <body>
 
-{{--        <div id="vue-app" style="height: 100%;">--}}
-{{--            <admin-dashboard></admin-dashboard>--}}
-{{--        </div>--}}
-
-        @include('inc.admin.sidebar')
-
-        <div class="content-wrap">
-            @include('inc.admin.navbar')
-
-            <div class="content">
-                @yield('admin')
-            </div>
+        <div id="vue-app" style="height: 100%;">
+            <admin-dashboard :data="{{ json_encode($data) }}"></admin-dashboard>
         </div>
 
+{{--        @include('inc.admin.sidebar')--}}
+
+{{--        <div class="content-wrap">--}}
+{{--            @include('inc.admin.navbar')--}}
+
+{{--            <div class="content">--}}
+{{--                @yield('admin')--}}
+{{--            </div>--}}
+{{--        </div>--}}
+
 {{--        @yield('scripts')--}}
+
         <script src="{{ asset('js/bootstrap.js') }}"></script>
 
         <script src="{{ asset('js/vue-admin-app.js') }}"></script>
+
+        <script>
+            document.onload = function () {
+                document.querySelector('form').append('{{ csrf_field() }}');
+            }
+        </script>
     </body>
 </html>
