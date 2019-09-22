@@ -4,7 +4,7 @@
 
     <div class="content-wrap">
       <div class="content" style="padding: 0 15px;">
-        <router-view/>
+        <router-view :data="data"/>
       </div>
     </div>
   </div>
@@ -22,7 +22,10 @@
     },
 
     props: {
-      //
+      data: {
+        type: Object,
+        default: () => {}
+      }
     },
 
     data () {

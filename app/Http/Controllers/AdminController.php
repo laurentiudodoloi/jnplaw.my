@@ -7,6 +7,7 @@ use App\Eloquent\AboutUsSectionImage;
 use App\Eloquent\AboutUsSectionTextBox;
 use App\Eloquent\AboutUsSetting;
 use App\Eloquent\AboutUsSubSection;
+use App\Eloquent\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,12 +15,16 @@ class AdminController extends Controller
 {
     public function index()
     {
-      return view('admin.landing-page');
+        $data = [
+            'projects' => Project::all()
+        ];
+
+        return view('admin.landing-page', compact('data'));
     }
 
     public function about()
     {
-      return view('admin.about');
+        return view('admin.about');
     }
 
     public function aboutContent()
@@ -108,7 +113,7 @@ class AdminController extends Controller
                         continue;
                     }
 
-                    $url = 'a-p-slide-'.$index.'.png';
+                    $url = 'a-p-slide-' . $index . '.png';
 
                     AboutUsSectionImage::query()->create([
                         'section_id' => $tempSection->id,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Eloquent\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
@@ -24,52 +25,62 @@ class ProjectController extends Controller
 
     public function store(Request $request, $id = 0)
     {
+        $supportImageFormats = ['jpg', 'jpeg', 'png'];
+        $supportVideoFormats = ['mp4'];
+
         $new = $id === 0;
+        $hasImage = true;
 
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'image' => 'required|string',
         ]);
 
-        $entity = false;
-        if ($new) {
-            $resourceUrl = $request->input('resource_url');
-
-            $entity = Project::query()->create([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'resource_url' => $resourceUrl,
-                'resource_type' => $request->input('resource_type'),
-            ]);
-
-            if ($entity) {
-                $image = $request->input('image');
-
-                $image = str_replace('data:image/jpeg;base64,', '', $image);
-                $image = str_replace('data:image/jpg;base64,', '', $image);
-                $image = str_replace('data:image/png;base64,', '', $image);
-                $image = str_replace('data:video/mp4;base64,', '', $image);
-
-                $image = str_replace(' ', '+', $image);
-
-                $imageName = $resourceUrl;
-
-                Storage::disk('uploads')->put($imageName, base64_decode($image));
-            }
-        } else {
-            $entity = Project::query()
-                ->updateOrCreate([
-                    'id' => $id,
-                ], [
-                    'title' => $request->input('title'),
-                    'description' => $request->input('description'),
-                    'resource_url' => $request->input('resource_url'),
-                    'resource_type' => $request->input('resource_type'),
-                ]);
+        if (!$request->file('resource') ||
+            !array_search($request->file('resource')->extension(), array_merge($supportImageFormats, $supportVideoFormats))) {
+            $hasImage = false;
         }
 
-        return response()->json($entity);
+        $resource = $request->file('resource');
+
+        $title = $request->input('title');
+        $description = $request->input('description');
+        $resourceUrl = $resource ? 'uploads/'.$resource->getClientOriginalName() : false;
+
+        $mime = $resource ? $resource->getClientMimeType() : false;
+
+        $resourceType = false;
+        if (strpos($mime, 'image') !== false) {
+            $resourceType = 'image';
+        } elseif (strpos($mime, 'video') !== false) {
+            $resourceType = 'video';
+        }
+
+        if (!$resourceType) {
+            $hasImage = false;
+        }
+
+        if (!$resource || !Storage::disk('uploads')->put($resource->getClientOriginalName(), $resource->get())) {
+            $hasImage = false;
+        }
+
+        if (!$hasImage && $new) {
+            return redirect()->back()->with('success', false);
+        }
+
+        $entity = Project::query()->find($id);
+
+        $entity = Project::query()
+            ->updateOrCreate([
+                'id' => $id,
+            ], [
+                'title' => $title,
+                'description' => $description,
+                'resource_url' => $resourceUrl ? $resourceUrl : $entity->resource_url,
+                'resource_type' => $resourceType ? $resourceType : $entity->resource_type,
+            ]);
+
+        return redirect()->back()->with('success', !!$entity);
     }
 
     public function destroy($id)
