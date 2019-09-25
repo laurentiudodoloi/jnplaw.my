@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="action-navbar">
+      <h4>About Page Setup</h4>
+    </div>
+
     <div class="nav-tabs-navigation">
       <div class="nav-tabs-wrapper">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">

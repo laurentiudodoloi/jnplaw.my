@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="action-navbar">
+      <h4>News Page Setup</h4>
+    </div>
+
     <p>There are no settings at the moment.</p>
   </div>
 </template>

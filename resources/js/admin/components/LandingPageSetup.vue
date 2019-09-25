@@ -8,7 +8,7 @@
     <div class="action-navbar">
       <h4>Landing Page Setup</h4>
 
-      <button v-if="!editMode" class="btn btn-outline-success btn-sm font-weight-bold" @click.prevent="toggleEditMode">
+      <button v-if="!editMode" class="btn btn-outline-light btn-sm font-weight-bold" @click.prevent="toggleEditMode">
         <i class="fa fa-plus"> </i>
         Add new
       </button>
@@ -19,7 +19,7 @@
       </button>
     </div>
 
-    <p v-if="!rows.length" class="py-2">There are no entities at the moment.</p>
+    <p v-if="!rows.length && !editMode" class="py-2">There are no entities at the moment.</p>
 
     <data-table
       v-if="!editMode && rows.length"

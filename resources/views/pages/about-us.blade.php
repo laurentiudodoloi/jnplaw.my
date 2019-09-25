@@ -104,7 +104,7 @@
                     @if($section->has_image && $section->image_url)
                         <section class="section2 mb-2">
                             <div class="img-wrap">
-                                <img src="{{ $path.$section->image_url }}"
+                                <img src="{{ $section->image_url }}"
                                      alt="" class="img-fluid"
                                 >
 
@@ -121,7 +121,7 @@
                             <div class="owl-carousel owl-theme">
                                 @foreach($section->images as $image)
                                     <div>
-                                        <img src="{{ $path.$image->image_url }}"
+                                        <img src="{{ $image->image_url }}"
                                              class="img-fluid" alt=""
                                              style="max-height: 320px;"
                                         >

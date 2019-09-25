@@ -1,6 +1,6 @@
 <template>
-  <div class="sidebar-wrap">
-    <div class="brand">
+  <div class="sidebar-wrap" style="border-right: 1px solid #f0f0f0;">
+    <div class="our-brand">
       <img :src="logoUrl()" alt="Joseph & Partners logo" class="img-fluid">
     </div>
 
@@ -11,7 +11,7 @@
           <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
                aria-expanded="true" aria-controls="collapseOne"
           >
-            <div>
+            <div class="heading-text">
               <i class="fa fa-window-maximize"></i>
               Pages
             </div>
@@ -20,8 +20,10 @@
             </div>
           </div>
 
-          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#pagesAccordion">
-            <div class="card-body text">
+          <div id="collapseOne" class="collapse show accordion-list" aria-labelledby="headingOne"
+               data-parent="#pagesAccordion"
+          >
+            <div class=" text content">
               <ul class="list-unstyled">
                 <li :class="{ active: currentRoute() === '/landing-page-setup' }">
                   <router-link to="/landing-page-setup">Landing page</router-link>
