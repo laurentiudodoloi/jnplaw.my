@@ -19,7 +19,7 @@
         </a>
 
         <section class="open-page">
-            <img class="open-image" src="{{ $path.(isset($settings) ? $settings->image_url : '') }}" alt="Cover image">
+            <img class="open-image" src="{{ (isset($settings) ? $settings->image_url : '') }}" alt="Cover image">
 
             <div class="section-wrapper">
                 <div class="header-wrap">

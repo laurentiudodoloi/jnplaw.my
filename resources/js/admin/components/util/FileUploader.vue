@@ -45,7 +45,6 @@
 <script>
 
   import { cloneDeep } from 'lodash'
-  // import { IMAGE_RESOURCE, VIDEO_RESOURCE} from './../../../resource-types'
 
   export default {
     props: {

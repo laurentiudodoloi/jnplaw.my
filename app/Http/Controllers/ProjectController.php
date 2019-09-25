@@ -32,8 +32,8 @@ class ProjectController extends Controller
         $hasImage = true;
 
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'title' => 'required|string',
+            'description' => 'required|string',
         ]);
 
         if (!$request->file('resource') ||

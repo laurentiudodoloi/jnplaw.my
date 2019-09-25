@@ -1,16 +1,5 @@
 <template>
   <div>
-    <vue-loading
-      :active.sync="loading"
-      :is-full-page="loadingFullScreen"
-    />
-
-    <notifications
-      :duration="300"
-      group="save"
-      position="bottom right"
-    />
-
     <div class="nav-tabs-navigation">
       <div class="nav-tabs-wrapper">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -29,55 +18,84 @@
       <button v-if="hasChanges" class="btn btn-sm btn-outline-success" @click.prevent="save">Save</button>
     </div>
 
-    <div id="my-tab-content" class="tab-content">
+    <form
+      :action="formAction"
+      ref="aboutPageForm"
+      class="form"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input :value="csrf()" type="hidden" name="_token">
 
-      <div class="tab-pane active" id="general">
+      <div id="my-tab-content" class="tab-content">
 
-        <div class="custom-control custom-checkbox">
-          <input v-model="settings.show_add_comment_form" type="checkbox" class="custom-control-input"
-                 id="customCheck1"
-                 @change="somethingChanged"
-          >
-          <label class="custom-control-label" for="customCheck1">
-            Show section
-            <span class="font-weight-bold"><em>Post a comment</em></span>
-          </label>
+        <div class="tab-pane active" id="general">
+
+          <div class="custom-control custom-checkbox">
+            <input
+              v-model="settings.show_add_comment_form"
+              id="customCheck1"
+              name="header[show_add_comment_form]"
+              type="checkbox"
+              class="custom-control-input"
+              @change="somethingChanged"
+            >
+            <label class="custom-control-label" for="customCheck1">
+              Show section
+              <span class="font-weight-bold"><em>Post a comment</em></span>
+            </label>
+          </div>
+
         </div>
 
-      </div>
-
-      <div class="tab-pane" id="header">
-
-        <form class="form admin-form">
+        <div class="tab-pane" id="header">
 
           <div class="form-row">
             <div class="form-group col-md-7">
-              <input v-model="settings.title" type="text" name="title" class="form-control form-control-sm"
-                     id="setting-title"
-                     placeholder="Title"
-                     @change="somethingChanged"
+              <input
+                v-model="settings.title"
+                id="setting-title"
+                name="header[title]"
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Title"
+                @change="somethingChanged"
               >
             </div>
 
             <div class="form-group col-md-5">
-              <input v-model="settings.subtitle" type="text" name="subtitle" class="form-control form-control-sm"
-                     id="setting-subtitle"
-                     placeholder="Subtitle"
-                     @change="somethingChanged"
+              <input
+                v-model="settings.subtitle"
+                type="text"
+                name="header[subtitle]"
+                class="form-control form-control-sm"
+                id="setting-subtitle"
+                placeholder="Subtitle"
+                @change="somethingChanged"
               >
             </div>
           </div>
 
           <div class="form-group">
-            <textarea v-model="settings.description" rows="6" name="description" class="form-control form-control-sm"
-                      id="setting-description" placeholder="Description"
-                      @change="somethingChanged"
+            <textarea
+              v-model="settings.description"
+              rows="6"
+              name="header[description]"
+              class="form-control form-control-sm"
+              id="setting-description" placeholder="Description"
+              @change="somethingChanged"
             ></textarea>
           </div>
 
           <div class="form-group">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="setting-customFile" @change="onHeaderImageChange">
+              <input
+                type="file"
+                name="image"
+                class="custom-file-input"
+                id="setting-customFile"
+                @change="onHeaderImageChange"
+              >
               <label class="custom-file-label" for="setting-customFile">Choose image</label>
             </div>
           </div>
@@ -86,33 +104,39 @@
           <div class="text-center">
             <img v-if="getHeaderImage()" :src="getHeaderImage()" class="img-fluid mt-1 mb-1" style="max-width: 60%"/>
           </div>
-        </form>
-
-      </div>
-
-      <about-page-sections :value="sections" @add="addSection" @input="onChangeSections"/>
-
-      <div class="tab-pane" id="setting-sections">
-
-        <div class="add-sections">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="setting-hasSections">
-            <label class="custom-control-label" for="setting-hasSections">
-              Has sections
-            </label>
-          </div>
-
-          <div>
-            <button class="btn btn-outline-info btn-sm">
-              <i class="fa fa-plus mr-1"></i>
-              Add section
-            </button>
-          </div>
         </div>
 
-      </div>
-    </div>
+        <about-page-sections
+          :value="sections"
+          @add="addSection"
+          @input="onChangeSections"
+        />
 
+        <div class="tab-pane" id="setting-sections">
+
+          <div class="add-sections">
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="setting-hasSections"
+              >
+              <label class="custom-control-label" for="setting-hasSections">
+                Has sections
+              </label>
+            </div>
+
+            <div>
+              <button class="btn btn-outline-info btn-sm">
+                <i class="fa fa-plus mr-1"></i>
+                Add section
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -130,13 +154,14 @@
     },
 
     props: {
-      //
+      data: {
+        type: Object,
+        default: () => {}
+      }
     },
 
     data () {
       return {
-        localPath: 'uploads/',
-        livePath: 'jnplaw/public/uploads/',
         loading: false,
         loadingFullScreen: true,
         headerImage: false,
@@ -156,22 +181,22 @@
     created () {
       this.loading = true
 
-      axios
-        .get('/admin/about-us-content')
-        .then(r => {
-          this.settings = r.data.settings || this.settings
-          this.sections = r.data.sections
+      this.settings = cloneDeep(this.data.about.settings)
+      this.sections = cloneDeep(this.data.about.sections)
+    },
 
-          this.loading = false
-        })
+    computed: {
+      formAction() {
+        return '/admin/about-us-update-content'
+      }
     },
 
     methods: {
-      somethingChanged () {
+      somethingChanged() {
         this.hasChanges = true
       },
 
-      addSection (section) {
+      addSection(section) {
         this.hasChanges = true
 
         this.sections.push(section)
@@ -202,19 +227,23 @@
 
       getHeaderImage() {
         if (!this.headerImage && this.settings.image_url && this.settings.image_url !== '') {
-          return this.livePath + this.settings.image_url
+          return this.settings.image_url
         }
 
         this.loading = false
         return this.headerImage
       },
 
-      onChangeSections (value) {
+      onChangeSections(value) {
         this.hasChanges = true
         this.sections = value
       },
 
-      save () {
+      save() {
+        this.$refs.aboutPageForm.submit()
+      },
+
+      oldSave() {
         this.loading = true
 
         axios
@@ -235,6 +264,10 @@
               text: 'Your changes have been saved.'
             })
           })
+      },
+
+      csrf() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
       }
     }
   }
