@@ -1,0 +1,17 @@
+{
+    "/js/bootstrap.js": "/js/bootstrap.js",
+    "/js/page-text-floats.js": "/js/page-text-floats.js",
+    "/js/react-app.js": "/js/react-app.js",
+    "/js/vue-admin-app.js": "/js/vue-admin-app.js",
+    "/js/vue-app.js": "/js/vue-app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/floating-animations.css": "/css/floating-animations.css",
+    "/css/bootstrap.css": "/css/bootstrap.css",
+    "/css/about.css": "/css/about.css",
+    "/css/videos-page.css": "/css/videos-page.css",
+    "/css/general.css": "/css/general.css",
+    "/css/landing-page.css": "/css/landing-page.css",
+    "/css/admin-general.css": "/css/admin-general.css",
+    "/css/sidebar.css": "/css/sidebar.css",
+    "/css/navbar.css": "/css/navbar.css"
+}
