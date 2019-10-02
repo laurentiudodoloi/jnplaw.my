@@ -185,7 +185,9 @@
     created () {
       this.loading = true
 
-      this.settings = cloneDeep(this.data.about.settings)
+      if (this.data.about.settings) {
+          this.settings = cloneDeep(this.data.about.settings)
+      }
       this.sections = cloneDeep(this.data.about.sections)
     },
 
@@ -240,7 +242,7 @@
 
       onChangeSections(value) {
         this.hasChanges = true
-        this.sections = value
+        this.sections = cloneDeep(value)
       },
 
       save() {

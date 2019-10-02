@@ -94,14 +94,6 @@
       }
     },
 
-    mounted() {
-      //
-    },
-
-    created() {
-      //
-    },
-
     methods: {
       onCheckedChange(el) {
         this.$emit('checked', el.target.checked)

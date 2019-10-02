@@ -60,7 +60,7 @@
         </div>
 
         <div class="text-right">
-          <button class="btn btn-sm btn-outline-danger" @click.prevent="remove(index)">
+          <button class="btn btn-sm btn-outline-danger" @click.prevent="remove(boxIndex)">
             Delete
           </button>
         </div>

@@ -31,12 +31,16 @@
       </div>
     </div>
 
-    <img v-if="isChecked(IMAGE_RESOURCE) && resource.id" :src="resource.resource_url" class="img-fluid">
+    <img
+      v-if="isChecked(IMAGE_RESOURCE) && displayResource"
+      :src="displayResource"
+      class="img-fluid mt-1 mb-1"
+    >
 
-    <video v-if="isChecked(VIDEO_RESOURCE) && resource.id" width="100%" height="100%" controls
+    <video hidden v-if="isChecked(VIDEO_RESOURCE) && displayResource" width="100%" height="100%" controls
            style="background: #007bff; padding: 2px;"
     >
-      <source v-if="isChecked(VIDEO_RESOURCE) && resource" :src="resource.resource_url" type="video/mp4">
+      <source :src="displayResource" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
@@ -65,6 +69,8 @@
 
     data () {
       return {
+        image: false,
+        video: false,
         resource: {
           IMAGE_RESOURCE: 'image',
           VIDEO_RESOURCE: 'video',
@@ -79,6 +85,12 @@
       this.VIDEO_RESOURCE = 'video'
     },
 
+    computed: {
+      displayResource () {
+        return this.image ? this.image : this.resource.resource_url
+      }
+    },
+
     methods: {
       onImageChange (e) {
         let files = e.target.files || e.dataTransfer.files
@@ -86,6 +98,20 @@
           return;
 
         this.resource.resource_url = files[0].name
+        this.image = false
+        this.createImage(files[0])
+      },
+
+      createImage(file) {
+          let reader = new FileReader()
+
+          let vm = this
+          vm.image = false
+          reader.onload = (e) => {
+              vm.image = e.target.result
+          };
+
+          reader.readAsDataURL(file)
       },
 
       isChecked (type) {

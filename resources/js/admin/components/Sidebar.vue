@@ -93,7 +93,7 @@
 
     methods: {
       logoUrl () {
-        return window.location.origin + '/images/company_logo.png'
+        return window.location.origin + '/images/company_logo_black.png'
       },
 
       currentRoute () {

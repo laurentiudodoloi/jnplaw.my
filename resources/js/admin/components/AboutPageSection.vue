@@ -126,7 +126,7 @@
                  style="max-width: 120px; max-height: 120px; padding: 12px 16px;"
             >
 
-            <button class="btn btn-sm btn-outline-danger" @click.prevent="removeSliderImage(imageIndex)">
+            <button v-if="section.id" class="btn btn-sm btn-outline-danger" @click.prevent="removeSliderImage(imageIndex)">
               Delete
             </button>
           </div>
@@ -230,7 +230,7 @@
         this.onChange()
       },
 
-      onChangeHasSlider(el) {
+      onChangeHasSlider (el) {
         this.section.has_image_slider = el.target.checked
 
         if (!this.section.has_image_slider) {
@@ -252,14 +252,24 @@
       },
 
       removeSliderImage(imageIndex) {
+        const image = this.sliders[imageIndex]
+        console.log('Image', image, this.section)
         this.sliders.splice(imageIndex, 1)
 
         this.section.images = this.sliders
 
+        if (this.section.id) {
+            axios
+                .post('/admin/remove-image-slider', {
+                    section_id: this.section.id,
+                    image_url: image
+                })
+        }
+
         this.onChange()
       },
 
-      onSectionImageChange(e) {
+      onSectionImageChange (e) {
         let files = e.target.files || e.dataTransfer.files
         if (!files.length)
           return;
@@ -281,7 +291,10 @@
         reader.readAsDataURL(file)
       },
 
-      onChangeSliderInput(e) {
+      onChangeSliderInput (e) {
+        this.sliders = []
+        this.section.images = this.sliders
+
         let files = e.target.files || e.dataTransfer.files
         if (!files.length)
           return;

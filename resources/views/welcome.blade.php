@@ -10,7 +10,7 @@
 @section('content')
 
     <div class="open-page">
-        <div id="gallery-target"></div>
+        <div id="gallery-target" data-feed="{{ json_encode($projects) }}"></div>
 
         <div class="video-sliders" style="display: none;">
             @foreach($projects as $project)
@@ -18,15 +18,7 @@
             @endforeach
         </div>
 
-        <ul class="onepage-dots slider-vertical-numbers">
-            <li class="active"></li>
-            <li class=""></li>
-            <li class=""></li>
-            <li class=""></li>
-            <li class=""></li>
-        </ul>
-
-        <div class="landing-page section-wrapper">
+        <div class="landing-page section-wrapper" hidden>
             <div class="header-wrap">
                 <div class="brand" style="color: #ffffff;">
                     <a class="text-decoration-none text-white" href="{{ route('welcome') }}">
@@ -93,4 +85,12 @@
 
 @section('scripts')
     <script src="{{ asset('js/react-app.js') }}"></script>
+
+    <script>
+        window.addEventListener('wheel', onWheel)
+
+        function onWheel (evt) {
+            console.log('WHEEL')
+        }
+    </script>
 @endsection

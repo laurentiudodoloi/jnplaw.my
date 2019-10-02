@@ -30,6 +30,7 @@ Route::get('/admin/landing-page', 'AdminController@index')->name('landing-page')
 Route::get('/admin/about-us', 'AdminController@about')->name('about');
 Route::get('/admin/about-us-content', 'AdminController@aboutContent')->name('about-content');
 Route::post('/admin/about-us-update-content', 'AdminController@updateAboutContent')->name('about-update-content');
+Route::post('/admin/remove-image-slider', 'AdminController@removeImageSliderImage')->name('remove-image-slider');
 
 Route::get('/admin/projects', 'ProjectController@index')->name('projects.index');
 Route::get('/admin/project/{id}', 'ProjectController@get')->name('projects.get');

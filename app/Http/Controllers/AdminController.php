@@ -94,6 +94,16 @@ class AdminController extends Controller
             'show_add_comment_form' => isset($header['show_add_comment_form']),
         ]);
 
+        $sectionIds = collect($sections)->map(function ($el) {
+          if (isset($el['id'])) {
+            return $el['id'];
+          }
+        })->toArray();
+
+        AboutUsSection::query()
+          ->whereNotIn('id', $sectionIds)
+          ->delete();
+
         if ($setting && isset($sections)) {
             $files = $request->file('sections');
 
@@ -140,7 +150,11 @@ class AdminController extends Controller
                     continue;
                 }
 
-                AboutUsSubSection::query()->delete();
+                if ($id) {
+                  AboutUsSubSection::query()
+                    ->where('section_id', $id)
+                    ->delete();
+                }
 
                 if ($hasSubsections && isset($section['subsections'])) {
                     foreach ($section['subsections'] as $subsection) {
@@ -152,7 +166,11 @@ class AdminController extends Controller
                     }
                 }
 
-                AboutUsSectionTextBox::query()->delete();
+              if ($id) {
+                AboutUsSectionTextBox::query()
+                  ->where('section_id', $id)
+                  ->delete();
+              }
 
                 if ($hasTextBoxes && isset($section['boxes'])) {
                     foreach ($section['boxes'] as $textBox) {
@@ -177,7 +195,11 @@ class AdminController extends Controller
                         : false;
 
                     if ($sliderImages) {
-                        AboutUsSectionImage::query()->delete();
+                      if ($id) {
+                        AboutUsSectionImage::query()
+                          ->where('section_id', $id)
+                          ->delete();
+                      }
 
                         foreach ($sliderImages as $resource) {
                             $upload = $this->uploadResource($resource);
@@ -239,6 +261,14 @@ class AdminController extends Controller
         ];
     }
 
+    public function removeImageSliderImage(Request $request)
+    {
+        AboutUsSectionImage::query()
+          ->where('section_id', $request->input('section_id'))
+          ->where('image_url', $request->input('image_url'))
+          ->delete();
+    }
+
     public function uploadImage($uploadImage, $name)
     {
         $image = $uploadImage;
@@ -254,3 +284,16 @@ class AdminController extends Controller
         Storage::disk('uploads')->put($imageName, base64_decode($image));
     }
 }
+
+/**
+ *
+ * A Leading Maritime & Commercial Law Firm
+ * Niche Firm, Big Difference
+ * We are specialists in all aspects of shipping law and are a trusted shipping legal firm used by companies not just in Malaysia but internationally. We provide clear, comprehensive advice on all aspects of shipping law.
+ *
+ *
+ * About Us
+ * We deliver solutions to business in fragile settings
+ * As an organization that is nationally renowned for our rich experience and success in cases involving maritime and Malaysian admiralty law, we have ensured over the years that our clients got comprehensive and top-notch legal service covering all aspects of the maritime industry.
+ *
+ */
