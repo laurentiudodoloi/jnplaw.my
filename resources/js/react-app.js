@@ -8,7 +8,9 @@ class App extends Component {
         super(props);
 
         const root = document.getElementById('gallery-target')
-        this.slides = JSON.parse(root.dataset.feed)
+        const feed = JSON.parse(root.dataset.feed)
+        this.slides = feed.projects
+        this.logo = feed.company_logo
     }
 
 
@@ -18,6 +20,7 @@ class App extends Component {
                 style={ { width: '100vw', height: '100vh' } }
                 slides={[]}
                 projects={this.slides}
+                logo={this.logo}
             />
         )
     }

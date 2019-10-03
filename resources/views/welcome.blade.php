@@ -10,7 +10,8 @@
 @section('content')
 
     <div class="open-page">
-        <div id="gallery-target" data-feed="{{ json_encode($projects) }}"></div>
+        <div id="gallery-target"
+             data-feed="{{ json_encode(['projects' => $projects, 'company_logo' => asset("images/company_logo.png")]) }}"></div>
 
         <div class="video-sliders" style="display: none;">
             @foreach($projects as $project)

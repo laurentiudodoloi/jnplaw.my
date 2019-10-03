@@ -155,6 +155,7 @@ class ScrollableGallery extends Component {
                     <div className="header-wrap">
                         <div className="brand" style={{color: '#ffffff'}}>
                             <a className="text-decoration-none text-white" href="/">
+                                <img src={this.props.logo} alt="Company logo" className="img-fluid"/>
                             </a>
                         </div>
 
@@ -203,22 +204,28 @@ class ScrollableGallery extends Component {
                                 </div>
                             ))}
 
-                            <div className="play-video norebro-video-module-sc video-module">
-                                <div className="btn-play">
-                                    <a href="#">
-                                        <i className="fa fa-play"></i>
-                                    </a>
-                                </div>
-                                <div className="content-center">
-                                    <div className="wrap">
-                                        <div className="play-content">
-                                            <a href="#">
-                                                Play video
-                                            </a>
+                            {this.props.projects.map((project, index) => (
+                                <div key={index} hidden={index !== this.currentSlide}>
+                                    <Fade>
+                                        <div className="play-video norebro-video-module-sc video-module">
+                                            <div className="btn-play">
+                                                <a href="#">
+                                                    <i className="fa fa-play"></i>
+                                                </a>
+                                            </div>
+                                            <div className="content-center">
+                                                <div className="wrap">
+                                                    <div className="play-content">
+                                                        <a href="#">
+                                                            Play video
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Fade>
                                 </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
 
