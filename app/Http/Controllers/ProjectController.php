@@ -33,6 +33,7 @@ class ProjectController extends Controller
 
         $request->validate([
             'title' => 'required|string',
+            'header_title' => 'required|string',
             'description' => 'required|string',
         ]);
 
@@ -44,6 +45,7 @@ class ProjectController extends Controller
         $resource = $request->file('resource');
 
         $title = $request->input('title');
+        $headerTitle = $request->input('header_title');
         $description = $request->input('description');
         $resourceUrl = $resource ? 'uploads/'.$resource->getClientOriginalName() : false;
 
@@ -75,6 +77,7 @@ class ProjectController extends Controller
                 'id' => $id,
             ], [
                 'title' => $title,
+                'header_title' => $headerTitle,
                 'description' => $description,
                 'resource_url' => $resourceUrl ? $resourceUrl : $entity->resource_url,
                 'resource_type' => $resourceType ? $resourceType : $entity->resource_type,

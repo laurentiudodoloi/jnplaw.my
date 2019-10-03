@@ -179,7 +179,7 @@ class ScrollableGallery extends Component {
                                 {this.props.projects.map((project, index) => (
                                     <div key={index} hidden={index !== this.currentSlide}>
                                         <Reveal>
-                                            <span className="tag text-capitalize">A Leading Maritime & Commercial Law Firm</span>
+                                            <span className="tag text-capitalize">{project.header_title}</span>
                                         </Reveal>
                                     </div>
                                 ))}

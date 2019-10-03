@@ -43,6 +43,18 @@
             </div>
 
             <div class="form-group">
+              <label for="header-title" class=" font-weight-bold">Header title</label>
+              <input
+                v-model="entity.header_title"
+                type="text"
+                name="header_title"
+                class="form-control form-control-sm"
+                id="header-title"
+                placeholder="Enter header title"
+              >
+            </div>
+
+            <div class="form-group">
               <label for="description" class="font-weight-bold">Description</label>
               <textarea v-model="entity.description" rows="6" name="description" class="form-control form-control-sm"
                         id="description" placeholder="Enter description"
@@ -94,6 +106,7 @@
         rows: [],
         entity: {
           title: '',
+          header_title: '',
           description: '',
           resource_type: false,
           resource_url: false
@@ -125,6 +138,7 @@
       resetEntity () {
         this.entity = {
           title: '',
+          header_title: '',
           description: '',
           resource_type: false,
           resource_url: ''
@@ -134,6 +148,7 @@
       headers () {
         return [
           'Project title',
+          'Header title',
           'Description',
           'Media'
         ]
