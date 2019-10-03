@@ -100,6 +100,8 @@
         this.resource.resource_url = files[0].name
         this.image = false
         this.createImage(files[0])
+
+        this.emitInput()
       },
 
       createImage(file) {

@@ -15,7 +15,7 @@
         <td>{{ shortText(row.title) }}</td>
         <td>{{ shortText(row.header_title) }}</td>
         <td>{{ shortText(row.description) }}</td>
-        <td>{{ shortText(row.media) }}</td>
+        <td>{{ shortText(row.resource_url) }}</td>
 
         <td class="text-center">
           <a href="#" @click.prevent="edit(index)">
@@ -52,7 +52,7 @@
           return ''
         }
 
-        if (text.length > 20) {
+        if (text.length > 16) {
           return text + '..'
         }
 

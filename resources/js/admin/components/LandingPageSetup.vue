@@ -289,7 +289,7 @@
       },
 
       onResourceChange (resource) {
-        //
+        this.entity.resource_url = resource.resource_url
       }
     }
   }
