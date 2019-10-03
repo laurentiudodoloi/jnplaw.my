@@ -13,6 +13,7 @@
       <tr v-for="(row, index) in rows">
         <th scope="row" class="text-center">{{ index + 1 }}</th>
         <td>{{ shortText(row.title) }}</td>
+        <td>{{ shortText(row.header_title) }}</td>
         <td>{{ shortText(row.description) }}</td>
         <td>{{ shortText(row.media) }}</td>
 
@@ -43,20 +44,6 @@
         type: Array,
         required: true
       }
-    },
-
-    data () {
-      return {
-        //
-      }
-    },
-
-    mounted() {
-      //
-    },
-
-    created() {
-      //
     },
 
     methods: {
