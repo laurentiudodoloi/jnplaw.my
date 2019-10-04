@@ -155,7 +155,7 @@ class ScrollableGallery extends Component {
                     <div className="header-wrap">
                         <div className="brand" style={{color: '#ffffff'}}>
                             <a className="text-decoration-none text-white" href="/">
-                                <img src={this.props.logo} alt="Company logo" className="img-fluid"/>
+                                <img id={'logo-image'} src={this.props.logo} alt="Company logo" className="img-fluid"/>
                             </a>
                         </div>
 

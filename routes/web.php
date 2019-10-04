@@ -37,3 +37,6 @@ Route::get('/admin/project/{id}', 'ProjectController@get')->name('projects.get')
 Route::post('/admin/project/store', 'ProjectController@store')->name('projects.create');
 Route::post('/admin/project/store/{id}', 'ProjectController@store')->name('projects.store');
 Route::post('/admin/project/destroy/{id}', 'ProjectController@destroy')->name('projects.destroy');
+
+Route::get('/admin/manage/{element}', 'LayoutSizeController@index')->name('layout.index');
+Route::post('/admin/manage/{element}/store', 'LayoutSizeController@store')->name('layout.index');
