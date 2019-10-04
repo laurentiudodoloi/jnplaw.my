@@ -17,6 +17,7 @@ mix
     .js('resources/js/vue-admin-app.js', 'public/js')
     .js('resources/js/bootstrap.js', 'public/js')
     .js('resources/js/page-text-floats.js', 'public/js')
+    .js('resources/js/logo-size.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/floating-animations.scss', 'public/css')
     .sass('resources/sass/bootstrap.scss', 'public/css')

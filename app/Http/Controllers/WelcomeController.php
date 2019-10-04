@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Eloquent\Project;
+use App\LayoutSize;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -16,6 +17,10 @@ class WelcomeController extends Controller
 
         $projects = Project::all();
 
-        return view('welcome', compact('projects', 'path'));
+        $logoLayouts = LayoutSize::query()
+            ->where('element', 'logo')
+            ->get();
+
+        return view('welcome', compact('projects', 'path', 'logoLayouts'));
     }
 }

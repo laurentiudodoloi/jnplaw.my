@@ -9,7 +9,6 @@
     </thead>
 
     <tbody>
-
       <tr v-for="(row, index) in rows">
         <th scope="row" class="text-center">{{ index + 1 }}</th>
         <td>{{ shortText(row.title) }}</td>

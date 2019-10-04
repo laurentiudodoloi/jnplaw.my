@@ -26,10 +26,8 @@
     <script src="{{ asset('js/react-app.js') }}"></script>
 
     <script>
-        window.addEventListener('wheel', onWheel)
-
-        function onWheel (evt) {
-            console.log('WHEEL')
-        }
+        var logoLayouts = {!! $logoLayouts !!};
     </script>
+
+    <script src="{{ asset('js/logo-size.js')  }}"></script>
 @endsection

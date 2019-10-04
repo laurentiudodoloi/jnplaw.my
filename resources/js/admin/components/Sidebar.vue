@@ -9,7 +9,7 @@
       <div class="accordion" id="pagesAccordion">
         <div class="card">
           <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
-               aria-expanded="true" aria-controls="collapseOne"
+               aria-expanded="false" aria-controls="collapseOne"
           >
             <div class="heading-text">
               <i class="fa fa-window-maximize"></i>
@@ -20,10 +20,10 @@
             </div>
           </div>
 
-          <div id="collapseOne" class="collapse show accordion-list" aria-labelledby="headingOne"
+          <div id="collapseOne" class="collapse accordion-list" aria-labelledby="headingOne"
                data-parent="#pagesAccordion"
           >
-            <div class=" text content">
+            <div class="text content">
               <ul class="list-unstyled">
                 <li :class="{ active: currentRoute() === '/landing-page-setup' }">
                   <router-link to="/landing-page-setup">Landing page</router-link>
@@ -51,6 +51,32 @@
 
                 <li :class="{ active: currentRoute() === '/contact-us-setup' }">
                   <router-link to="/contact-us-setup">Contact us</router-link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="false" aria-controls="collapseOne"
+          >
+            <div class="heading-text">
+              <i class="fa fa-window-maximize"></i>
+              Manage
+            </div>
+            <div class="icon">
+              <i class="fa fa-chevron-down"></i>
+            </div>
+          </div>
+
+          <div id="collapseTwo" class="collapse accordion-list" aria-labelledby="headingTwo"
+               data-parent="#pagesAccordion"
+          >
+            <div class="text content">
+              <ul class="list-unstyled">
+                <li :class="{ active: currentRoute() === '/manage/logo' }">
+                  <router-link to="/manage/logo">Logo</router-link>
                 </li>
               </ul>
             </div>
