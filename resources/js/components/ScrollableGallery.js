@@ -19,6 +19,8 @@ import Gallery from './Gallery'
 
 const noop = () => undefined
 
+import { throttle } from 'lodash';
+
 class ScrollableGallery extends Component {
     state = {
         canScroll: true,
@@ -75,8 +77,7 @@ class ScrollableGallery extends Component {
 
         this.addWheelEvent()
 
-        // window.addEventListener('scroll', this._onWheel)
-        window.addEventListener('touchmove', this._onWheel)
+        // window.addEventListener('touchmove', this._onWheel)
 
         this._reset(this.props)
 
@@ -86,23 +87,24 @@ class ScrollableGallery extends Component {
     }
 
     setScrollAvailable () {
+        return true
+
         this.setState({
             canScroll: true
         })
     }
 
     addWheelEvent () {
-        window.addEventListener('wheel', this._onWheel)
+        window.addEventListener('wheel', throttle(this._onWheel, 100));
     }
 
     removeWheelEvent () {
-        window.removeEventListener('wheel', this._onWheel)
+        window.addEventListener('wheel', throttle(this._onWheel, 2000));
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this._onResize)
         this.removeWheelEvent()
-        window.removeEventListener('touchmove', this._onWheel)
 
         if (this._tickRaf) {
             raf.cancel(this._tickRaf)
@@ -135,7 +137,6 @@ class ScrollableGallery extends Component {
                 >
                     <canvas
                         ref={this._canvasRef}
-                        onWheel={this._onWheel}
                         style={{
                             width: '100%',
                             height: '100%'
@@ -149,7 +150,6 @@ class ScrollableGallery extends Component {
                             className={this.currentSlide === i ? 'active' : ''}></li>
                     ))}
                 </ul>
-
 
                 <div className="landing-page section-wrapper">
                     <div className="header-wrap">
@@ -243,7 +243,7 @@ class ScrollableGallery extends Component {
         this._canvas = ref
     }
 
-    processCurrentSlide () {
+    processCurrentSlide (event) {
         if (event.deltaY > 0) {
             this.currentSlide++
         } else {
@@ -255,6 +255,8 @@ class ScrollableGallery extends Component {
         }
 
         this.currentSlide = this.currentSlide % this.sliders.length
+
+        console.log('CURRENT', this.currentSlide);
 
         let animatedText = document.querySelector('.title')
 
@@ -287,18 +289,21 @@ class ScrollableGallery extends Component {
     }
 
     _onWheel = (event) => {
-        if (this.state.canScroll) {
+        if (event) {
             this._gallery.onScroll(event)
-
-            this.processCurrentSlide()
-
-            // setInterval(() => {
-            // },1000);
-
-            this.setState({
-                canScroll: false
-            })
+            this.processCurrentSlide(event)
         }
+
+        // if (this.state.canScroll) {
+        //
+        //
+        //     // setInterval(() => {
+        //     // },1000);
+        //
+        //     // this.setState({
+        //     //     canScroll: false
+        //     // })
+        // }
     }
 
     _onSwiped = (event, deltaX, deltaY, isFlick) => {

@@ -38,7 +38,7 @@ export default class Gallery {
 
         this._renderer = new THREE.WebGLRenderer({ canvas })
 
-        this._camera = new THREE.PerspectiveCamera(70, width / height, 0.001, 100)
+        this._camera = new THREE.PerspectiveCamera(50, width / height, 0.005, 50)
         this._camera.position.set(0, 0, 1)
 
         this._material = new THREE.ShaderMaterial({
@@ -154,6 +154,10 @@ export default class Gallery {
     }
 
     onScroll = (event) => {
+        if (!event) {
+            return false
+        }
+
         let deltaY = event.deltaY
 
         if (deltaY < 0) {
@@ -196,9 +200,10 @@ export default class Gallery {
 
         const relativePosition = Math.floor(this._position)
         if (relativePosition >= this._position) {
-            this.callbacks['finish-scroll-animation']()
+            this.callbacks['finish-scroll-animation']({
+                slideNumber: this.currentSlideIndex
+            })
         }
-
     }
 
     on (event, callback) {

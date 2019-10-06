@@ -40,7 +40,6 @@ function checkLayouts(layouts) {
             matched = true
 
             if (logoImage) {
-                console.log('Match', sizeMatching[layout.fixed_width]);
                 logoImage.style.width = layout.width + layout.unit
                 logoImage.style.height = layout.height + layout.unit;
             }
