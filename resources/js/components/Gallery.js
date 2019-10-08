@@ -6,12 +6,6 @@ import vertexShader from './graphics/vertex'
 
 export default class Gallery {
     constructor(opts) {
-        this.events = [
-            'finish-scroll-animation'
-        ]
-
-        this.callbacks = {}
-
         const {
             canvas,
             slides,
@@ -200,9 +194,7 @@ export default class Gallery {
 
         const relativePosition = Math.floor(this._position)
         if (relativePosition >= this._position) {
-            this.callbacks['finish-scroll-animation']({
-                slideNumber: this.currentSlideIndex
-            })
+            //
         }
     }
 

@@ -37,8 +37,6 @@ class ScrollableGallery extends Component {
         domSliders.forEach(s => {
             this.sliders.push(s.textContent);
         })
-
-        this.setScrollAvailable = this.setScrollAvailable.bind(this)
     }
 
     static propTypes = {
@@ -63,11 +61,6 @@ class ScrollableGallery extends Component {
         this._onResize()
     }
 
-    animeElement() {
-        const props = useSpring({opacity: 1, from: {opacity: 0}})
-        return <animated.div style={props}>I will fade in</animated.div>
-    }
-
     componentDidMount() {
         document.querySelector('body').style.overflow = 'hidden';
 
@@ -81,17 +74,7 @@ class ScrollableGallery extends Component {
 
         this._reset(this.props)
 
-        this._gallery.on('finish-scroll-animation', this.setScrollAvailable)
-
         this._tick()
-    }
-
-    setScrollAvailable () {
-        return true
-
-        this.setState({
-            canScroll: true
-        })
     }
 
     addWheelEvent () {
