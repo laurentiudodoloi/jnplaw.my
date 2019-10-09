@@ -336,10 +336,15 @@
         </footer>
 
     </div>
-
 @endsection
 
 @section('scripts')
+    <script>
+        var logoLayouts = {!! $logoLayouts !!};
+    </script>
+
+    <script src="{{ asset('js/logo-size.js')  }}"></script>
+
     <script src="{{ asset('js/page-text-floats.js') }}"></script>
     <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
 
@@ -398,10 +403,4 @@
 
         }
     </script>
-
-    <script>
-        var logoLayouts = {!! $logoLayouts !!};
-    </script>
-
-    <script src="{{ asset('js/logo-size.js')  }}"></script>
 @endsection

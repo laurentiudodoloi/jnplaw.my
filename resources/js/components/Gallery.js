@@ -5,6 +5,11 @@ import fragmentShader from './graphics/fragment'
 import vertexShader from './graphics/vertex'
 
 export default class Gallery {
+    state = {
+        currentSlide: 0,
+        lastScroll: 0
+    }
+
     constructor(opts) {
         const {
             canvas,
@@ -196,6 +201,8 @@ export default class Gallery {
         if (relativePosition >= this._position) {
             //
         }
+
+        return currentSlide
     }
 
     on (event, callback) {

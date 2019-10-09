@@ -1,25 +1,28 @@
 var logoImage = null;
-var sizeMatching = {}
+var sizeMatching = {
+    gt_1200: 1200,
+    gt_992: 992,
+    gt_768: 768,
+    gt_576: 576,
+    lt_576: 576
+};
 
 window.onresize = function (event) {
+    console.log('On-resize.');
     if (logoLayouts) {
         checkLayouts(logoLayouts);
     }
 };
 
 window.onload = function (evt) {
-    sizeMatching = {
-        gt_1200: 1200,
-        gt_992: 992,
-        gt_768: 768,
-        gt_576: 576,
-        lt_576: 576
-    }
-
-    logoImage = document.querySelector('#logo-image');
-
-    checkLayouts(logoLayouts);
+    // logoImage = document.querySelector('#logo-image');
+    //
+    // checkLayouts(logoLayouts);
 }
+
+logoImage = document.querySelector('#logo-image');
+
+checkLayouts(logoLayouts);
 
 function checkLayouts(layouts) {
     var matched = false;

@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 
 import ScrollableGallery from './components/ScrollableGallery'
 
-class App extends Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -12,7 +12,6 @@ class App extends Component {
         this.slides = feed.projects
         this.logo = feed.company_logo
     }
-
 
     render() {
         return (

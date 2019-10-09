@@ -1,15 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import Fade from 'react-reveal/Fade';
-import Flash from 'react-reveal/Flash';
-import Animation from 'react-reveal/Animation';
-import Jump from 'react-reveal/Jump';
 import Reveal from 'react-reveal/Reveal';
-import Slide from 'react-reveal/Slide';
-import Step from 'react-reveal/Step';
-import Swing from 'react-reveal/Swing';
-import Wobble from 'react-reveal/Wobble';
 
 import raf from 'raf'
 import sizeMe from 'react-sizeme'
@@ -21,22 +14,16 @@ const noop = () => undefined
 
 import { throttle } from 'lodash';
 
-class ScrollableGallery extends Component {
+class ScrollableGallery extends React.Component {
     state = {
-        canScroll: true,
+        currentSlide: 0,
         lastScroll: 0
     }
 
     constructor(props) {
         super(props);
 
-        this.currentSlide = 0
         this.sliders = [];
-
-        let domSliders = document.querySelectorAll('.video-slider');
-        domSliders.forEach(s => {
-            this.sliders.push(s.textContent);
-        })
     }
 
     static propTypes = {
@@ -52,7 +39,7 @@ class ScrollableGallery extends Component {
 
     static defaultProps = {
         onChange: noop,
-        style: { }
+        style: {}
     };
 
     _current = 0
@@ -62,6 +49,11 @@ class ScrollableGallery extends Component {
     }
 
     componentDidMount() {
+        let domSliders = document.querySelectorAll('.video-slider');
+        domSliders.forEach(s => {
+            this.sliders.push(s.textContent);
+        })
+
         document.querySelector('body').style.overflow = 'hidden';
 
         document.querySelector('canvas').style.overflow = 'hidden'
@@ -82,7 +74,7 @@ class ScrollableGallery extends Component {
     }
 
     removeWheelEvent () {
-        window.addEventListener('wheel', throttle(this._onWheel, 2000));
+        // window.addEventListener('wheel', throttle(this._onWheel, 2000));
     }
 
     componentWillUnmount() {
@@ -95,7 +87,7 @@ class ScrollableGallery extends Component {
         }
     }
 
-    render() {
+    render () {
         const {
             slides,
             startAt,
@@ -127,13 +119,6 @@ class ScrollableGallery extends Component {
                     />
                 </Swipeable>
 
-                <ul className="onepage-dots slider-vertical-numbers">
-                    {this.sliders.map((slide, i) => (
-                        <li key={i}
-                            className={this.currentSlide === i ? 'active' : ''}></li>
-                    ))}
-                </ul>
-
                 <div className="landing-page section-wrapper">
                     <div className="header-wrap">
                         <div className="brand" style={{color: '#ffffff'}}>
@@ -153,63 +138,56 @@ class ScrollableGallery extends Component {
                         </div>
                     </div>
 
+                    <ul className="onepage-dots slider-vertical-numbers">
+                        {this.sliders.map((slide, i) => (
+                            <li key={i}
+                                className={this.state.currentSlide === i ? 'active' : ''}></li>
+                        ))}
+                    </ul>
+
                     <div className="content-wrap">
+                        {this.props.projects.map((project, index) => (
+                            <div key={index} hidden={index !== this.state.currentSlide} className="content">
+                                <span className="date text-uppercase">march 20, 2017</span>
 
-                        <div className="content">
-                            <span className="date text-uppercase">march 20, 2017</span>
-
-                            <div className="mb-3">
-                                {this.props.projects.map((project, index) => (
-                                    <div key={index} hidden={index !== this.currentSlide}>
-                                        <Reveal>
-                                            <span className="tag text-capitalize">{project.header_title}</span>
-                                        </Reveal>
-                                    </div>
-                                ))}
-                            </div>
-                            {this.props.projects.map((project, index) => (
-                                <div key={index} hidden={index !== this.currentSlide}>
+                                <div className="mb-3">
                                     <Reveal>
-                                        <h2 className='title text-left anime-text'>
-                                            {project.title}
-                                        </h2>
+                                        <span className="tag text-capitalize">{project.header_title}</span>
                                     </Reveal>
                                 </div>
-                            ))}
 
-                            {this.props.projects.map((project, index) => (
-                                <div key={index} hidden={index !== this.currentSlide}>
-                                    <Fade>
-                                        <div className="info-list">
-                                            {project.description}
+                                <Reveal>
+                                    <h2 className='title text-left anime-text'>
+                                        {project.title}
+                                    </h2>
+                                </Reveal>
+
+                                <Fade>
+                                    <div className="info-list">
+                                        {project.description}
+                                    </div>
+                                </Fade>
+
+                                <Fade>
+                                    <div className="play-video norebro-video-module-sc video-module">
+                                        <div className="btn-play">
+                                            <a href="#">
+                                                <i className="fa fa-play"></i>
+                                            </a>
                                         </div>
-                                    </Fade>
-                                </div>
-                            ))}
-
-                            {this.props.projects.map((project, index) => (
-                                <div key={index} hidden={index !== this.currentSlide}>
-                                    <Fade>
-                                        <div className="play-video norebro-video-module-sc video-module">
-                                            <div className="btn-play">
-                                                <a href="#">
-                                                    <i className="fa fa-play"></i>
-                                                </a>
-                                            </div>
-                                            <div className="content-center">
-                                                <div className="wrap">
-                                                    <div className="play-content">
-                                                        <a href="#">
-                                                            Play video
-                                                        </a>
-                                                    </div>
+                                        <div className="content-center">
+                                            <div className="wrap">
+                                                <div className="play-content">
+                                                    <a href="#">
+                                                        Play video
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </Fade>
-                                </div>
-                            ))}
-                        </div>
+                                    </div>
+                                </Fade>
+                            </div>
+                        ))}
                     </div>
 
                     <div className="scroll">Scroll</div>
@@ -227,19 +205,19 @@ class ScrollableGallery extends Component {
     }
 
     processCurrentSlide (event) {
+        let currentSlide = this.state.currentSlide
+
         if (event.deltaY > 0) {
-            this.currentSlide++
+            currentSlide++
         } else {
-            this.currentSlide--
+            currentSlide--
         }
 
-        if (this.currentSlide < 0) {
-            this.currentSlide = this.sliders.length - 1
+        if (currentSlide < 0) {
+            currentSlide = this.sliders.length - 1
         }
 
-        this.currentSlide = this.currentSlide % this.sliders.length
-
-        console.log('CURRENT', this.currentSlide);
+        currentSlide = currentSlide % this.sliders.length
 
         let animatedText = document.querySelector('.title')
 
@@ -274,19 +252,11 @@ class ScrollableGallery extends Component {
     _onWheel = (event) => {
         if (event) {
             this._gallery.onScroll(event)
-            this.processCurrentSlide(event)
-        }
 
-        // if (this.state.canScroll) {
-        //
-        //
-        //     // setInterval(() => {
-        //     // },1000);
-        //
-        //     // this.setState({
-        //     //     canScroll: false
-        //     // })
-        // }
+            this.setState({
+                currentSlide: Math.round(this._gallery._position) % this.sliders.length
+            })
+        }
     }
 
     _onSwiped = (event, deltaX, deltaY, isFlick) => {
@@ -311,12 +281,13 @@ class ScrollableGallery extends Component {
         }
     }
 
-    _tick = () => {
+    _tick = async () => {
         const {
             onChange
         } = this.props
 
-        this._gallery.update()
+        let slideIndex = await this._gallery.update()
+
         this._gallery.render()
 
         if (this._current !== this._gallery.currentSlideIndex) {
