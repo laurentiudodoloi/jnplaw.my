@@ -515,21 +515,35 @@
       margin-bottom: 0;
     }
 
-    .open-page {
+    section.open-page {
       width: 100%;
+        height: 80vh;
+
+        img {
+            height: 80vh;
+        }
+
+        .section-wrapper {
+            height: 80vh;
+        }
     }
 
     .section {
       display: block;
 
       .item-left {
-        margin-bottom: 60px;
+        margin-bottom: 40px;
       }
 
       .item-right {
         display: none;
       }
     }
+
+      .section1 {
+          padding-top: 60px;
+          padding-bottom: 60px;
+      }
 
     .section4 {
       .owl-carousel {

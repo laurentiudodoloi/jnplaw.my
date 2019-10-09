@@ -14,11 +14,11 @@ window.onresize = function (event) {
     }
 };
 
-window.onload = function (evt) {
-    // logoImage = document.querySelector('#logo-image');
-    //
-    // checkLayouts(logoLayouts);
-}
+// window.onload = function (evt) {
+//     // logoImage = document.querySelector('#logo-image');
+//     //
+//     // checkLayouts(logoLayouts);
+// }
 
 logoImage = document.querySelector('#logo-image');
 

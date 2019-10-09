@@ -41,12 +41,12 @@
                 </div>
 
                 <div class="content-wrap">
-
                     <div class="content">
                         <div class="mb-3">
-                            <span class="tag">{{ isset($settings) ? $settings->subtitle : '' }}</span>
+                            <p class="tag">{{ isset($settings) ? $settings->subtitle : '' }}</p>
                         </div>
-                        <h2 class="title text-left floating-up-short">{{ isset($settings) ? $settings->title : '' }}</h2>
+                        <h2 class="title text-left floating-up-short">Build Innovative UX/UI & Motion Digital Projects for Startups
+                        </h2>
 
                         <div class="info-list floating-up-short-delayed">
                             {{ isset($settings) ? $settings->description : '' }}
