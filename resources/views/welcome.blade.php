@@ -33,11 +33,12 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/react-app.js') }}"></script>
-
     <script>
         var logoLayouts = {!! $logoLayouts !!};
     </script>
 
     <script src="{{ asset('js/logo-size.js')  }}"></script>
+
+    <script src="{{ asset('js/react-app.js') }}"></script>
+
 @endsection

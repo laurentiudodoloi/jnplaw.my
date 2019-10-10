@@ -8,21 +8,17 @@ var sizeMatching = {
 };
 
 window.onresize = function (event) {
-    console.log('On-resize.');
+    console.log('On-resize.', logoLayouts);
     if (logoLayouts) {
         checkLayouts(logoLayouts);
     }
 };
 
-// window.onload = function (evt) {
-//     // logoImage = document.querySelector('#logo-image');
-//     //
-//     // checkLayouts(logoLayouts);
-// }
+window.onload = function (evt) {
+    logoImages = document.querySelectorAll('.logo-image');
 
-logoImages = document.querySelectorAll('.logo-image');
-
-checkLayouts(logoLayouts);
+    checkLayouts(logoLayouts);
+}
 
 function checkLayouts(layouts) {
     var matched = false;
@@ -43,8 +39,11 @@ function checkLayouts(layouts) {
             matched = true
 
             if (logoImages) {
+                console.log(logoImages);
 
                 logoImages.forEach(function (logoImage) {
+                    console.log(layout.width + layout.unit,
+                    layout.height + layout.unit);
                     logoImage.style.width = layout.width + layout.unit
                     logoImage.style.height = layout.height + layout.unit;
                 });
@@ -55,6 +54,7 @@ function checkLayouts(layouts) {
     if (!matched) {
         if (logoImages) {
 
+            console.log('SET', logoImages);
             logoImages.forEach(function (logoImage) {
                 logoImage.style.width = '200px';
                 logoImage.style.height = '30px';
