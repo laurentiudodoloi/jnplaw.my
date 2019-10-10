@@ -63,42 +63,44 @@
             <div class="container">
                 @foreach($sections as $section)
                     <section class="section section1">
-                        <div class="item-left">
-                            <h3 class="title">{{ $section->title }}</h3>
-                            <span>{{ $section->subtitle }}</span>
-                        </div>
-
-                        <div class="item-middle">
-
-                            <div class="text text1 text-justify">
-                                {{ $section->description }}
+                        <div class="row">
+                            <div class="col-sm-3 item-left">
+                                <h3 class="title">{{ $section->title }}</h3>
+                                <span>{{ $section->subtitle }}</span>
                             </div>
 
-                            @if($section->has_subsections)
-                                <div class="accordion" id="subsectionsAccordion">
-                                    @foreach($section->subsections as $index => $subsection)
-                                        <div class="card">
-                                            <div class="card-header" id="{{ 'heading'.$index }}" data-toggle="collapse"
-                                                 data-target="{{ '#collapse'.$index }}" aria-expanded="false"
-                                                 aria-controls="collapseOne">
-                                                <div>{{ $subsection->title }}</div>
-                                                <div class="icon"></div>
-                                            </div>
+                            <div class="col-sm-6 item-middle">
 
-                                            <div id="{{ 'collapse'.$index }}" class="collapse"
-                                                 aria-labelledby="{{ 'heading'.$index }}"
-                                                 data-parent="#subsectionsAccordion">
-                                                <div class="card-body text">
-                                                    {{ $subsection->content }}
+                                <div class="text text1 text-justify">
+                                    {{ $section->description }}
+                                </div>
+
+                                @if($section->has_subsections)
+                                    <div class="accordion" id="subsectionsAccordion">
+                                        @foreach($section->subsections as $index => $subsection)
+                                            <div class="card">
+                                                <div class="card-header" id="{{ 'heading'.$index }}" data-toggle="collapse"
+                                                     data-target="{{ '#collapse'.$index }}" aria-expanded="false"
+                                                     aria-controls="collapseOne">
+                                                    <div>{{ $subsection->title }}</div>
+                                                    <div class="icon"></div>
+                                                </div>
+
+                                                <div id="{{ 'collapse'.$index }}" class="collapse"
+                                                     aria-labelledby="{{ 'heading'.$index }}"
+                                                     data-parent="#subsectionsAccordion">
+                                                    <div class="card-body text">
+                                                        {{ $subsection->content }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
 
-                        <div class="item-left item-right"></div>
+                            <div class="col-sm-3 item-left item-right"></div>
+                        </div>
                     </section>
 
                     @if($section->has_image && $section->image_url)
@@ -133,17 +135,19 @@
 
                     @if($section->has_text_boxes)
                         <section class="section section6">
-                            @foreach($section->textBoxes as $textBox)
-                                <div class="item-wrapper">
-                                    <div class="item">
-                                        <div class="number">{{ $textBox->header_text }}</div>
-                                        <div class="title">{{ $textBox->title }}</div>
-                                        <div class="description">
-                                            {{ $textBox->content }}
+                            <div class="row">
+                                @foreach($section->textBoxes as $textBox)
+                                    <div class="col-sm-4 item-wrapper">
+                                        <div class="item">
+                                            <div class="number">{{ $textBox->header_text }}</div>
+                                            <div class="title">{{ $textBox->title }}</div>
+                                            <div class="description">
+                                                {{ $textBox->content }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </section>
                     @endif
                 @endforeach
@@ -152,8 +156,8 @@
             @if(isset($settings) && $settings->show_add_comment_form)
                 <div class="post-navigation">
                     <div class="container">
-                        <div class="nav-container">
-                            <div class="nav-item-container">
+                        <div class="row nav-container">
+                            <div class="col-md-6 nav-item-container">
                                 <div class="navigation-wrap navigation-left">
                                     <a href="#">
                                         <span class="nav-icon">&leftarrow;</span>
@@ -165,7 +169,7 @@
                                 </div>
                             </div>
 
-                            <div class="nav-item-container">
+                            <div class="col-md-6 nav-item-container">
                                 <div class="navigation-wrap navigation-right text-right">
                                     <a href="#">
                                     <span class="nav-content">
@@ -182,32 +186,30 @@
 
                 <div class="comments">
                     <div class="container">
-                        <div class="container-fluid">
-                            <h3 class="title text-left">Post a Comment</h3>
-                            <div class="notes">
-                                Your email address will not be published.  Required fields are marked *
+                        <h3 class="title text-left">Post a Comment</h3>
+                        <div class="notes">
+                            Your email address will not be published.  Required fields are marked *
+                        </div>
+
+                        <form class="form">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" placeholder="Name*">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="email" class="form-control" placeholder="E-mail*">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" placeholder="Website">
+                                </div>
                             </div>
 
-                            <form class="form">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="form-control" placeholder="Name*">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="email" class="form-control" placeholder="E-mail*">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="form-control" placeholder="Website">
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <textarea rows="8" class="form-control" placeholder="Comment"></textarea>
+                            </div>
 
-                                <div class="form-group">
-                                    <textarea rows="8" class="form-control" placeholder="Comment"></textarea>
-                                </div>
-
-                                <input type="submit" class="btn btn-outline-dark btn-submit" value="Submit Comment">
-                            </form>
-                        </div>
+                            <input type="submit" class="btn btn-outline-dark btn-submit" value="Submit Comment">
+                        </form>
                     </div>
                 </div>
             @endif
@@ -217,108 +219,107 @@
         <footer class="footer">
             <div class="container">
                 <div class="widgets">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-3">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div>
+                                <div class="logo">
+                                    <a href="{{ route('welcome') }}">
+                                        <img src="{{ asset("images/company_logo.png") }}" class="img-fluid" alt="Company logo">
+                                    </a>
+                                </div>
+
+                                <form class="form">
+                                    <div class="form-group">
+                                        <input type="email" name="email" class="form-control" placeholder="Enter your email">
+                                    </div>
+
+                                    <input type="submit" name="subscribe" class="btn-subscribe btn-submit" value="Subscribe">
+                                </form>
+
+                                <div class="text">
+                                    Sign up for e-updates and be the first to hear about latest developments in Malaysian maritime law.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div>
+                                <div class="title">Contact Us</div>
+                                <div class="text text2">
+                                    <p>Phone:+603 6203 7877</p>
+                                    <p>Email:info@jnplaw.my</p>
+                                    <p>Address:Suite J-7-2 <br>
+                                               Solaris Mont Kiara <br>
+                                               Jalan Solaris <br>
+                                               50480 Kuala Lumpur <br>
+                                               Malaysia
+                                    </p>
+                                </div>
+
+                                <div class="share">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div>
+                                <div class="title">About J&P</div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">About Us</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">What We Do</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">Our People</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">Our Knowledge</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">News</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">Events</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">Contact Us</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div>
                                 <div>
-                                    <div class="logo">
-                                        <a href="{{ route('welcome') }}">
-                                            <img src="{{ asset("images/company_logo.png") }}" class="img-fluid" alt="Company logo">
+                                    <div class="title">Community</div>
+                                    <div class="text text4">
+                                        <a href="#">
+                                            <i class="fa fa-facebook mr-1"></i>
+                                            Facebook
                                         </a>
                                     </div>
 
-                                    <form class="form">
-                                        <div class="form-group">
-                                            <input type="email" name="email" class="form-control" placeholder="Enter your email">
-                                        </div>
-
-                                        <input type="submit" name="subscribe" class="btn-subscribe btn-submit" value="Subscribe">
-                                    </form>
-
-                                    <div class="text">
-                                        Sign up for e-updates and be the first to hear about latest developments in Malaysian maritime law.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div>
-                                    <div class="title">Contact Us</div>
-                                    <div class="text text2">
-                                        <p>Phone:+603 6203 7877</p>
-                                        <p>Email:info@jnplaw.my</p>
-                                        <p>Address:Suite J-7-2 <br>
-                                                   Solaris Mont Kiara <br>
-                                                   Jalan Solaris <br>
-                                                   50480 Kuala Lumpur <br>
-                                                   Malaysia
-                                        </p>
+                                    <div class="text text4">
+                                        <a href="#">
+                                            <i class="fa fa-twitter mr-1"></i>
+                                            Twitter
+                                        </a>
                                     </div>
 
-                                    <div class="share">
+                                    <div class="text text4">
+                                        <a href="#">
+                                            <i class="fa fa-facebook mr-1"></i>
+                                            G-mail
+                                        </a>
+                                    </div>
 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div>
-                                    <div class="title">About J&P</div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">About Us</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">What We Do</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">Our People</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">Our Knowledge</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">News</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">Events</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">Contact Us</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div>
-                                    <div>
-                                        <div class="title">Community</div>
-                                        <div class="text text4">
-                                            <a href="#">
-                                                <i class="fa fa-facebook mr-1"></i>
-                                                Facebook
-                                            </a>
-                                        </div>
-
-                                        <div class="text text4">
-                                            <a href="#">
-                                                <i class="fa fa-twitter mr-1"></i>
-                                                Twitter
-                                            </a>
-                                        </div>
-
-                                        <div class="text text4">
-                                            <a href="#">
-                                                <i class="fa fa-facebook mr-1"></i>
-                                                G-mail
-                                            </a>
-                                        </div>
-
-                                        <div class="text text4">
-                                            <a href="#">
-                                                <i class="fa fa-instagram mr-1"></i>
-                                                Instagram
-                                            </a>
-                                        </div>
+                                    <div class="text text4">
+                                        <a href="#">
+                                            <i class="fa fa-instagram mr-1"></i>
+                                            Instagram
+                                        </a>
                                     </div>
                                 </div>
                             </div>

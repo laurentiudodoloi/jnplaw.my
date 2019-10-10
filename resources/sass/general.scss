@@ -150,12 +150,8 @@
 .section {
   padding-top: 80px;
   padding-bottom: 80px;
-  display: flex;
 
   .item-left {
-    flex: 1;
-    padding: 0 15px;
-
     .title {
       font-size: 34px;
       margin-bottom: 12px;
@@ -174,9 +170,6 @@
   }
 
   .item-middle {
-    flex: 2;
-    padding: 0 15px;
-
     .text {
       color: #494949;
       font-size: 14px;
@@ -188,13 +181,7 @@
 }
 
 .section6 {
-  display: flex;
-  flex-wrap: nowrap;
-
   .item-wrapper {
-    flex: 1;
-    padding: 0 15px;
-
     .item {
       background-color: #f9f9f9;
       padding: 30px;
