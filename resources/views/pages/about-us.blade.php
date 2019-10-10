@@ -25,7 +25,7 @@
                 <div class="header-wrap">
                     <div class="brand" style="color: #ffffff;">
                         <a class="text-decoration-none text-white" href="{{ route('welcome') }}">
-                            <img id="logo-image" src="{{ asset("images/company_logo.png") }}" alt="Company logo" class="img-fluid">
+                            <img src="{{ asset("images/company_logo.png") }}" alt="Company logo" class="logo-image">
                         </a>
                     </div>
 
@@ -42,14 +42,18 @@
 
                 <div class="content-wrap">
                     <div class="content">
-                        <div class="mb-3">
-                            <p class="tag">{{ isset($settings) ? $settings->subtitle : '' }}</p>
-                        </div>
-                        <h2 class="title text-left floating-up-short">Build Innovative UX/UI & Motion Digital Projects for Startups
-                        </h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <p class="tag">{{ isset($settings) ? $settings->subtitle : '' }}</p>
+                                </div>
+                                <h2 class="title text-left floating-up-short">Build Innovative UX/UI & Motion Digital Projects for Startups
+                                </h2>
 
-                        <div class="info-list floating-up-short-delayed">
-                            {{ isset($settings) ? $settings->description : '' }}
+                                <div class="info-list floating-up-short-delayed">
+                                    {{ isset($settings) ? $settings->description : '' }}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -225,7 +229,7 @@
                             <div>
                                 <div class="logo">
                                     <a href="{{ route('welcome') }}">
-                                        <img src="{{ asset("images/company_logo.png") }}" class="img-fluid" alt="Company logo">
+                                        <img src="{{ asset("images/company_logo.png") }}" class="logo-image" alt="Company logo">
                                     </a>
                                 </div>
 

@@ -1,4 +1,4 @@
-var logoImage = null;
+var logoImages = null;
 var sizeMatching = {
     gt_1200: 1200,
     gt_992: 992,
@@ -20,7 +20,7 @@ window.onresize = function (event) {
 //     // checkLayouts(logoLayouts);
 // }
 
-logoImage = document.querySelector('#logo-image');
+logoImages = document.querySelectorAll('.logo-image');
 
 checkLayouts(logoLayouts);
 
@@ -42,17 +42,23 @@ function checkLayouts(layouts) {
         if (mq.matches) {
             matched = true
 
-            if (logoImage) {
-                logoImage.style.width = layout.width + layout.unit
-                logoImage.style.height = layout.height + layout.unit;
+            if (logoImages) {
+
+                logoImages.forEach(function (logoImage) {
+                    logoImage.style.width = layout.width + layout.unit
+                    logoImage.style.height = layout.height + layout.unit;
+                });
             }
         }
     });
 
     if (!matched) {
-        if (logoImage) {
-            logoImage.style.width = '200px';
-            logoImage.style.height = '30px';
+        if (logoImages) {
+
+            logoImages.forEach(function (logoImage) {
+                logoImage.style.width = '200px';
+                logoImage.style.height = '30px';
+            });
         }
     }
 }
