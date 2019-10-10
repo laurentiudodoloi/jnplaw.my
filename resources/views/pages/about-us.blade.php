@@ -42,8 +42,6 @@
 
                 <div class="content-wrap">
                     <div class="content">
-                        <div class="row">
-                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <p class="tag">{{ isset($settings) ? $settings->subtitle : '' }}</p>
                                 </div>
@@ -53,8 +51,7 @@
                                 <div class="info-list floating-up-short-delayed">
                                     {{ isset($settings) ? $settings->description : '' }}
                                 </div>
-                            </div>
-                        </div>
+
                     </div>
 
                 </div>
@@ -129,7 +126,7 @@
                                     <div>
                                         <img src="{{ $image->image_url }}"
                                              class="img-fluid" alt=""
-                                             style="max-height: 320px;"
+                                             style="height: 285px;"
                                         >
                                     </div>
                                 @endforeach
@@ -164,7 +161,7 @@
                             <div class="col-md-6 nav-item-container">
                                 <div class="navigation-wrap navigation-left">
                                     <a href="#">
-                                        <span class="nav-icon">&leftarrow;</span>
+                                        <i class="nav-icon icon ion-md-arrow-round-back"></i>
                                         <span class="nav-content">
                                         <span class="nav-title">previous project</span>
                                         <span class="nav-subtitle">Righteous Besét</span>
@@ -176,11 +173,11 @@
                             <div class="col-md-6 nav-item-container">
                                 <div class="navigation-wrap navigation-right text-right">
                                     <a href="#">
-                                    <span class="nav-content">
-                                        <span class="nav-title">next project</span>
-                                        <span class="nav-subtitle">Crafted för Perfection</span>
-                                    </span>
-                                        <span class="nav-icon">&rightarrow;</span>
+                                        <span class="nav-content">
+                                            <span class="nav-title">next project</span>
+                                            <span class="nav-subtitle">Crafted för Perfection</span>
+                                        </span>
+                                        <i class="nav-icon icon ion-md-arrow-round-forward"></i>
                                     </a>
                                 </div>
                             </div>
@@ -359,7 +356,7 @@
                 loop:true,
                 margin:10,
                 nav:true,
-                navText : ['<span>&leftarrow;</span>','<span>&rightarrow;</span>'],
+                navText : ['<span><i class="icon ion-ios-arrow-round-back"></i></span>','<span><i class="icon ion-ios-arrow-round-forward"></i></span>'],
                 responsiveClass:true,
                 responsive:{
                     0:{

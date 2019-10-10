@@ -61,10 +61,17 @@
             cursor: pointer;
 
             .icon:before {
-              content: '+';
+              content: "\f273";
+              font-family: "Ionicons";
               font-size: 24px;
               line-height: 1;
-              font-weight: 400;
+              display: inline-block;
+              speak: none;
+              font-style: normal;
+              font-weight: normal;
+              font-variant: normal;
+              text-transform: none;
+              text-rendering: auto;
 
               &:hover:before {
                 color: #00f;
@@ -75,7 +82,7 @@
               color: #00f;
 
               &:before {
-                content: '-';
+                content: "\f368";
               }
             }
           }
@@ -256,6 +263,7 @@
 
       .nav-icon {
         color: #282828;
+        font-size: 21px;
       }
 
       .nav-content {
