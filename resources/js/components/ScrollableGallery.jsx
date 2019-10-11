@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { Player } from 'video-react'
+
 import Fade from 'react-reveal/Fade';
 import Reveal from 'react-reveal/Reveal';
 
@@ -17,13 +19,29 @@ import { throttle } from 'lodash';
 class ScrollableGallery extends React.Component {
     state = {
         currentSlide: 0,
-        lastScroll: 0
+        lastScroll: 0,
+        playVideo: false
     }
 
     constructor(props) {
         super(props);
 
         this.sliders = [];
+
+        this._onPressEscape = this._onPressEscape.bind(this);
+    }
+
+    _onPressEscape (event){
+        if(event.keyCode === 27) {
+            this.videoOff()
+        }
+    }
+
+    videoOff = () => {
+        this.setState({
+            ...this.state,
+            playVideo: false
+        })
     }
 
     static propTypes = {
@@ -64,9 +82,20 @@ class ScrollableGallery extends React.Component {
 
         window.addEventListener('touchmove', this._onWheel)
 
+        document.addEventListener("keydown", this._onPressEscape);
+
         this._reset(this.props)
 
         this._tick()
+    }
+
+    onClickPlay (evt, index) {
+        evt.preventDefault();
+
+        this.setState({
+            ...this.state,
+            playVideo: this.props.projects[index].resource_url
+        })
     }
 
     addWheelEvent () {
@@ -79,6 +108,7 @@ class ScrollableGallery extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this._onResize)
+        document.removeEventListener("keydown", this._onPressEscape);
         this.removeWheelEvent()
 
         if (this._tickRaf) {
@@ -98,6 +128,21 @@ class ScrollableGallery extends React.Component {
 
         return (
             <div>
+                {this.state.playVideo &&
+                    <div className={'slider-video-player'}>
+                        <a href={'#'} className={'close-btn'} onClick={this.videoOff}>x</a>
+
+                        <Player
+                            className={'canvas-video-player'}
+                            aspectRatio={'16:9'}
+                            isFullscreen
+                            src={this.state.playVideo}
+                            autoPlay={true}
+                            preload={'auto'}
+                        />
+                    </div>
+                }
+
                 <Swipeable
                     style={{
                         width: '100%',
@@ -171,7 +216,10 @@ class ScrollableGallery extends React.Component {
                                         </Fade>
 
                                         <Fade>
-                                            <div className="play-video norebro-video-module-sc video-module">
+                                            <div
+                                                className="play-video norebro-video-module-sc video-module"
+                                                onClick={(evt) => this.onClickPlay(evt, index)}
+                                            >
                                                 <div className="btn-play">
                                                     <a href="#">
                                                         <i className="fa fa-play"></i>
