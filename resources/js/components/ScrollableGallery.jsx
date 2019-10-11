@@ -52,7 +52,8 @@ class ScrollableGallery extends React.Component {
         size: PropTypes.shape({
             width: PropTypes.number,
             height: PropTypes.number
-        })
+        }),
+        onLoaded: PropTypes.func,
     }
 
     static defaultProps = {
@@ -83,6 +84,12 @@ class ScrollableGallery extends React.Component {
         window.addEventListener('touchmove', this._onWheel)
 
         document.addEventListener("keydown", this._onPressEscape);
+
+        if (typeof this.props.onChange === 'function') {
+            const { onLoaded } = this.props
+
+            onLoaded(5);
+        }
 
         this._reset(this.props)
 
