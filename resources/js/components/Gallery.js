@@ -104,8 +104,6 @@ export default class Gallery {
         this._plane.scale.x = width / height
 
         this._camera.updateProjectionMatrix()
-
-        this._textures.forEach(this._updateTextureOnResize)
     }
 
     _initTexture = (src) => {
@@ -119,8 +117,6 @@ export default class Gallery {
             const texture = new THREE.VideoTexture(video)
             texture.minFilter = THREE.LinearFilter
             texture.maxFilter = THREE.LinearFilter
-            video.addEventListener('load', () => this._updateTextureOnResize(texture))
-            video.addEventListener('loadedmetadata', () => this._updateTextureOnResize(texture))
 
             video.src = src
             video.load()
@@ -131,15 +127,9 @@ export default class Gallery {
 
             return texture
         } else {
-            const texture = this._textureLoader.load(src, this._updateTextureOnResize)
+            const texture = this._textureLoader.load(src)
             return texture
         }
-    }
-
-    _updateTextureOnResize = (texture) => {
-        // TODO: we want to mimic background-size: cover by default. another
-        // workaround is needed, sinced changing texture wrapS/wrapT and UV
-        // matrix only works with textures that are sized power of two
     }
 
     get currentSlideIndex() {
