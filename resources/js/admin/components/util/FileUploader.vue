@@ -123,11 +123,9 @@
         this.resource.resource_url = false
       },
 
-      resourceUrl () {
-        return ''
-      },
-
       emitInput () {
+        this.resource.resource_url = false
+
         this.$emit('input', this.resource)
       }
     }
