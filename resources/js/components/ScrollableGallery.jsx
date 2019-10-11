@@ -62,7 +62,7 @@ class ScrollableGallery extends React.Component {
 
         this.addWheelEvent()
 
-        // window.addEventListener('touchmove', this._onWheel)
+        window.addEventListener('touchmove', this._onWheel)
 
         this._reset(this.props)
 
@@ -74,7 +74,7 @@ class ScrollableGallery extends React.Component {
     }
 
     removeWheelEvent () {
-        // window.addEventListener('wheel', throttle(this._onWheel, 2000));
+        window.removeEventListener('wheel', throttle(this._onWheel, 100));
     }
 
     componentWillUnmount() {

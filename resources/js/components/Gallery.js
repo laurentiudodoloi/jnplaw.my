@@ -97,7 +97,7 @@ export default class Gallery {
         this._material.uniforms.uvRate1.value.y = height / width
 
         const dist = this._camera.position.z - this._plane.position.z
-        this._camera.fov = 2 * (180 / Math.PI) * Math.atan(1.0 / (2 * dist))
+        this._camera.fov = 2 * (180 / Math.PI) * Math.atan(1.0 / (2.2 * dist))
 
         // this._plane = new THREE.Mesh(this.widthBasedGeometry(width), this._material)
 
