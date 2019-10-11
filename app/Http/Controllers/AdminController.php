@@ -91,7 +91,7 @@ class AdminController extends Controller
             'subtitle' => isset($header['subtitle']) ? $header['subtitle'] : $settings->subtitle ?? '',
             'description' => isset($header['description']) ? $header['description'] : $settings->description ?? '',
             'image_url' => isset($header['image_url']) ? $header['image_url'] : $settings->image_url ?? '',
-            'show_add_comment_form' => isset($header['show_add_comment_form']),
+            'show_add_comment_form' => intval(isset($header['show_add_comment_form'])),
         ]);
 
         $sectionIds = collect($sections)->map(function ($el) {
@@ -139,10 +139,10 @@ class AdminController extends Controller
                     'subtitle' => isset($section['subtitle']) ? $section['subtitle'] : '',
                     'description' => isset($section['description']) ? $section['description'] : '',
                     'image_url' => isset($imageUrl) ? $imageUrl : $existingSection->image_url ?? '',
-                    'has_image' => $hasImage,
-                    'has_subsections' => $hasSubsections,
-                    'has_image_slider' => $hasImageSlider,
-                    'has_text_boxes' => $hasTextBoxes,
+                    'has_image' => intval($hasImage),
+                    'has_subsections' => intval($hasSubsections),
+                    'has_image_slider' => intval($hasImageSlider),
+                    'has_text_boxes' => intval($hasTextBoxes),
                 ]);
 
                 if (!$savedSection) {

@@ -27,7 +27,6 @@
         <input name="resource" type="file" class="custom-file-input" id="customFile" @change="onImageChange">
 
         <label class="custom-file-label" for="customFile">Choose file</label>
-        <span v-if="resource.resource_url">Uploaded file: {{ resource.resource_url }}</span>
       </div>
     </div>
 
@@ -37,7 +36,7 @@
       class="img-fluid mt-1 mb-1"
     >
 
-    <video hidden v-if="isChecked(VIDEO_RESOURCE) && displayResource" width="100%" height="100%" controls
+    <video v-if="isChecked(VIDEO_RESOURCE) && displayResource" width="100%" height="100%" controls
            style="background: #007bff; padding: 2px;"
     >
       <source :src="displayResource" type="video/mp4">
@@ -69,7 +68,7 @@
 
     data () {
       return {
-        image: false,
+        mediaResource: false,
         video: false,
         resource: {
           IMAGE_RESOURCE: 'image',
@@ -87,7 +86,7 @@
 
     computed: {
       displayResource () {
-        return this.image ? this.image : this.resource.resource_url
+        return this.resource.resource_url ? this.resource.resource_url : this.mediaResource
       }
     },
 
@@ -97,20 +96,19 @@
         if (!files.length)
           return;
 
-        this.resource.resource_url = files[0].name
-        this.image = false
+        this.mediaResource = false
         this.createImage(files[0])
 
         this.emitInput()
       },
 
-      createImage(file) {
+      createImage (file) {
           let reader = new FileReader()
 
           let vm = this
-          vm.image = false
+          vm.mediaResource = false
           reader.onload = (e) => {
-              vm.image = e.target.result
+              vm.mediaResource = e.target.result
           };
 
           reader.readAsDataURL(file)

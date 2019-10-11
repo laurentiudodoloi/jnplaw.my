@@ -15,6 +15,13 @@ class AboutUsSection extends Model
         'has_text_boxes',
     ];
 
+    protected $casts = [
+        'has_image' => 'boolean',
+        'has_subsections' => 'boolean',
+        'has_image_slider' => 'boolean',
+        'has_text_boxes' => 'boolean',
+    ];
+
     public function subsections()
     {
         return $this->hasMany(AboutUsSubSection::class, 'section_id');

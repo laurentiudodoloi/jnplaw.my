@@ -135,6 +135,14 @@
     },
 
     methods: {
+      mediaResource () {
+        if (this.entity.id && this.entity.resource_url) {
+          this.image = this.localPath + this.entity.resource_url
+        }
+
+        return this.image
+      },
+
       resetEntity () {
         this.entity = {
           title: '',
@@ -164,57 +172,6 @@
 
         this.editMode = true
       },
-
-      // save () {
-      //   console.log('SAVE')
-      //   this.loading = true
-      //
-      //   let formData = new FormData()
-      //   formData.append('test', 123)
-      //   formData.append('file', this.image)
-      //
-      //   if (this.entity.id) {
-      //     const index = this.rows.findIndex(i => this.entity.id === i.id)
-      //
-      //     axios
-      //       .post('/admin/project/store/' + this.entity.id, {
-      //         // ...this.entity,
-      //         formData
-      //       },
-      //       {
-      //         headers: {
-      //           'Content-Type': 'multipart/form-data'
-      //         }
-      //       })
-      //       .then(r => {
-      //         this.rows.splice(index, 1, r.data)
-      //
-      //         this.loading = false
-      //       })
-      //       .catch(r => {
-      //         console.log('Error occured.')
-      //       })
-      //   } else {
-      //     console.log('Request.')
-      //     axios
-      //       .post('/admin/project/store', {
-      //         // ...this.entity,
-      //         formData
-      //       },
-      //       {
-      //         headers: {
-      //           'Content-Type': 'multipart/form-data charset=utf-8; boundary=' + Math.random().toString().substr(2)
-      //         }
-      //       })
-      //       .then(r => {
-      //         this.rows.push(r.data)
-      //
-      //         this.loading = false
-      //       })
-      //   }
-      //
-      //   this.editMode = false
-      // },
 
       remove (index) {
         this.loading = true
@@ -274,14 +231,6 @@
 
       isChecked (type) {
         return this.entity.resource_type === type
-      },
-
-      resourceUrl () {
-        if (this.entity.id && this.entity.resource_url) {
-          this.image = this.localPath + this.entity.resource_url
-        }
-
-        return this.image
       },
 
       csrf () {
