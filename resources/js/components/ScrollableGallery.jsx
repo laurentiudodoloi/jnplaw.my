@@ -147,45 +147,47 @@ class ScrollableGallery extends React.Component {
 
                     <div className="content-wrap">
                         {this.props.projects.map((project, index) => (
-                            <div key={index} hidden={index !== this.state.currentSlide} className="content">
-                                <span className="date text-uppercase">march 20, 2017</span>
+                            <div key={index} hidden={index !== this.state.currentSlide} className="container">
+                                <div className={'row'}>
+                                    <div className={'col-sm-6 offset-sm-1'}>
+                                        <span className="date text-uppercase">march 20, 2017</span>
 
-                                <div className="mb-3">
-                                    <Reveal>
-                                        <span className="tag text-capitalize">{project.header_title}</span>
-                                    </Reveal>
-                                </div>
-
-                                <Reveal>
-                                    <h2 className='title text-left anime-text'>
-                                        {project.title}
-                                    </h2>
-                                </Reveal>
-
-                                <Fade>
-                                    <div className="info-list">
-                                        {project.description}
-                                    </div>
-                                </Fade>
-
-                                <Fade>
-                                    <div className="play-video norebro-video-module-sc video-module">
-                                        <div className="btn-play">
-                                            <a href="#">
-                                                <i className="fa fa-play"></i>
-                                            </a>
+                                        <div className="mb-3">
+                                            <Reveal>
+                                                <span className="tag text-capitalize">{project.header_title}</span>
+                                            </Reveal>
                                         </div>
-                                        <div className="content-center">
-                                            <div className="wrap">
-                                                <div className="play-content">
+
+                                        <Reveal>
+                                            <h2 className='title text-left anime-text'>
+                                                {project.title}
+                                            </h2>
+                                        </Reveal>
+
+                                        <Fade>
+                                            <div className="info-list">
+                                                {project.description}
+                                            </div>
+                                        </Fade>
+
+                                        <Fade>
+                                            <div className="play-video norebro-video-module-sc video-module">
+                                                <div className="btn-play">
                                                     <a href="#">
-                                                        Play video
+                                                        <i className="fa fa-play"></i>
                                                     </a>
                                                 </div>
+                                                <div className="wrap">
+                                                    <div className="play-content">
+                                                        <a href="#">
+                                                            Play video
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </Fade>
                                     </div>
-                                </Fade>
+                                </div>
                             </div>
                         ))}
                     </div>
