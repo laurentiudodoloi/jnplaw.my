@@ -11,4 +11,8 @@ class AboutUsSetting extends Model
         'description',
         'image_url',
     ];
+
+    protected $casts = [
+        'show_add_comment_form' => 'boolean',
+    ];
 }
