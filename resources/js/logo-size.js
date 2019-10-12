@@ -8,7 +8,6 @@ var sizeMatching = {
 };
 
 window.onresize = function (event) {
-    console.log('On-resize.', logoLayouts);
     if (logoLayouts) {
         checkLayouts(logoLayouts);
     }
@@ -39,11 +38,7 @@ function checkLayouts(layouts) {
             matched = true
 
             if (logoImages) {
-                console.log(logoImages);
-
                 logoImages.forEach(function (logoImage) {
-                    console.log(layout.width + layout.unit,
-                    layout.height + layout.unit);
                     logoImage.style.width = layout.width + layout.unit
                     logoImage.style.height = layout.height + layout.unit;
                 });
@@ -53,8 +48,6 @@ function checkLayouts(layouts) {
 
     if (!matched) {
         if (logoImages) {
-
-            console.log('SET', logoImages);
             logoImages.forEach(function (logoImage) {
                 logoImage.style.width = '200px';
                 logoImage.style.height = '30px';

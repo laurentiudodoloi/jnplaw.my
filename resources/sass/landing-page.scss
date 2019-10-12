@@ -1,5 +1,6 @@
-.landing-page {
+@import "~video-react/styles/scss/video-react";
 
+.landing-page {
   .info-list {
     margin-bottom: 25px;
   }
@@ -332,5 +333,35 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+.slider-video-player {
+    .canvas-video-player {
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 1200;
+        position: absolute;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 14px;
+        font-size: 26px;
+        color: #fff;
+        text-transform: lowercase;
+        top: 52px;
+        z-index: 1201;
+        background: #0000004f;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        vertical-align: middle;
+        text-decoration: none;
+
+        &:hover {
+            background: #000000;
+        }
     }
 }
