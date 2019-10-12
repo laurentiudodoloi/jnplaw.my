@@ -34,6 +34,7 @@
     "dependencies": {
         "react-dom": "^16.10.2",
         "react-jsx": "^1.0.0",
+        "react-loading-screen": "0.0.17",
         "react-reveal": "^1.2.2",
         "react-spring": "^8.0.27",
         "three": "^0.108.0",
