@@ -8,7 +8,7 @@
     <div class="action-navbar">
       <h4>Landing Page Setup</h4>
 
-      <button v-if="!editMode" class="btn btn-outline-success btn-sm font-weight-bold" @click.prevent="toggleEditMode">
+      <button v-if="!editMode" class="btn btn-outline-light btn-sm font-weight-bold" @click.prevent="toggleEditMode">
         <i class="fa fa-plus"> </i>
         Add new
       </button>
@@ -19,7 +19,7 @@
       </button>
     </div>
 
-    <p v-if="!rows.length" class="py-2">There are no entities at the moment.</p>
+    <p v-if="!rows.length && !editMode" class="py-2">There are no entities at the moment.</p>
 
     <data-table
       v-if="!editMode && rows.length"
@@ -39,6 +39,18 @@
               <label for="title" class=" font-weight-bold">Title</label>
               <input v-model="entity.title" type="text" name="title" class="form-control form-control-sm" id="title"
                      placeholder="Enter title"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="header-title" class=" font-weight-bold">Header title</label>
+              <input
+                v-model="entity.header_title"
+                type="text"
+                name="header_title"
+                class="form-control form-control-sm"
+                id="header-title"
+                placeholder="Enter header title"
               >
             </div>
 
@@ -94,6 +106,7 @@
         rows: [],
         entity: {
           title: '',
+          header_title: '',
           description: '',
           resource_type: false,
           resource_url: false
@@ -122,9 +135,18 @@
     },
 
     methods: {
+      mediaResource () {
+        if (this.entity.id && this.entity.resource_url) {
+          this.image = this.localPath + this.entity.resource_url
+        }
+
+        return this.image
+      },
+
       resetEntity () {
         this.entity = {
           title: '',
+          header_title: '',
           description: '',
           resource_type: false,
           resource_url: ''
@@ -134,6 +156,7 @@
       headers () {
         return [
           'Project title',
+          'Header title',
           'Description',
           'Media'
         ]
@@ -149,57 +172,6 @@
 
         this.editMode = true
       },
-
-      // save () {
-      //   console.log('SAVE')
-      //   this.loading = true
-      //
-      //   let formData = new FormData()
-      //   formData.append('test', 123)
-      //   formData.append('file', this.image)
-      //
-      //   if (this.entity.id) {
-      //     const index = this.rows.findIndex(i => this.entity.id === i.id)
-      //
-      //     axios
-      //       .post('/admin/project/store/' + this.entity.id, {
-      //         // ...this.entity,
-      //         formData
-      //       },
-      //       {
-      //         headers: {
-      //           'Content-Type': 'multipart/form-data'
-      //         }
-      //       })
-      //       .then(r => {
-      //         this.rows.splice(index, 1, r.data)
-      //
-      //         this.loading = false
-      //       })
-      //       .catch(r => {
-      //         console.log('Error occured.')
-      //       })
-      //   } else {
-      //     console.log('Request.')
-      //     axios
-      //       .post('/admin/project/store', {
-      //         // ...this.entity,
-      //         formData
-      //       },
-      //       {
-      //         headers: {
-      //           'Content-Type': 'multipart/form-data charset=utf-8; boundary=' + Math.random().toString().substr(2)
-      //         }
-      //       })
-      //       .then(r => {
-      //         this.rows.push(r.data)
-      //
-      //         this.loading = false
-      //       })
-      //   }
-      //
-      //   this.editMode = false
-      // },
 
       remove (index) {
         this.loading = true
@@ -261,20 +233,12 @@
         return this.entity.resource_type === type
       },
 
-      resourceUrl () {
-        if (this.entity.id && this.entity.resource_url) {
-          this.image = this.localPath + this.entity.resource_url
-        }
-
-        return this.image
-      },
-
       csrf () {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
       },
 
       onResourceChange (resource) {
-        //
+        this.entity.resource_url = resource.resource_url
       }
     }
   }

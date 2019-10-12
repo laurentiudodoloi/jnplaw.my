@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Eloquent\AboutUsSection;
 use App\Eloquent\AboutUsSetting;
+use App\LayoutSize;
 
 class AboutController extends Controller
 {
@@ -23,6 +24,10 @@ class AboutController extends Controller
             ])
             ->get();
 
-        return view('pages.about-us', compact('settings', 'sections', 'path'));
+        $logoLayouts = LayoutSize::query()
+            ->where('element', 'logo')
+            ->get();
+
+        return view('pages.about-us', compact('settings', 'sections', 'path', 'logoLayouts'));
     }
 }

@@ -5,6 +5,11 @@ import fragmentShader from './graphics/fragment'
 import vertexShader from './graphics/vertex'
 
 export default class Gallery {
+    state = {
+        currentSlide: 0,
+        lastScroll: 0
+    }
+
     constructor(opts) {
         const {
             canvas,
@@ -32,7 +37,7 @@ export default class Gallery {
 
         this._renderer = new THREE.WebGLRenderer({ canvas })
 
-        this._camera = new THREE.PerspectiveCamera(70, width / height, 0.001, 100)
+        this._camera = new THREE.PerspectiveCamera(50, width / height, 0.005, 50)
         this._camera.position.set(0, 0, 1)
 
         this._material = new THREE.ShaderMaterial({
@@ -43,7 +48,7 @@ export default class Gallery {
                 time: { type: 'f', value: this._time },
                 pixels: { type: 'v2', value: new THREE.Vector2(width, height) },
                 accel: { type: 'v2', value: new THREE.Vector2(0.5, 2) },
-                progress: { type: 'f', value: 0 },
+                progress: { type: 'f', value: 5.0 },
                 uvRate1: {
                     value: new THREE.Vector2(1, 1)
                 },
@@ -92,7 +97,7 @@ export default class Gallery {
         this._material.uniforms.uvRate1.value.y = height / width
 
         const dist = this._camera.position.z - this._plane.position.z
-        this._camera.fov = 2 * (180 / Math.PI) * Math.atan(1.0 / (2 * dist))
+        this._camera.fov = 2 * (180 / Math.PI) * Math.atan(1.0 / (2.2 * dist))
 
         // this._plane = new THREE.Mesh(this.widthBasedGeometry(width), this._material)
 
@@ -148,7 +153,19 @@ export default class Gallery {
     }
 
     onScroll = (event) => {
-        this._speed += event.deltaY * 0.0007
+        if (!event) {
+            return false
+        }
+
+        let deltaY = event.deltaY
+
+        if (deltaY < 0) {
+            deltaY -= 55.0
+        } else {
+            deltaY += 55.0
+        }
+
+        this._speed += deltaY * 0.0012
     }
 
     update () {
@@ -162,7 +179,7 @@ export default class Gallery {
         const posI = Math.round(this._position)
         const diff = posI - this._position
 
-        this._position += diff * 0.025
+        this._position += diff * 0.02
 
         if (Math.abs(posI - this._position) < 0.001) {
             this._position = posI
@@ -179,6 +196,20 @@ export default class Gallery {
 
         this._material.uniforms.texture1.value = this._textures[currentSlide]
         this._material.uniforms.texture2.value = this._textures[nextSlide]
+
+        const relativePosition = Math.floor(this._position)
+        if (relativePosition >= this._position) {
+            //
+        }
+
+        return currentSlide
+    }
+
+    on (event, callback) {
+       if (this.events.find(e => event)) {
+
+           this.callbacks[event] = callback
+       }
     }
 
     render() {

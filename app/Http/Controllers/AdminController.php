@@ -15,8 +15,23 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $settings = AboutUsSetting::query()->first();
+        $sections = AboutUsSection::query()
+            ->with([
+                'subsections',
+                'images',
+                'textBoxes',
+            ])
+            ->get();
+
+        $aboutPageContent = [
+            'settings' => $settings,
+            'sections' => $sections,
+        ];
+
         $data = [
-            'projects' => Project::all()
+            'projects' => Project::all(),
+            'about' => $aboutPageContent,
         ];
 
         return view('admin.landing-page', compact('data'));
@@ -48,95 +63,210 @@ class AdminController extends Controller
 
     public function updateAboutContent(Request $request)
     {
-        $header = $request->input('settings');
+        $errors = [
+            'image' => [],
+            'sections' => [],
+        ];
+
+        $header = $request->input('header');
         $sections = $request->input('sections');
 
+        $resource = $request->file('image');
+
+        $upload = $this->uploadResource($resource);
+
+        if ($upload['success']) {
+            $header['image_url'] = 'uploads/'.$resource->getClientOriginalName();
+        } else {
+            $header['image_url'] = null;
+            $errors['image'] = $upload['errors'];
+        }
+
+        $settings = AboutUsSetting::query()->first();
+
         AboutUsSetting::query()->delete();
-        AboutUsSection::query()->delete();
-        AboutUsSubSection::query()->delete();
-        AboutUsSectionImage::query()->delete();
-        AboutUsSectionTextBox::query()->delete();
 
         $setting = AboutUsSetting::query()->create([
-            'show_add_comment_form' => isset($header['show_add_comment_form']) ? $header['show_add_comment_form'] : false,
-            'title' => isset($header['title']) ? $header['title'] : '',
-            'subtitle' => isset($header['subtitle']) ? $header['subtitle'] : '',
-            'description' => isset($header['description']) ? $header['description'] : '',
-            'image_url' => isset($header['image_url']) ? $header['image_url'] : '',
+            'title' => isset($header['title']) ? $header['title'] : $settings->title ?? '',
+            'subtitle' => isset($header['subtitle']) ? $header['subtitle'] : $settings->subtitle ?? '',
+            'description' => isset($header['description']) ? $header['description'] : $settings->description ?? '',
+            'image_url' => isset($header['image_url']) ? $header['image_url'] : $settings->image_url ?? '',
+            'show_add_comment_form' => intval(isset($header['show_add_comment_form'])),
         ]);
 
-        if (!$setting) {
-            return response()->json(false, 500);
-        }
+        $sectionIds = collect($sections)->map(function ($el) {
+          if (isset($el['id'])) {
+            return $el['id'];
+          }
+        })->toArray();
 
-        if ($header['image'] && isset($header['image_url']) && $header['image_url'] !== '') {
-            $this->uploadImage($header['image'], $header['image_url']);
-        }
+        AboutUsSection::query()
+          ->whereNotIn('id', $sectionIds)
+          ->delete();
 
-        foreach ($sections as $section) {
-            $tempSection = AboutUsSection::query()->create([
-                'title' => isset($section['title']) ? $section['title'] : '',
-                'subtitle' => isset($section['subtitle']) ? $section['subtitle'] : '',
-                'description' => isset($section['description']) ? $section['description'] : '',
-                'image_url' => isset($section['image_url']) ? $section['image_url'] : '',
-                'has_subsections' => isset($section['has_subsections']) ? $section['has_subsections'] : false,
-                'has_image' => isset($section['has_image']) ? $section['has_image'] : false,
-                'has_image_slider' => isset($section['has_image_slider']) ? $section['has_image_slider'] : false,
-                'has_text_boxes' => isset($section['has_text_boxes']) ? $section['has_text_boxes'] : false,
-            ]);
+        if ($setting && isset($sections)) {
+            $files = $request->file('sections');
 
-            if (!$tempSection) {
-                return response()->json(false, 500);
-            }
+            foreach ($sections as $index => $section) {
+                $id = isset($section['id']) ? $section['id'] : false;
+                $hasImage = isset($section['has_image']);
 
-            if ($section['has_image'] &&
-                isset($section['image']) && $section['image'] && $section['image_url'] &&
-                strpos($section['image'], 'http') === false
-            ) {
-                $this->uploadImage($section['image'], $section['image_url']);
-            }
+                if ($hasImage) {
+                    $resource = isset($files[$index]['image']) ? $files[$index]['image'] : false;
+                    $upload = $this->uploadResource($resource);
 
-            if ($section['has_subsections']) {
-                foreach ($section['subsections'] as $subsection) {
-                    AboutUsSubSection::query()->create([
-                        'section_id' => $tempSection->id,
-                        'title' => isset($subsection['title']) ? $subsection['title'] : '',
-                        'content' => isset($subsection['content']) ? $subsection['content'] : '',
-                    ]);
-                }
-            }
-
-            if ($section['has_image_slider'] && isset($section['images'])) {
-                // $section['slider_images']
-                foreach ($section['images'] as $index => $sliderImage) {
-                    if (!$sliderImage) {
-                        continue;
+                    if ($upload['success']) {
+                        $imageUrl = 'uploads/'.$resource->getClientOriginalName();
+                    } else {
+                        $imageUrl = null;
+                        $errors['sections'][$index]['image'] = $upload['errors'];
                     }
-
-                    $url = 'a-p-slide-' . $index . '.png';
-
-                    AboutUsSectionImage::query()->create([
-                        'section_id' => $tempSection->id,
-                        'image_url' => isset($url) ? $url : '',
-                    ]);
-
-                    $this->uploadImage($sliderImage, $url);
                 }
-            }
 
-            if ($section['has_text_boxes']) {
-                foreach ($section['text_boxes'] as $textBox) {
-                    AboutUsSectionTextBox::query()->create([
-                        'section_id' => $tempSection->id,
-                        'header_text' => isset($textBox['header_text']) ? $textBox['header_text'] : '',
-                        'title' => isset($textBox['title']) ? $textBox['title'] : '',
-                        'content' => isset($textBox['content']) ? $textBox['content'] : '',
-                    ]);
+                $hasSubsections = isset($section['has_subsections']);
+                $hasImageSlider = isset($section['has_image_slider']);
+                $hasTextBoxes = isset($section['has_text_boxes']);
+
+                $existingSection = null;
+                if ($id) {
+                    $existingSection = AboutUsSection::query()->find($id);
+
+                    AboutUsSection::query()->find($id)->delete();
+                }
+
+                $savedSection = AboutUsSection::query()->create([
+                    'title' => isset($section['title']) ? $section['title'] : '',
+                    'subtitle' => isset($section['subtitle']) ? $section['subtitle'] : '',
+                    'description' => isset($section['description']) ? $section['description'] : '',
+                    'image_url' => isset($imageUrl) ? $imageUrl : $existingSection->image_url ?? '',
+                    'has_image' => intval($hasImage),
+                    'has_subsections' => intval($hasSubsections),
+                    'has_image_slider' => intval($hasImageSlider),
+                    'has_text_boxes' => intval($hasTextBoxes),
+                ]);
+
+                if (!$savedSection) {
+                    $errors['sections'][$index][] = 'Section could not be saved.';
+                    continue;
+                }
+
+                if ($id) {
+                  AboutUsSubSection::query()
+                    ->where('section_id', $id)
+                    ->delete();
+                }
+
+                if ($hasSubsections && isset($section['subsections'])) {
+                    foreach ($section['subsections'] as $subsection) {
+                        AboutUsSubSection::query()->create([
+                            'section_id' => $savedSection->id,
+                            'title' => isset($subsection['title']) ? $subsection['title'] : '',
+                            'content' => isset($subsection['content']) ? $subsection['content'] : '',
+                        ]);
+                    }
+                }
+
+              if ($id) {
+                AboutUsSectionTextBox::query()
+                  ->where('section_id', $id)
+                  ->delete();
+              }
+
+                if ($hasTextBoxes && isset($section['boxes'])) {
+                    foreach ($section['boxes'] as $textBox) {
+                        AboutUsSectionTextBox::query()->create([
+                            'section_id' => $savedSection->id,
+                            'header_text' => isset($textBox['header_text']) ? $textBox['header_text'] : '',
+                            'title' => isset($textBox['title']) ? $textBox['title'] : '',
+                            'content' => isset($textBox['content']) ? $textBox['content'] : '',
+                        ]);
+                    }
+                }
+
+                if ($id) {
+                    $sectionImages = AboutUsSectionImage::query()
+                        ->where('section_id', $id)
+                        ->get();
+                }
+
+                if ($hasImageSlider) {
+                    $sliderImages = isset($files[$index]['slider_images'])
+                        ? $files[$index]['slider_images']
+                        : false;
+
+                    if ($sliderImages) {
+                      if ($id) {
+                        AboutUsSectionImage::query()
+                          ->where('section_id', $id)
+                          ->delete();
+                      }
+
+                        foreach ($sliderImages as $resource) {
+                            $upload = $this->uploadResource($resource);
+
+                            if ($upload['success']) {
+                                $imageUrl = 'uploads/'.$resource->getClientOriginalName();
+
+                                AboutUsSectionImage::query()->create([
+                                    'section_id' => $savedSection->id,
+                                    'image_url' => $imageUrl,
+                                ]);
+                            } else {
+                                $imageUrl = null;
+                                $errors['sections'][$index]['slider_image'] = 'Not all slider images are saved.';
+                            }
+                        }
+                    } else {
+                        foreach ($sectionImages as $image) {
+                            AboutUsSectionImage::query()->create([
+                                'section_id' => $savedSection->id,
+                                'image_url' => $image->image_url,
+                            ]);
+                        }
+                    }
+                } elseif ($id) {
+                    AboutUsSectionImage::query()->where('section_id', $id)->delete();
                 }
             }
         }
 
-        return response()->json(true);
+        $data = [
+            'success' => !count($errors['image']) && !count($errors['sections']),
+            'errors' => $errors
+        ];
+
+        return redirect()->back()->with('data', $data);
+    }
+
+    public function uploadResource($resource)
+    {
+        $supportImageFormats = ['jpg', 'jpeg', 'png'];
+        $supportVideoFormats = ['mp4'];
+
+        $errors = [];
+
+        if (!$resource) {
+            $errors[] = 'You have to select a header image.';
+        } elseif (!array_search($resource->extension(), array_merge($supportImageFormats, []))) {
+            $errors[] = 'Wrong image format.';
+        } else {
+            if (!Storage::disk('uploads')->put($resource->getClientOriginalName(), $resource->get())) {
+                $errors[] = 'Could not upload the image. Maybe the image is too big or it is corrupted.';
+            }
+        }
+
+        return [
+            'success' => !count($errors),
+            'errors' => $errors,
+        ];
+    }
+
+    public function removeImageSliderImage(Request $request)
+    {
+        AboutUsSectionImage::query()
+          ->where('section_id', $request->input('section_id'))
+          ->where('image_url', $request->input('image_url'))
+          ->delete();
     }
 
     public function uploadImage($uploadImage, $name)
@@ -154,3 +284,16 @@ class AdminController extends Controller
         Storage::disk('uploads')->put($imageName, base64_decode($image));
     }
 }
+
+/**
+ *
+ * A Leading Maritime & Commercial Law Firm
+ * Niche Firm, Big Difference
+ * We are specialists in all aspects of shipping law and are a trusted shipping legal firm used by companies not just in Malaysia but internationally. We provide clear, comprehensive advice on all aspects of shipping law.
+ *
+ *
+ * About Us
+ * We deliver solutions to business in fragile settings
+ * As an organization that is nationally renowned for our rich experience and success in cases involving maritime and Malaysian admiralty law, we have ensured over the years that our clients got comprehensive and top-notch legal service covering all aspects of the maritime industry.
+ *
+ */

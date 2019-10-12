@@ -9,8 +9,11 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" id="norebro-global-fonts-css"
+              href="//fonts.googleapis.com/css?family=Rubik%3A300%2C400%2C500%2C700%2C900%7CPoppins%3A300%2C400%2C500%2C600%2C700&amp;ver=1.0.0"
+              type="text/css" media="all">
+        <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
 
         {{-- CSS --}}
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">

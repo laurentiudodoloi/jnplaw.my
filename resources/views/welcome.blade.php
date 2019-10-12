@@ -5,92 +5,40 @@
     <link href="{{ asset('css/landing-page.css') }}" rel="stylesheet">
 
     <script src="https://use.fontawesome.com/d2154184d1.js"></script>
+
+    <style>
+        canvas {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
 @endsection
 
 @section('content')
 
     <div class="open-page">
-        <div id="gallery-target"></div>
+        <div id="gallery-target"
+             data-feed="{{ json_encode(['projects' => $projects, 'company_logo' => asset("images/company_logo.png")]) }}"></div>
 
         <div class="video-sliders" style="display: none;">
             @foreach($projects as $project)
                 <div class="video-slider">{{ $project->resource_url }}</div>
             @endforeach
         </div>
-
-        <ul class="onepage-dots slider-vertical-numbers">
-            <li class="active"></li>
-            <li class=""></li>
-            <li class=""></li>
-            <li class=""></li>
-            <li class=""></li>
-        </ul>
-
-        <div class="landing-page section-wrapper">
-            <div class="header-wrap">
-                <div class="brand" style="color: #ffffff;">
-                    <a class="text-decoration-none text-white" href="{{ route('welcome') }}">
-                        <img src="{{ asset("images/company_logo.png") }}" alt="Company logo" class="img-fluid">
-                    </a>
-                </div>
-
-                <div class="header-right">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="content-wrap">
-
-                <div class="content">
-                    <span class="date text-uppercase">march 20, 2017</span>
-
-                    <div class="mb-3">
-                        <span class="tag text-uppercase">architecture</span>
-                    </div>
-                    <h2 class="title text-left">Spacé Decor Restore</h2>
-
-                    <div class="info-list">
-                        We are specialists in all aspects of shipping law and are a trusted
-                        shipping legal firm used by companies not just in Malaysia but internationally.
-                        We provide clear, comprehensive advice on all aspects of shipping law.
-                    </div>
-
-                    <div class="play-video norebro-video-module-sc video-module">
-                        <div class="btn-play">
-                            <a href="#">
-                                <i class="fa fa-play"></i>
-                            </a>
-                        </div>
-                        <div class="content-center">
-                            <div class="wrap">
-                                <div class="play-content">
-                                    <a href="#">
-                                        Play video
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="scroll">Scroll</div>
-        </div>
-
-        <div class="message-box">
-            <i class="fa fa-envelope"></i>
-        </div>
     </div>
-
 @endsection
 
 @section('scripts')
+    <script>
+        var logoLayouts = {!! $logoLayouts !!};
+    </script>
+
+    <script src="{{ asset('js/logo-size.js')  }}"></script>
+
     <script src="{{ asset('js/react-app.js') }}"></script>
+
 @endsection

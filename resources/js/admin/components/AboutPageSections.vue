@@ -1,6 +1,6 @@
 <template>
   <div class="tab-pane" id="sections">
-    <div class="float-right">
+    <div class="control-buttons">
       <button class="btn btn-outline-info btn-sm" @click.prevent="addSection">
         <i class="fa fa-plus mr-1"></i>
         Add section
@@ -10,15 +10,26 @@
     <div v-if="sections.length" class="container-fluid">
 
       <div v-for="(section, index) in sections" :key="'sectionIndex' + index">
-        <b>Section {{ index + 1 }}</b>
+        <div class="section-header"
+             :href="'#collapseSection' + index"
+             data-toggle="collapse"
+             role="button"
+             aria-expanded="false"
+        >
+          <b>Section {{ index + 1 }}</b>
 
-        <about-page-section :index="index" :value="section" @input="onChangeSection($event, index)"/>
-
-        <div class="text-right">
           <button class="btn btn-sm btn-outline-danger" @click.prevent="removeSection(index)">
             Delete
           </button>
         </div>
+
+        <about-page-section
+          :id="'collapseSection' + index"
+          :index="index"
+          :value="section"
+          class="collapse"
+          @input="onChangeSection($event, index)"
+        />
       </div>
       <hr style="border: 1px solid #000000;">
     </div>
@@ -29,7 +40,7 @@
 <script>
 
   import AboutPageSection from "./AboutPageSection";
-  import { cloneDeep } from 'lodash'
+  import {cloneDeep} from 'lodash'
 
   export default {
     components: {
@@ -43,7 +54,7 @@
       }
     },
 
-    data () {
+    data() {
       return {
         sectionImages: [],
         sections: [],
@@ -64,7 +75,7 @@
 
     watch: {
       value: {
-        handler (val) {
+        handler(val) {
           this.sections = cloneDeep(val)
         },
         immediate: true
@@ -72,23 +83,23 @@
     },
 
     methods: {
-      addSection () {
+      addSection() {
         this.$emit('add', this.section)
       },
 
-      onChangeSection (value, index) {
+      onChangeSection(value, index) {
         this.sections[index] = cloneDeep(value)
 
         this.onChange()
       },
 
-      removeSection (index) {
+      removeSection(index) {
         this.sections.splice(index, 1)
 
         this.onChange()
       },
 
-      onChange () {
+      onChange() {
         this.$emit('input', cloneDeep(this.sections))
       }
     }

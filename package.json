@@ -22,8 +22,7 @@
         "popper.js": "^1.12",
         "prop-types": "latest",
         "raf": "^3.4.1",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0",
+        "react": "^16.10.2",
         "react-sizeme": "^2.6.7",
         "react-swipeable": "^5.4.0",
         "resolve-url-loader": "^2.3.1",
@@ -33,6 +32,10 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "react-dom": "^16.10.2",
+        "react-jsx": "^1.0.0",
+        "react-reveal": "^1.2.2",
+        "react-spring": "^8.0.27",
         "three": "^0.108.0",
         "vue": "^2.6.10",
         "vue-loading-overlay": "^3.2.0",

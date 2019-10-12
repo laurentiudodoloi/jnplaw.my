@@ -6,6 +6,7 @@ import OurKnowledgePageSetup from './admin/components/OurKnowledgePageSetup'
 import NewsPageSetup from './admin/components/NewsPageSetup'
 import EventsPageSetup from './admin/components/EventsPageSetup'
 import ContactPageSetup from './admin/components/ContactPageSetup'
+import ManageLogo from './admin/components/ManageLogo'
 
 export const routes = [
     {
@@ -39,5 +40,9 @@ export const routes = [
     {
         path: '/contact-us-setup',
         component: ContactPageSetup
+    },
+    {
+        path: '/manage/logo',
+        component: ManageLogo
     },
 ]

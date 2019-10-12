@@ -30,9 +30,13 @@ Route::get('/admin/landing-page', 'AdminController@index')->name('landing-page')
 Route::get('/admin/about-us', 'AdminController@about')->name('about');
 Route::get('/admin/about-us-content', 'AdminController@aboutContent')->name('about-content');
 Route::post('/admin/about-us-update-content', 'AdminController@updateAboutContent')->name('about-update-content');
+Route::post('/admin/remove-image-slider', 'AdminController@removeImageSliderImage')->name('remove-image-slider');
 
 Route::get('/admin/projects', 'ProjectController@index')->name('projects.index');
 Route::get('/admin/project/{id}', 'ProjectController@get')->name('projects.get');
 Route::post('/admin/project/store', 'ProjectController@store')->name('projects.create');
 Route::post('/admin/project/store/{id}', 'ProjectController@store')->name('projects.store');
 Route::post('/admin/project/destroy/{id}', 'ProjectController@destroy')->name('projects.destroy');
+
+Route::get('/admin/manage/{element}', 'LayoutSizeController@index')->name('layout.index');
+Route::post('/admin/manage/{element}/store', 'LayoutSizeController@store')->name('layout.index');

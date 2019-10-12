@@ -19,20 +19,20 @@
         </a>
 
         <section class="open-page">
-            <img class="open-image" src="{{ $path.(isset($settings) ? $settings->image_url : '') }}" alt="Cover image">
+            <img class="open-image" src="{{ (isset($settings) ? $settings->image_url : '') }}" alt="Cover image">
 
             <div class="section-wrapper">
                 <div class="header-wrap">
                     <div class="brand" style="color: #ffffff;">
                         <a class="text-decoration-none text-white" href="{{ route('welcome') }}">
-                            <img src="{{ asset("images/company_logo.png") }}" alt="Company logo" class="img-fluid">
+                            <img src="{{ asset("images/company_logo.png") }}" alt="Company logo" class="logo-image">
                         </a>
                     </div>
 
                     <div class="header-right">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
+                                <a class="nav-link text-white hidden" href="#">
                                     <i class="fa fa-search"></i>
                                 </a>
                             </li>
@@ -41,16 +41,17 @@
                 </div>
 
                 <div class="content-wrap">
-
                     <div class="content">
-                        <div class="mb-3">
-                            <span class="tag text-uppercase">{{ isset($settings) ? $settings->subtitle : '' }}</span>
-                        </div>
-                        <h2 class="title text-left floating-up-short">{{ isset($settings) ? $settings->title : '' }}</h2>
+                                <div class="mb-3">
+                                    <p class="tag">{{ isset($settings) ? $settings->subtitle : '' }}</p>
+                                </div>
+                                <h2 class="title text-left floating-up-short">Build Innovative UX/UI & Motion Digital Projects for Startups
+                                </h2>
 
-                        <div class="info-list floating-up-short-delayed">
-                            {{ isset($settings) ? $settings->description : '' }}
-                        </div>
+                                <div class="info-list floating-up-short-delayed">
+                                    {{ isset($settings) ? $settings->description : '' }}
+                                </div>
+
                     </div>
 
                 </div>
@@ -63,48 +64,50 @@
             <div class="container">
                 @foreach($sections as $section)
                     <section class="section section1">
-                        <div class="item-left">
-                            <h3 class="title">{{ $section->title }}</h3>
-                            <span>{{ $section->subtitle }}</span>
-                        </div>
-
-                        <div class="item-middle">
-
-                            <div class="text text1">
-                                {{ $section->description }}
+                        <div class="row">
+                            <div class="col-sm-3 item-left">
+                                <h3 class="title">{{ $section->title }}</h3>
+                                <span>{{ $section->subtitle }}</span>
                             </div>
 
-                            @if($section->has_subsections)
-                                <div class="accordion" id="subsectionsAccordion">
-                                    @foreach($section->subsections as $index => $subsection)
-                                        <div class="card">
-                                            <div class="card-header" id="{{ 'heading'.$index }}" data-toggle="collapse"
-                                                 data-target="{{ '#collapse'.$index }}" aria-expanded="false"
-                                                 aria-controls="collapseOne">
-                                                <div>{{ $subsection->title }}</div>
-                                                <div class="icon"></div>
-                                            </div>
+                            <div class="col-sm-6 item-middle">
 
-                                            <div id="{{ 'collapse'.$index }}" class="collapse"
-                                                 aria-labelledby="{{ 'heading'.$index }}"
-                                                 data-parent="#subsectionsAccordion">
-                                                <div class="card-body text">
-                                                    {{ $subsection->content }}
+                                <div class="text text1 text-justify">
+                                    {{ $section->description }}
+                                </div>
+
+                                @if($section->has_subsections)
+                                    <div class="accordion" id="subsectionsAccordion">
+                                        @foreach($section->subsections as $index => $subsection)
+                                            <div class="card">
+                                                <div class="card-header" id="{{ 'heading'.$index }}" data-toggle="collapse"
+                                                     data-target="{{ '#collapse'.$index }}" aria-expanded="false"
+                                                     aria-controls="collapseOne">
+                                                    <div>{{ $subsection->title }}</div>
+                                                    <div class="icon"></div>
+                                                </div>
+
+                                                <div id="{{ 'collapse'.$index }}" class="collapse"
+                                                     aria-labelledby="{{ 'heading'.$index }}"
+                                                     data-parent="#subsectionsAccordion">
+                                                    <div class="card-body text">
+                                                        {{ $subsection->content }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
 
-                        <div class="item-left item-right"></div>
+                            <div class="col-sm-3 item-left item-right"></div>
+                        </div>
                     </section>
 
                     @if($section->has_image && $section->image_url)
                         <section class="section2 mb-2">
                             <div class="img-wrap">
-                                <img src="{{ $path.$section->image_url }}"
+                                <img src="{{ $section->image_url }}"
                                      alt="" class="img-fluid"
                                 >
 
@@ -121,9 +124,9 @@
                             <div class="owl-carousel owl-theme">
                                 @foreach($section->images as $image)
                                     <div>
-                                        <img src="{{ $path.$image->image_url }}"
+                                        <img src="{{ $image->image_url }}"
                                              class="img-fluid" alt=""
-                                             style="max-height: 320px;"
+                                             style="height: 285px;"
                                         >
                                     </div>
                                 @endforeach
@@ -133,17 +136,19 @@
 
                     @if($section->has_text_boxes)
                         <section class="section section6">
-                            @foreach($section->textBoxes as $textBox)
-                                <div class="item-wrapper">
-                                    <div class="item">
-                                        <div class="number">{{ $textBox->header_text }}</div>
-                                        <div class="title">{{ $textBox->title }}</div>
-                                        <div class="description">
-                                            {{ $textBox->content }}
+                            <div class="row">
+                                @foreach($section->textBoxes as $textBox)
+                                    <div class="col-sm-4 item-wrapper">
+                                        <div class="item">
+                                            <div class="number">{{ $textBox->header_text }}</div>
+                                            <div class="title">{{ $textBox->title }}</div>
+                                            <div class="description">
+                                                {{ $textBox->content }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </section>
                     @endif
                 @endforeach
@@ -152,11 +157,11 @@
             @if(isset($settings) && $settings->show_add_comment_form)
                 <div class="post-navigation">
                     <div class="container">
-                        <div class="nav-container">
-                            <div class="nav-item-container">
+                        <div class="row nav-container">
+                            <div class="col-md-6 nav-item-container">
                                 <div class="navigation-wrap navigation-left">
                                     <a href="#">
-                                        <span class="nav-icon">&leftarrow;</span>
+                                        <i class="nav-icon icon ion-md-arrow-round-back"></i>
                                         <span class="nav-content">
                                         <span class="nav-title">previous project</span>
                                         <span class="nav-subtitle">Righteous Besét</span>
@@ -165,14 +170,14 @@
                                 </div>
                             </div>
 
-                            <div class="nav-item-container">
+                            <div class="col-md-6 nav-item-container">
                                 <div class="navigation-wrap navigation-right text-right">
                                     <a href="#">
-                                    <span class="nav-content">
-                                        <span class="nav-title">next project</span>
-                                        <span class="nav-subtitle">Crafted för Perfection</span>
-                                    </span>
-                                        <span class="nav-icon">&rightarrow;</span>
+                                        <span class="nav-content">
+                                            <span class="nav-title">next project</span>
+                                            <span class="nav-subtitle">Crafted för Perfection</span>
+                                        </span>
+                                        <i class="nav-icon icon ion-md-arrow-round-forward"></i>
                                     </a>
                                 </div>
                             </div>
@@ -182,32 +187,30 @@
 
                 <div class="comments">
                     <div class="container">
-                        <div class="container-fluid">
-                            <h3 class="title text-left">Post a Comment</h3>
-                            <div class="notes">
-                                Your email address will not be published.  Required fields are marked *
+                        <h3 class="title text-left">Post a Comment</h3>
+                        <div class="notes">
+                            Your email address will not be published.  Required fields are marked *
+                        </div>
+
+                        <form class="form">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" placeholder="Name*">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="email" class="form-control" placeholder="E-mail*">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" placeholder="Website">
+                                </div>
                             </div>
 
-                            <form class="form">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="form-control" placeholder="Name*">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="email" class="form-control" placeholder="E-mail*">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="form-control" placeholder="Website">
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <textarea rows="8" class="form-control" placeholder="Comment"></textarea>
+                            </div>
 
-                                <div class="form-group">
-                                    <textarea rows="8" class="form-control" placeholder="Comment"></textarea>
-                                </div>
-
-                                <input type="submit" class="btn btn-outline-dark btn-submit" value="Submit Comment">
-                            </form>
-                        </div>
+                            <input type="submit" class="btn btn-outline-dark btn-submit" value="Submit Comment">
+                        </form>
                     </div>
                 </div>
             @endif
@@ -217,108 +220,107 @@
         <footer class="footer">
             <div class="container">
                 <div class="widgets">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-3">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div>
+                                <div class="logo">
+                                    <a href="{{ route('welcome') }}">
+                                        <img src="{{ asset("images/company_logo.png") }}" class="logo-image" alt="Company logo">
+                                    </a>
+                                </div>
+
+                                <form class="form">
+                                    <div class="form-group">
+                                        <input type="email" name="email" class="form-control" placeholder="Enter your email">
+                                    </div>
+
+                                    <input type="submit" name="subscribe" class="btn-subscribe btn-submit" value="Subscribe">
+                                </form>
+
+                                <div class="text">
+                                    Sign up for e-updates and be the first to hear about latest developments in Malaysian maritime law.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div>
+                                <div class="title">Contact Us</div>
+                                <div class="text text2">
+                                    <p>Phone:+603 6203 7877</p>
+                                    <p>Email:info@jnplaw.my</p>
+                                    <p>Address:Suite J-7-2 <br>
+                                               Solaris Mont Kiara <br>
+                                               Jalan Solaris <br>
+                                               50480 Kuala Lumpur <br>
+                                               Malaysia
+                                    </p>
+                                </div>
+
+                                <div class="share">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div>
+                                <div class="title">About J&P</div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">About Us</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">What We Do</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">Our People</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">Our Knowledge</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">News</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">Events</a>
+                                </div>
+                                <div class="text text3">
+                                    <a href="{{ route('about-us') }}">Contact Us</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div>
                                 <div>
-                                    <div class="logo">
-                                        <a href="{{ route('welcome') }}">
-                                            <img src="{{ asset("images/company_logo.png") }}" class="img-fluid" alt="Company logo">
+                                    <div class="title">Community</div>
+                                    <div class="text text4">
+                                        <a href="#">
+                                            <i class="fa fa-facebook mr-1"></i>
+                                            Facebook
                                         </a>
                                     </div>
 
-                                    <form class="form">
-                                        <div class="form-group">
-                                            <input type="email" name="email" class="form-control" placeholder="Enter your email">
-                                        </div>
-
-                                        <input type="submit" name="subscribe" class="btn-subscribe btn-submit" value="Subscribe">
-                                    </form>
-
-                                    <div class="text">
-                                        Sign up for e-updates and be the first to hear about latest developments in Malaysian maritime law.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div>
-                                    <div class="title">Contact Us</div>
-                                    <div class="text text2">
-                                        <p>Phone:+603 6203 7877</p>
-                                        <p>Email:info@jnplaw.my</p>
-                                        <p>Address:Suite J-7-2 <br>
-                                                   Solaris Mont Kiara <br>
-                                                   Jalan Solaris <br>
-                                                   50480 Kuala Lumpur <br>
-                                                   Malaysia
-                                        </p>
+                                    <div class="text text4">
+                                        <a href="#">
+                                            <i class="fa fa-twitter mr-1"></i>
+                                            Twitter
+                                        </a>
                                     </div>
 
-                                    <div class="share">
+                                    <div class="text text4">
+                                        <a href="#">
+                                            <i class="fa fa-facebook mr-1"></i>
+                                            G-mail
+                                        </a>
+                                    </div>
 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div>
-                                    <div class="title">About J&P</div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">About Us</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">What We Do</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">Our People</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">Our Knowledge</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">News</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">Events</a>
-                                    </div>
-                                    <div class="text text3">
-                                        <a href="{{ route('about-us') }}">Contact Us</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div>
-                                    <div>
-                                        <div class="title">Community</div>
-                                        <div class="text text4">
-                                            <a href="#">
-                                                <i class="fa fa-facebook mr-1"></i>
-                                                Facebook
-                                            </a>
-                                        </div>
-
-                                        <div class="text text4">
-                                            <a href="#">
-                                                <i class="fa fa-twitter mr-1"></i>
-                                                Twitter
-                                            </a>
-                                        </div>
-
-                                        <div class="text text4">
-                                            <a href="#">
-                                                <i class="fa fa-facebook mr-1"></i>
-                                                G-mail
-                                            </a>
-                                        </div>
-
-                                        <div class="text text4">
-                                            <a href="#">
-                                                <i class="fa fa-instagram mr-1"></i>
-                                                Instagram
-                                            </a>
-                                        </div>
+                                    <div class="text text4">
+                                        <a href="#">
+                                            <i class="fa fa-instagram mr-1"></i>
+                                            Instagram
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -336,10 +338,15 @@
         </footer>
 
     </div>
-
 @endsection
 
 @section('scripts')
+    <script>
+        var logoLayouts = {!! $logoLayouts !!};
+    </script>
+
+    <script src="{{ asset('js/logo-size.js')  }}"></script>
+
     <script src="{{ asset('js/page-text-floats.js') }}"></script>
     <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
 
@@ -349,7 +356,7 @@
                 loop:true,
                 margin:10,
                 nav:true,
-                navText : ['<span>&leftarrow;</span>','<span>&rightarrow;</span>'],
+                navText : ['<span><i class="icon ion-ios-arrow-round-back"></i></span>','<span><i class="icon ion-ios-arrow-round-forward"></i></span>'],
                 responsiveClass:true,
                 responsive:{
                     0:{
@@ -397,17 +404,5 @@
             });
 
         }
-    </script>
-@endsection
-
-@section('scripts')
-    <script>
-        window.addEventListener('wheel', () => {
-            console.log('SCROLL.')
-            let y = 1 + (window.scrollY || window.pageYOffset) / 150
-            y = y < 1 ? 1 : y // ensure y is always >= 1 (due to Safari's elastic scroll)
-            const [r, g, b] = [red/y, green/y, blue/y].map(Math.round)
-            section1.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
-        })
     </script>
 @endsection
