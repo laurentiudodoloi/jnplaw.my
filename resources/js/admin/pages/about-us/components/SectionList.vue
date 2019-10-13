@@ -62,7 +62,6 @@
 
     data () {
       return {
-        sectionImages: [],
         sections: [],
         section: {
           title: '',

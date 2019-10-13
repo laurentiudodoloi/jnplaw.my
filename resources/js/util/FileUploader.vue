@@ -2,7 +2,7 @@
   <div class="form-group">
     <label class="form-check-label font-weight-bold">Upload image/video</label>
 
-    <a href="#" @click.prevent="onClickChangeFlag">Change</a>
+    <a v-if="resource.resource_url" href="#" @click.prevent="onClickChangeFlag">Change</a>
 
     <div v-if="changeFlag" class="my-2">
       <div class="custom-control custom-radio custom-control-inline">

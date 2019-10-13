@@ -128,13 +128,8 @@
       SectionList
     },
 
-    props: {
-      //
-    },
-
     data () {
       return {
-        localPath: 'uploads/',
         path: 'storage/uploads/',
         loading: false,
         loadingFullScreen: true,
@@ -202,28 +197,6 @@
 
       onChangeSections (value) {
         this.sections = value
-      },
-
-      save () {
-        this.loading = true
-
-        axios
-          .post('/admin/about-us-update-content', {
-            settings: {
-              ...this.settings,
-              image: this.headerImage
-            },
-            sections: this.sections
-          })
-          .then(r => {
-            this.loading = false
-
-            this.$notify({
-              group: 'save',
-              title: 'Saved !',
-              text: 'Your changes have been saved.'
-            })
-          })
       },
 
       csrf () {

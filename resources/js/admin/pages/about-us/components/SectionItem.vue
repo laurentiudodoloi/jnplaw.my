@@ -101,7 +101,6 @@
       <image-slider
         :value="sliders"
         :index="index"
-        @change="onChangeSliders($event, index)"
       />
 
       <div class="header-line">
@@ -193,10 +192,6 @@
         this.section.subsections = values
 
         this.onChange()
-      },
-
-      onChangeSliders (sliders, index) {
-
       },
 
       onSectionImageChange (e) {

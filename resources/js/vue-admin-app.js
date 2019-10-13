@@ -26,6 +26,6 @@ let router = new VueRouter({
 });
 
 new Vue({
-    el: '#vue-app',
+    el: '#vue-admin-app',
     router
 });

@@ -26,6 +26,8 @@ class LandingPageController extends Controller
 
     public function store(Request $request, $id = 0)
     {
+        $id = $id !== 0 ? intval($id) : false;
+
         $request->validate([
             'title' => 'required|string|max:191',
             'subtitle' => 'required|string|max:191',
@@ -38,25 +40,46 @@ class LandingPageController extends Controller
             if ($uploaded['success']) {
                 $fileNameToStore = $uploaded['name'];
             }
+        } else {
+            $fileNameToStore = false;
         }
 
         $title = $request->input('title');
         $subtitle = $request->input('subtitle');
 
+        $data = [
+            'title' => $title,
+            'subtitle' => $subtitle,
+        ];
+
+        if ($fileNameToStore && $fileNameToStore !== '') {
+            $data['resource_url'] = $fileNameToStore;
+        }
+
+        if (isset($id)) {
+            $entity = LandingPageSlide::query()->find($id);
+
+            if ($entity && isset($data['resource_url']) && $entity->resource_url !== $fileNameToStore) {
+                Storage::delete('public/uploads/'.$entity->resource_url);
+            }
+        }
+
         $entity = LandingPageSlide::query()
             ->updateOrCreate([
                 'id' => $id,
-            ], [
-                'title' => $title,
-                'subtitle' => $subtitle,
-                'resource_url' => $fileNameToStore,
-            ]);
+            ], $data);
 
         return redirect()->back()->with('success', !!$entity);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id = $request->input('id');
+
+        if (!$id) {
+            return response()->json(false);
+        }
+
         $entity = LandingPageSlide::query()->findOrFail($id);
 
         Storage::delete('public/uploads/'.$entity->resource_url);

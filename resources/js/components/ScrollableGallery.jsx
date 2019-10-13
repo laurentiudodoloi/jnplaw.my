@@ -101,7 +101,7 @@ class ScrollableGallery extends React.Component {
 
         this.setState({
             ...this.state,
-            playVideo: this.props.projects[index].resource_url
+            playVideo: 'storage/uploads/' + this.props.projects[index].resource_url
         })
     }
 
@@ -217,17 +217,17 @@ class ScrollableGallery extends React.Component {
                                         </Reveal>
 
                                         <Fade>
-                                            <div
-                                                className="play-video norebro-video-module-sc video-module"
-                                                onClick={(evt) => this.onClickPlay(evt, index)}
-                                            >
+                                            <div className="play-video norebro-video-module-sc video-module">
                                                 <div className="btn-play">
                                                     <a href="#">
                                                         <i className="fa fa-play"></i>
                                                     </a>
                                                 </div>
                                                 <div className="wrap">
-                                                    <div className="play-content">
+                                                    <div
+                                                        className="play-content"
+                                                        onClick={(evt) => this.onClickPlay(evt, index)}
+                                                    >
                                                         <a href="#">
                                                             Play video
                                                         </a>

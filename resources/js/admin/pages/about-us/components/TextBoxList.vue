@@ -54,9 +54,8 @@
 </template>
 
 <script>
-
-  import {cloneDeep} from 'lodash'
   import VueLoading from "vue-loading-overlay/src/js/Component";
+  import {cloneDeep} from 'lodash'
 
   export default {
     components: {VueLoading},
@@ -90,7 +89,7 @@
     },
 
     methods: {
-      addNewEntity() {
+      addNewEntity () {
         this.localValue.push({
           header_text: '',
           title: '',
@@ -100,13 +99,13 @@
         this.onChange()
       },
 
-      remove(index) {
+      remove (index) {
         this.localValue.splice(index, 1)
 
         this.onChange()
       },
 
-      onChange() {
+      onChange () {
         this.$emit('input', cloneDeep(this.localValue))
       }
     }

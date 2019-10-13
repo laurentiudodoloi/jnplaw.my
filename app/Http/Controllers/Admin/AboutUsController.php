@@ -173,51 +173,5 @@ class AboutUsController extends Controller
         }
 
         return redirect()->back();
-
-        $oldSections = AboutUsSection::all();
-        $oldSectionImages = AboutUsSection::all();
-
-        foreach ($oldSections as $section) {
-            Storage::delete('public/uploads/'.$section->image_url);
-        }
-
-        foreach ($oldSectionImages as $image) {
-            Storage::delete('public/uploads/'.$image->image_url);
-        }
-
-//        AboutUsSection::query()->delete();
-//        AboutUsSubSection::query()->delete();
-//        AboutUsSectionImage::query()->delete();
-//        AboutUsSectionTextBox::query()->delete();
-
-        if (!$sections) {
-            return redirect()->back();
-        }
-
-        foreach ($sections as $index => $section) {
-            $storeFileName = '';
-
-            $uploaded = isset($files[$index], $files[$index]['image'])
-                ? FileUploader::store($files[$index]['image'])
-                : false;
-
-            if ($uploaded) {
-                $storeFileName = $uploaded['name'];
-            }
-
-            $newSection = AboutUsSection::query()
-                ->create([
-                    'title' => $section['title'],
-                    'subtitle' => $section['subtitle'],
-                    'description' => $section['description'],
-                    'image_url' => $storeFileName,
-                ]);
-
-            if (!$newSection) {
-                return false;
-            }
-        }
-
-        return redirect()->back();
     }
 }

@@ -39,9 +39,8 @@
 </template>
 
 <script>
-
-  import {cloneDeep} from 'lodash'
   import VueLoading from "vue-loading-overlay/src/js/Component";
+  import {cloneDeep} from 'lodash'
 
   export default {
     components: {VueLoading},
@@ -77,7 +76,7 @@
     },
 
     methods: {
-      remove (imageIndex) {
+      remove () {
         this.deleteImages = true
         this.sliders = []
 

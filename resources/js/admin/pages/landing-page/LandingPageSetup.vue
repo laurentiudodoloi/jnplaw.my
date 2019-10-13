@@ -60,7 +60,7 @@
               >
             </div>
 
-            <file-uploader :value="entity" @input="onResourceChange"/>
+            <file-uploader :value="entity"/>
 
             <button
               type="submit"
@@ -116,6 +116,7 @@
 
     created() {
       this.rows = cloneDeep(this.data.slides || [])
+      console.log('ROWS', this.rows)
     },
 
     computed: {
@@ -163,7 +164,9 @@
         this.loading = true
 
         axios
-          .post('/admin/landing-page/slide/destroy/' + this.rows[index].id)
+          .post('/admin/landing-page/slide/destroy', {
+            id: this.rows[index].id
+          })
           .then(r => {
             if (r.data) {
               this.rows.splice(index, 1)
@@ -173,25 +176,8 @@
           })
       },
 
-      fetchProjects () {
-        this.loading = true
-
-        axios
-          .get('/admin/landing-page/slides')
-          .then(r => {
-            console.log('ASDA', r.data)
-            this.rows = r.data
-
-            this.loading = false
-          })
-      },
-
       csrf () {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-      },
-
-      onResourceChange (resource) {
-        //
       }
     }
   }
