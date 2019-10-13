@@ -116,7 +116,6 @@
 
     created() {
       this.rows = cloneDeep(this.data.slides || [])
-      console.log('ROWS', this.rows)
     },
 
     computed: {

@@ -20,7 +20,7 @@ class ScrollableGallery extends React.Component {
     state = {
         currentSlide: 0,
         lastScroll: 0,
-        playVideo: false
+        playResource: false
     }
 
     constructor(props) {
@@ -33,14 +33,14 @@ class ScrollableGallery extends React.Component {
 
     _onPressEscape (event){
         if(event.keyCode === 27) {
-            this.videoOff()
+            this.resourceOff()
         }
     }
 
-    videoOff = () => {
+    resourceOff = () => {
         this.setState({
             ...this.state,
-            playVideo: false
+            playResource: false
         })
     }
 
@@ -101,7 +101,7 @@ class ScrollableGallery extends React.Component {
 
         this.setState({
             ...this.state,
-            playVideo: 'storage/uploads/' + this.props.projects[index].resource_url
+            playResource: 'storage/uploads/' + this.props.projects[index].resource_url
         })
     }
 
@@ -135,18 +135,27 @@ class ScrollableGallery extends React.Component {
 
         return (
             <div>
-                {this.state.playVideo &&
-                    <div className={'slider-video-player'}>
-                        <a href={'#'} className={'close-btn'} onClick={this.videoOff}>x</a>
+                {this.state.playResource &&
+                    <div className={'slider-resource-player'}>
+                        <a href={'#'} className={'close-btn'} onClick={this.resourceOff}>x</a>
 
-                        <Player
-                            className={'canvas-video-player'}
-                            aspectRatio={'16:9'}
-                            isFullscreen
-                            src={this.state.playVideo}
-                            autoPlay={true}
-                            preload={'auto'}
-                        />
+                        {this.state.playResource.includes('mp4') &&
+                            <Player
+                                className={'canvas-video-player'}
+                                aspectRatio={'16:9'}
+                                isFullscreen
+                                src={this.state.playResource}
+                                autoPlay={true}
+                                preload={'auto'}
+                            />
+                        }
+
+                        {!this.state.playResource.includes('mp4') &&
+                            <img
+                                src={this.state.playResource}
+                                className={'canvas-image-player'}
+                            />
+                        }
                     </div>
                 }
 
