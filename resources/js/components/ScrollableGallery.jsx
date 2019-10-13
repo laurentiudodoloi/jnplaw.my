@@ -227,19 +227,22 @@ class ScrollableGallery extends React.Component {
 
                                         <Fade>
                                             <div className="play-video norebro-video-module-sc video-module">
-                                                <div className="btn-play">
-                                                    <a href="#">
-                                                        <i className="fa fa-play"></i>
-                                                    </a>
-                                                </div>
-                                                <div className="wrap">
-                                                    <div
-                                                        className="play-content"
-                                                        onClick={(evt) => this.onClickPlay(evt, index)}
-                                                    >
+                                                <div
+                                                    className={'play-btn-block'}
+                                                    onClick={(evt) => this.onClickPlay(evt, index)}
+                                                >
+                                                    <div className="btn-play">
                                                         <a href="#">
-                                                            Play video
+                                                            <i className="fa fa-play"></i>
                                                         </a>
+                                                    </div>
+
+                                                    <div className="wrap">
+                                                        <div className="play-content">
+                                                            <a href="#">
+                                                                Play video
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
