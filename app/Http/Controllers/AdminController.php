@@ -7,7 +7,7 @@ use App\Eloquent\AboutUsSectionImage;
 use App\Eloquent\AboutUsSectionTextBox;
 use App\Eloquent\AboutUsSetting;
 use App\Eloquent\AboutUsSubSection;
-use App\Eloquent\Project;
+use App\Eloquent\LandingPageSlide;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class AdminController extends Controller
         ];
 
         $data = [
-            'projects' => Project::all(),
+            'slides' => LandingPageSlide::all(),
             'about' => $aboutPageContent,
         ];
 

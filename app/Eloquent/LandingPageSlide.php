@@ -6,9 +6,7 @@ class LandingPageSlide extends Model
 {
     protected $fillable = [
         'title',
-        'header_title',
-        'description',
+        'subtitle',
         'resource_url',
-        'resource_type'
     ];
 }

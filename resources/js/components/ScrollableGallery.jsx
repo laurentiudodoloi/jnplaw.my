@@ -202,11 +202,11 @@ class ScrollableGallery extends React.Component {
                             <div key={index} hidden={index !== this.state.currentSlide} className="container">
                                 <div className={'row'}>
                                     <div className={'col-sm-6 offset-sm-1'}>
-                                        <span className="date text-uppercase">march 20, 2017</span>
+                                        <span className="date text-uppercase" hidden={true}>march 20, 2017</span>
 
                                         <div className="mb-3">
                                             <Reveal>
-                                                <span className="tag text-capitalize">{project.header_title}</span>
+                                                <span className="tag text-capitalize">{project.subtitle}</span>
                                             </Reveal>
                                         </div>
 
@@ -215,12 +215,6 @@ class ScrollableGallery extends React.Component {
                                                 {project.title}
                                             </h2>
                                         </Reveal>
-
-                                        <Fade>
-                                            <div className="info-list">
-                                                {project.description}
-                                            </div>
-                                        </Fade>
 
                                         <Fade>
                                             <div

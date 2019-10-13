@@ -12,8 +12,7 @@
       <tr v-for="(row, index) in rows">
         <th scope="row" class="text-center">{{ index + 1 }}</th>
         <td>{{ shortText(row.title) }}</td>
-        <td>{{ shortText(row.header_title) }}</td>
-        <td>{{ shortText(row.description) }}</td>
+        <td>{{ shortText(row.subtitle) }}</td>
         <td>{{ shortText(row.resource_url) }}</td>
 
         <td class="text-center">

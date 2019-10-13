@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Eloquent\LandingPageSlide;
+use App\Http\Controllers\Controller;
 use App\Util\FileUploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,33 +27,29 @@ class LandingPageController extends Controller
     public function store(Request $request, $id = 0)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'title' => 'required|string|max:191',
+            'subtitle' => 'required|string|max:191',
         ]);
 
         $fileNameToStore = '';
-        $resourceType = 'image';
-
         if ($request->hasFile('resource')) {
             $uploaded = FileUploader::store($request->file('resource'));
 
             if ($uploaded['success']) {
                 $fileNameToStore = $uploaded['name'];
-                $resourceType = $uploaded['type'];
             }
         }
 
         $title = $request->input('title');
-        $description = $request->input('description');
+        $subtitle = $request->input('subtitle');
 
         $entity = LandingPageSlide::query()
             ->updateOrCreate([
                 'id' => $id,
             ], [
                 'title' => $title,
-                'description' => $description,
+                'subtitle' => $subtitle,
                 'resource_url' => $fileNameToStore,
-                'resource_type' => $resourceType,
             ]);
 
         return redirect()->back()->with('success', !!$entity);

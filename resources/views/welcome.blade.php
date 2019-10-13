@@ -26,7 +26,7 @@
 
         <div class="video-sliders" style="display: none;">
             @foreach($projects as $project)
-                <div class="video-slider">{{ $project->resource_url }}</div>
+                <div class="video-slider">{{ 'storage/uploads/'.$project->resource_url }}</div>
             @endforeach
         </div>
     </div>

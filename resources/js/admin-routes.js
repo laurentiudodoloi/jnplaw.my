@@ -1,12 +1,12 @@
 import Welcome from './admin/components/Welcome'
-import LandingPageSetup from './admin/components/LandingPageSetup'
-import AboutPageSetup from './admin/components/AboutPageSetup'
-import OurPeoplePageSetup from './admin/components/OurPeoplePageSetup'
-import OurKnowledgePageSetup from './admin/components/OurKnowledgePageSetup'
-import NewsPageSetup from './admin/components/NewsPageSetup'
-import EventsPageSetup from './admin/components/EventsPageSetup'
-import ContactPageSetup from './admin/components/ContactPageSetup'
-import ManageLogo from './admin/components/ManageLogo'
+import LandingPageSetup from './admin/pages/landing-page/LandingPageSetup'
+import AboutPageSetup from './admin/pages/about-us/AboutUsPageSetup'
+import OurPeoplePageSetup from './admin/pages/our-people/OurPeoplePageSetup'
+import OurKnowledgePageSetup from './admin/pages/our-knowledge/OurKnowledgePageSetup'
+import NewsPageSetup from './admin/pages/news/NewsPageSetup'
+import EventsPageSetup from './admin/pages/events/EventsPageSetup'
+import ContactPageSetup from './admin/pages/contact/ContactPageSetup'
+import ManageLogo from './admin/pages/logo-management/ManageLogo'
 
 export const routes = [
     {

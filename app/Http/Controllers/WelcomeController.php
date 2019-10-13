@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Eloquent\Project;
-use App\LayoutSize;
+use App\Eloquent\LandingPageSlide;
+use App\Eloquent\LayoutSize;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -15,7 +15,7 @@ class WelcomeController extends Controller
 
         $path = $livePath;
 
-        $projects = Project::all();
+        $projects = LandingPageSlide::all();
 
         $logoLayouts = LayoutSize::query()
             ->where('element', 'logo')
