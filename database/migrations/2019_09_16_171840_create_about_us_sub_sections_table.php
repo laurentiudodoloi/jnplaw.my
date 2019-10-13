@@ -16,8 +16,8 @@ class CreateAboutUsSubSectionsTable extends Migration
         Schema::create('about_us_sub_sections', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('section_id');
-            $table->string('title');
-            $table->text('content');
+            $table->string('title')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
