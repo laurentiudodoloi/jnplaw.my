@@ -18,6 +18,7 @@ class CreateLandingPageSlidesTable extends Migration
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->string('resource_url')->nullable();
+            $table->enum('device', ['desktop', 'mobile'])->default('desktop');
             $table->timestamps();
         });
     }

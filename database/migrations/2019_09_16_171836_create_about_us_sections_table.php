@@ -15,14 +15,10 @@ class CreateAboutUsSectionsTable extends Migration
     {
         Schema::create('about_us_sections', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->text('description')->nullable();
-            $table->string('image_url');
-            $table->boolean('has_subsections')->default(false);
-            $table->boolean('has_image')->default(false);
-            $table->boolean('has_image_slider')->default(false);
-            $table->boolean('has_text_boxes')->default(false);
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

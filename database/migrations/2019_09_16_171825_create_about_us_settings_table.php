@@ -15,10 +15,10 @@ class CreateAboutUsSettingsTable extends Migration
     {
         Schema::create('about_us_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->text('description')->nullable();
-            $table->string('image_url');
+            $table->string('image_url')->nullable();
             $table->boolean('show_add_comment_form')->default(true);
             $table->timestamps();
         });

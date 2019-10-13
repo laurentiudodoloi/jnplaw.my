@@ -23,9 +23,9 @@ import { routes } from './admin-routes'
 
 let router = new VueRouter({
     routes
-})
+});
 
 new Vue({
-    el: '#vue-app',
+    el: '#vue-admin-app',
     router
 });

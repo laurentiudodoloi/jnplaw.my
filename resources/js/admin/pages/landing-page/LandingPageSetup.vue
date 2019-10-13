@@ -36,20 +36,44 @@
             <input :value="csrf()" type="hidden" name="_token">
 
             <div class="form-group">
-              <label for="title" class=" font-weight-bold">Title</label>
-              <input v-model="entity.title" type="text" name="title" class="form-control form-control-sm" id="title"
-                     placeholder="Enter title"
+              <select
+                  v-model="entity.device"
+                  name="device"
+                  class="browser-default custom-select"
+                  @change="onChangeDevice"
+              >
+                <option value="0" selected>Select device</option>
+                <option value="desktop">Desktop</option>
+                <option value="mobile">Mobile</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="title" class="font-weight-bold">Title</label>
+
+              <input
+                v-model="entity.title"
+                type="text"
+                name="title"
+                class="form-control form-control-sm"
+                id="title"
+                placeholder="Enter title"
               >
             </div>
 
             <div class="form-group">
-              <label for="description" class="font-weight-bold">Description</label>
-              <textarea v-model="entity.description" rows="6" name="description" class="form-control form-control-sm"
-                        id="description" placeholder="Enter description"
-              ></textarea>
+              <label for="subtitle" class="font-weight-bold">Subtitle</label>
+
+              <input
+                v-model="entity.subtitle"
+                name="subtitle"
+                class="form-control form-control-sm"
+                id="subtitle"
+                placeholder="Enter subtitle"
+              >
             </div>
 
-            <file-uploader :value="entity" @input="onResourceChange"/>
+            <file-uploader :value="entity" :types="resourceTypes"/>
 
             <button
               type="submit"
@@ -87,6 +111,7 @@
 
     data () {
       return {
+        onlyImage: false,
         localPath: 'uploads/',
         livePath: 'jnplaw.local.my/public/uploads/',
         loading: false,
@@ -94,9 +119,10 @@
         rows: [],
         entity: {
           title: '',
-          description: '',
+          subtitle: '',
+          resource_url: '',
           resource_type: false,
-          resource_url: false
+          device: 0
         },
         image: false,
         editMode: false
@@ -104,16 +130,26 @@
     },
 
     created() {
-      this.rows = cloneDeep(this.data.projects || [])
+      this.rows = cloneDeep(this.data.slides || [])
     },
 
     computed: {
-      formAction () {
-        if (this.entity.id) {
-          return '/admin/project/store/' + this.entity.id
+      resourceTypes () {
+        if (this.entity.device === 'mobile') {
+          return ['image']
         }
 
-        return '/admin/project/store'
+        return ['image', 'video']
+      },
+
+      formAction () {
+        let path = '/admin/landing-page/slide/store'
+
+        if (this.entity.id) {
+          return path + '/' + this.entity.id
+        }
+
+        return path
       }
     },
 
@@ -121,17 +157,19 @@
       resetEntity () {
         this.entity = {
           title: '',
-          description: '',
+          subtitle: '',
+          resource_url: '',
           resource_type: false,
-          resource_url: ''
+          device: 0,
         }
       },
 
       headers () {
         return [
-          'LandingPageSlide title',
-          'Description',
-          'Media'
+          'Title',
+          'Subtitle',
+          'Media resource',
+          'Device'
         ]
       },
 
@@ -150,7 +188,9 @@
         this.loading = true
 
         axios
-          .post('/admin/project/destroy/' + this.rows[index].id)
+          .post('/admin/landing-page/slide/destroy', {
+            id: this.rows[index].id
+          })
           .then(r => {
             if (r.data) {
               this.rows.splice(index, 1)
@@ -160,66 +200,12 @@
           })
       },
 
-      fetchProjects () {
-        this.loading = true
-
-        axios
-          .get('/admin/projects')
-          .then(r => {
-            this.rows = r.data
-
-            this.loading = false
-          })
-      },
-
-      onImageChange (e) {
-        this.loading = true
-
-        let files = e.target.files || e.dataTransfer.files
-        if (!files.length)
-          return;
-
-        this.createImage(files[0])
-      },
-
-      createImage (file) {
-        let reader = new FileReader();
-        this.entity.resource_url = file.name
-
-        let vm = this
-        reader.onload = (e) => {
-          vm.image = e.target.result;
-        };
-
-        reader.readAsDataURL(file);
-
-        this.loading = false
-      },
-
-      switchResourceType (type) {
-        this.image = false
-
-        this.entity.resource_type = type
-      },
-
-      isChecked (type) {
-        return this.entity.resource_type === type
-      },
-
-      resourceUrl () {
-        if (this.entity.id && this.entity.resource_url) {
-          this.image = this.localPath + this.entity.resource_url
-        }
-
-        return this.image
+      onChangeDevice (evt) {
+        this.entity.device = evt.target.value
       },
 
       csrf () {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-      },
-
-      onResourceChange (resource) {
-        //
       }
     }
   }

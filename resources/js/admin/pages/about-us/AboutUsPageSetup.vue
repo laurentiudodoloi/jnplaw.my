@@ -15,9 +15,6 @@
       <div class="nav-tabs-wrapper">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
           <li>
-            <a href="#general" data-toggle="tab" aria-expanded="true" class="active">General</a>
-          </li>
-          <li>
             <a href="#header" data-toggle="tab" aria-expanded="false" class="">Header</a>
           </li>
           <li>
@@ -28,27 +25,28 @@
     </div>
 
     <div id="my-tab-content" class="tab-content">
-
-      <div class="tab-pane active" id="general">
-        <div class="custom-control custom-checkbox">
-          <input v-model="settings.show_add_comment_form" type="checkbox" class="custom-control-input"
-                 id="customCheck1"
-          >
-          <label class="custom-control-label" for="customCheck1">
-            Show section
-            <span class="font-weight-bold"><em>Post a comment</em></span>
-          </label>
-        </div>
-      </div>
-
       <div class="tab-pane" id="header">
         <form
           class="form admin-form"
           method="post"
-          action="/admin/about-us-store-settings"
+          action="/admin/about-us/store-settings"
           enctype="multipart/form-data"
         >
           <input :value="csrf()" type="hidden" name="_token">
+
+          <div class="custom-control custom-checkbox mb-2">
+            <input
+              v-model="settings.show_add_comment_form"
+              name="show_add_comment_form"
+              type="checkbox"
+              class="custom-control-input"
+             id="customCheck1"
+            >
+            <label class="custom-control-label" for="customCheck1">
+              Show section
+              <span class="font-weight-bold"><em>Post a comment</em></span>
+            </label>
+          </div>
 
           <div class="form-row">
             <div class="form-group col-md-7">
@@ -98,18 +96,11 @@
 
       </div>
 
-      <about-page-sections :value="sections" @add="addSection" @input="onChangeSections"/>
+      <section-list :value="sections" @add="addSection" @input="onChangeSections"/>
 
       <div class="tab-pane" id="setting-sections">
 
         <div class="add-sections">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="setting-hasSections">
-            <label class="custom-control-label" for="setting-hasSections">
-              Has sections
-            </label>
-          </div>
-
           <div>
             <button class="btn btn-outline-info btn-sm">
               <i class="fa fa-plus mr-1"></i>
@@ -137,14 +128,9 @@
       SectionList
     },
 
-    props: {
-      //
-    },
-
     data () {
       return {
-        localPath: 'uploads/',
-        livePath: 'jnplaw/public/uploads/',
+        path: 'storage/uploads/',
         loading: false,
         loadingFullScreen: true,
         headerImage: false,
@@ -202,7 +188,7 @@
 
       getHeaderImage() {
         if (!this.headerImage && this.settings.image_url && this.settings.image_url !== '') {
-          return this.livePath + this.settings.image_url
+          return this.path + this.settings.image_url
         }
 
         this.loading = false
@@ -211,28 +197,6 @@
 
       onChangeSections (value) {
         this.sections = value
-      },
-
-      save () {
-        this.loading = true
-
-        axios
-          .post('/admin/about-us-update-content', {
-            settings: {
-              ...this.settings,
-              image: this.headerImage
-            },
-            sections: this.sections
-          })
-          .then(r => {
-            this.loading = false
-
-            this.$notify({
-              group: 'save',
-              title: 'Saved !',
-              text: 'Your changes have been saved.'
-            })
-          })
       },
 
       csrf () {

@@ -16,9 +16,9 @@ class CreateAboutUsSectionTextBoxesTable extends Migration
         Schema::create('about_us_section_text_boxes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('section_id');
-            $table->string('header_text');
-            $table->string('title');
-            $table->text('content');
+            $table->string('header_text')->nullable();
+            $table->string('title')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }

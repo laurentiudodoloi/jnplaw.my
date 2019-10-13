@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Eloquent\AboutUsSection;
 use App\Eloquent\AboutUsSetting;
-use App\LayoutSize;
+use App\Eloquent\LayoutSize;
 
 class AboutController extends Controller
 {

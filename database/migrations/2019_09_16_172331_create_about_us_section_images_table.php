@@ -16,7 +16,7 @@ class CreateAboutUsSectionImagesTable extends Migration
         Schema::create('about_us_section_images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('section_id');
-            $table->string('image_url');
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

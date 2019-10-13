@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Eloquent\LandingPageSlide;
+use App\Http\Controllers\Controller;
 use App\Util\FileUploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -25,41 +26,63 @@ class LandingPageController extends Controller
 
     public function store(Request $request, $id = 0)
     {
+        $id = $id !== 0 ? intval($id) : false;
+
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'title' => 'required|string|max:191',
+            'subtitle' => 'required|string|max:191',
         ]);
 
-        $fileNameToStore = '';
-        $resourceType = 'image';
+        $device = $request->input('device') === '0' ? 'desktop' : $request->input('device');
 
+        $fileNameToStore = '';
         if ($request->hasFile('resource')) {
             $uploaded = FileUploader::store($request->file('resource'));
 
             if ($uploaded['success']) {
                 $fileNameToStore = $uploaded['name'];
-                $resourceType = $uploaded['type'];
             }
+        } else {
+            $fileNameToStore = false;
         }
 
         $title = $request->input('title');
-        $description = $request->input('description');
+        $subtitle = $request->input('subtitle');
+
+        $data = [
+            'title' => $title,
+            'subtitle' => $subtitle,
+            'device' => $device,
+        ];
+
+        if ($fileNameToStore && $fileNameToStore !== '') {
+            $data['resource_url'] = $fileNameToStore;
+        }
+
+        if (isset($id)) {
+            $entity = LandingPageSlide::query()->find($id);
+
+            if ($entity && isset($data['resource_url']) && $entity->resource_url !== $fileNameToStore) {
+                Storage::delete('public/uploads/'.$entity->resource_url);
+            }
+        }
 
         $entity = LandingPageSlide::query()
             ->updateOrCreate([
                 'id' => $id,
-            ], [
-                'title' => $title,
-                'description' => $description,
-                'resource_url' => $fileNameToStore,
-                'resource_type' => $resourceType,
-            ]);
+            ], $data);
 
         return redirect()->back()->with('success', !!$entity);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id = $request->input('id');
+
+        if (!$id) {
+            return response()->json(false);
+        }
+
         $entity = LandingPageSlide::query()->findOrFail($id);
 
         Storage::delete('public/uploads/'.$entity->resource_url);

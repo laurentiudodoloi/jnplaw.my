@@ -32,6 +32,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "react-device-detect": "^1.9.10",
         "react-dom": "^16.10.2",
         "react-jsx": "^1.0.0",
         "react-loading-screen": "0.0.17",

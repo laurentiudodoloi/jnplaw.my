@@ -20,32 +20,30 @@ class ScrollableGallery extends React.Component {
     state = {
         currentSlide: 0,
         lastScroll: 0,
-        playVideo: false
+        playResource: false
     }
 
     constructor(props) {
         super(props);
-
-        this.sliders = [];
 
         this._onPressEscape = this._onPressEscape.bind(this);
     }
 
     _onPressEscape (event){
         if(event.keyCode === 27) {
-            this.videoOff()
+            this.resourceOff()
         }
     }
 
-    videoOff = () => {
+    resourceOff = () => {
         this.setState({
             ...this.state,
-            playVideo: false
+            playResource: false
         })
     }
 
     static propTypes = {
-        slides: PropTypes.arrayOf(PropTypes.string),
+        slides: PropTypes.arrayOf(PropTypes.object),
         startAt: PropTypes.number,
         onChange: PropTypes.func,
         style: PropTypes.object,
@@ -68,11 +66,6 @@ class ScrollableGallery extends React.Component {
     }
 
     componentDidMount() {
-        let domSliders = document.querySelectorAll('.video-slider');
-        domSliders.forEach(s => {
-            this.sliders.push(s.textContent);
-        })
-
         document.querySelector('body').style.overflow = 'hidden';
 
         document.querySelector('canvas').style.overflow = 'hidden'
@@ -81,7 +74,7 @@ class ScrollableGallery extends React.Component {
 
         this.addWheelEvent()
 
-        window.addEventListener('touchmove', this._onWheel)
+        // window.addEventListener('touchmove', this._onWheel)
 
         document.addEventListener("keydown", this._onPressEscape);
 
@@ -101,7 +94,7 @@ class ScrollableGallery extends React.Component {
 
         this.setState({
             ...this.state,
-            playVideo: this.props.projects[index].resource_url
+            playResource: this.props.slides[index].resource_url
         })
     }
 
@@ -134,34 +127,43 @@ class ScrollableGallery extends React.Component {
         } = this.props
 
         return (
-            <div>
-                {this.state.playVideo &&
-                    <div className={'slider-video-player'}>
-                        <a href={'#'} className={'close-btn'} onClick={this.videoOff}>x</a>
+            <Swipeable
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
+                    ...style
+                }}
+                {...rest}
+                preventDefaultTouchmoveEvent={true}
+                onSwiped={this._onSwiped}
+                innerRef={this._containerRef}
+            >
+                <div>
+                    {this.state.playResource &&
+                        <div className={'slider-resource-player'}>
+                            <a href={'#'} className={'close-btn'} onClick={this.resourceOff}>x</a>
 
-                        <Player
-                            className={'canvas-video-player'}
-                            aspectRatio={'16:9'}
-                            isFullscreen
-                            src={this.state.playVideo}
-                            autoPlay={true}
-                            preload={'auto'}
-                        />
-                    </div>
-                }
+                            {this.state.playResource.includes('mp4') &&
+                                <Player
+                                    className={'canvas-video-player'}
+                                    aspectRatio={'16:9'}
+                                    isFullscreen
+                                    src={this.state.playResource}
+                                    autoPlay={true}
+                                    preload={'auto'}
+                                />
+                            }
 
-                <Swipeable
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        overflow: 'hidden',
-                        ...style
-                    }}
-                    {...rest}
-                    preventDefaultTouchmoveEvent={true}
-                    onSwiped={this._onSwiped}
-                    innerRef={this._containerRef}
-                >
+                            {!this.state.playResource.includes('mp4') &&
+                                <img
+                                    src={this.state.playResource}
+                                    className={'canvas-image-player'}
+                                />
+                            }
+                        </div>
+                    }
+
                     <canvas
                         ref={this._canvasRef}
                         style={{
@@ -169,87 +171,84 @@ class ScrollableGallery extends React.Component {
                             height: '100%'
                         }}
                     />
-                </Swipeable>
 
-                <div className="landing-page section-wrapper">
-                    <div className="header-wrap">
-                        <div className="brand" style={{color: '#ffffff'}}>
-                            <a className="text-decoration-none text-white" href="/">
-                                <img src={this.props.logo} alt="Company logo" className="logo-image"/>
-                            </a>
+                    <div className="landing-page section-wrapper">
+                        <div className="header-wrap">
+                            <div className="brand" style={{color: '#ffffff'}}>
+                                <a className="text-decoration-none text-white" href="/">
+                                    <img src={this.props.logo} alt="Company logo" className="logo-image"/>
+                                </a>
+                            </div>
+
+                            <div className="header-right">
+                                <ul className="nav">
+                                    <li className="nav-item">
+                                        <a className="nav-link text-white hidden" href="#">
+                                            <i className="fa fa-search"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <div className="header-right">
-                            <ul className="nav">
-                                <li className="nav-item">
-                                    <a className="nav-link text-white hidden" href="#">
-                                        <i className="fa fa-search"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                        <ul className="onepage-dots slider-vertical-numbers">
+                            {this.props.slides.map((slide, i) => (
+                                <li key={i}
+                                    className={this.state.currentSlide === i ? 'active' : ''}></li>
+                            ))}
+                        </ul>
 
-                    <ul className="onepage-dots slider-vertical-numbers">
-                        {this.sliders.map((slide, i) => (
-                            <li key={i}
-                                className={this.state.currentSlide === i ? 'active' : ''}></li>
-                        ))}
-                    </ul>
+                        <div className="content-wrap">
+                            {this.props.slides.map((slide, index) => (
+                                <div key={index} hidden={index !== this.state.currentSlide} className="container">
+                                    <div className={'row'}>
+                                        <div className={'col-sm-6 offset-sm-1'}>
+                                            <span className="date text-uppercase" hidden={true}>march 20, 2017</span>
 
-                    <div className="content-wrap">
-                        {this.props.projects.map((project, index) => (
-                            <div key={index} hidden={index !== this.state.currentSlide} className="container">
-                                <div className={'row'}>
-                                    <div className={'col-sm-6 offset-sm-1'}>
-                                        <span className="date text-uppercase">march 20, 2017</span>
-
-                                        <div className="mb-3">
-                                            <Reveal>
-                                                <span className="tag text-capitalize">{project.header_title}</span>
-                                            </Reveal>
-                                        </div>
-
-                                        <Reveal>
-                                            <h2 className='title text-left anime-text'>
-                                                {project.title}
-                                            </h2>
-                                        </Reveal>
-
-                                        <Fade>
-                                            <div className="info-list">
-                                                {project.description}
+                                            <div className="mb-3">
+                                                <Reveal>
+                                                    <span className="tag text-capitalize">{slide.subtitle}</span>
+                                                </Reveal>
                                             </div>
-                                        </Fade>
 
-                                        <Fade>
-                                            <div
-                                                className="play-video norebro-video-module-sc video-module"
-                                                onClick={(evt) => this.onClickPlay(evt, index)}
-                                            >
-                                                <div className="btn-play">
-                                                    <a href="#">
-                                                        <i className="fa fa-play"></i>
-                                                    </a>
-                                                </div>
-                                                <div className="wrap">
-                                                    <div className="play-content">
-                                                        <a href="#">
-                                                            Play video
-                                                        </a>
+                                            <Reveal>
+                                                <h2 className='title text-left anime-text'>
+                                                    {slide.title}
+                                                </h2>
+                                            </Reveal>
+
+                                            <Fade>
+                                                <div className="play-video norebro-video-module-sc video-module">
+                                                    <div
+                                                        className={'play-btn-block'}
+                                                        onClick={(evt) => this.onClickPlay(evt, index)}
+                                                    >
+                                                        <div className="btn-play">
+                                                            <a href="#">
+                                                                <i className="fa fa-play"></i>
+                                                            </a>
+                                                        </div>
+
+                                                        <div className="wrap">
+                                                            <div className="play-content">
+                                                                <a href="#">
+                                                                    Play video
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Fade>
+                                            </Fade>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
 
-                    <div className="scroll">Scroll</div>
+                        <div className="scroll">Scroll</div>
+                    </div>
                 </div>
-            </div>
+            </Swipeable>
         )
     }
 
@@ -271,10 +270,10 @@ class ScrollableGallery extends React.Component {
         }
 
         if (currentSlide < 0) {
-            currentSlide = this.sliders.length - 1
+            currentSlide = this.props.slides.length - 1
         }
 
-        currentSlide = currentSlide % this.sliders.length
+        currentSlide = currentSlide % this.props.slides.length
 
         let animatedText = document.querySelector('.title')
 
@@ -311,21 +310,20 @@ class ScrollableGallery extends React.Component {
             this._gallery.onScroll(event)
 
             this.setState({
-                currentSlide: Math.round(this._gallery._position) % this.sliders.length
+                currentSlide: Math.round(this._gallery._position) % this.props.slides.length
             })
         }
     }
 
     _onSwiped = (event, deltaX, deltaY, isFlick) => {
-        return true
-
         if (isFlick) {
             deltaY *= 5
         }
 
         this._gallery.onScroll({
             ...event,
-            deltaY
+            forMobile: true,
+            deltaY: 100
         })
     }
 
@@ -362,11 +360,13 @@ class ScrollableGallery extends React.Component {
 
         this._onResize()
 
-        const videoSlides = this.sliders
+        const slideResources = slides.map((slide) => {
+            return slide.resource_url
+        });
 
         this._gallery = new Gallery({
             canvas: this._canvas,
-            slides: videoSlides,
+            slides: slideResources,
             current: this._current
         })
     }

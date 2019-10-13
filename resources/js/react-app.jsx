@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import LoadingScreen from 'react-loading-screen';
+import { isMobile } from 'react-device-detect';
 
 import ScrollableGallery from './components/ScrollableGallery'
 
@@ -15,7 +16,13 @@ class App extends React.Component {
 
         const root = document.getElementById('gallery-target')
         const feed = JSON.parse(root.dataset.feed)
-        this.slides = feed.projects
+
+        if (isMobile) {
+            this.slides = feed.slides.mobile
+        } else {
+            this.slides = feed.slides.desktop
+        }
+
         this.logo = feed.company_logo
 
         this.stopLoading = this.stopLoading.bind(this)
@@ -43,8 +50,7 @@ class App extends React.Component {
 
                 <ScrollableGallery
                     style={ { width: '100vw', height: '100vh' } }
-                    slides={[]}
-                    projects={this.slides}
+                    slides={this.slides}
                     logo={this.logo}
                     onLoaded={(val) => this.stopLoading(val)}
                 />

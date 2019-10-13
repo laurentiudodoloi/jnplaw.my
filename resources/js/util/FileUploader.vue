@@ -2,8 +2,10 @@
   <div class="form-group">
     <label class="form-check-label font-weight-bold">Upload image/video</label>
 
-    <div class="my-2">
-      <div class="custom-control custom-radio custom-control-inline">
+    <a v-if="resource.resource_url" href="#" @click.prevent="onClickChangeFlag">Change</a>
+
+    <div v-if="changeFlag" class="my-2">
+      <div v-if="isAvailable(IMAGE_RESOURCE)" class="custom-control custom-radio custom-control-inline">
         <input
           :checked="isChecked(IMAGE_RESOURCE)"
           type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"
@@ -12,7 +14,7 @@
         <label class="custom-control-label" for="customRadioInline1">Image</label>
       </div>
 
-      <div class="custom-control custom-radio custom-control-inline">
+      <div v-if="isAvailable(VIDEO_RESOURCE)" class="custom-control custom-radio custom-control-inline">
         <input :checked="isChecked(VIDEO_RESOURCE)"
                type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input"
                @change="switchResourceType('video')"
@@ -22,21 +24,24 @@
       </div>
     </div>
 
-    <div v-if="resource.resource_type" class="form-group">
+    <div v-if="changeFlag && resource.resource_type" class="form-group">
       <div class="custom-file">
         <input name="resource" type="file" class="custom-file-input" id="customFile" @change="onImageChange">
 
-        <label class="custom-file-label" for="customFile">Choose file</label>
-        <span v-if="resource.resource_url">Uploaded file: {{ resource.resource_url }}</span>
+        <label class="custom-file-label" for="customFile">Choose image / video</label>
       </div>
     </div>
 
-    <img v-if="isChecked(IMAGE_RESOURCE) && resource.id" :src="'storage/uploads/' + resource.resource_url" class="img-fluid">
+    <img
+      v-if="isChecked(IMAGE_RESOURCE) && displayResource"
+      :src="displayResource"
+      class="img-fluid mt-1 mb-1"
+    >
 
-    <video v-if="isChecked(VIDEO_RESOURCE) && resource.id" width="100%" height="100%" controls
+    <video v-if="isChecked(VIDEO_RESOURCE) && displayResource" width="100%" height="100%" controls
            style="background: #007bff; padding: 2px;"
     >
-      <source v-if="isChecked(VIDEO_RESOURCE) && resource" :src="resource.resource_url" type="video/mp4">
+      <source :src="displayResource" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
@@ -44,28 +49,37 @@
 
 <script>
 
-  import { cloneDeep } from 'lodash'
-  // import { IMAGE_RESOURCE, VIDEO_RESOURCE} from './../../../resource-types'
+  import {cloneDeep} from 'lodash'
 
   export default {
     props: {
       value: {
         type: Object,
-        default: () => {}
+        default: () => {
+        }
+      },
+
+      types: {
+        type: Array,
+        default: () => ['image', 'video']
       }
     },
 
     watch: {
       value: {
-        handler (val) {
+        handler(val) {
           this.resource = cloneDeep(val)
         },
         immediate: true
       }
     },
 
-    data () {
+    data() {
       return {
+        type: false,
+        changeFlag: true,
+        mediaResource: false,
+        video: false,
         resource: {
           IMAGE_RESOURCE: 'image',
           VIDEO_RESOURCE: 'video',
@@ -75,34 +89,72 @@
       }
     },
 
-    created () {
+    created() {
       this.IMAGE_RESOURCE = 'image'
       this.VIDEO_RESOURCE = 'video'
+
+      if (this.displayResource) {
+        this.changeFlag = false
+      }
+    },
+
+    computed: {
+      displayResource() {
+        if (this.resource.resource_url && !this.type) {
+          this.resource.resource_type = this.resource.resource_url.includes('mp4') ? 'video' : 'image'
+        }
+
+        return this.resource.resource_url
+          ? 'storage/uploads/' + this.resource.resource_url
+          : this.mediaResource
+      }
     },
 
     methods: {
-      onImageChange (e) {
+      onImageChange(e) {
         let files = e.target.files || e.dataTransfer.files
         if (!files.length)
           return;
 
-        this.resource.resource_url = files[0].name
+        this.mediaResource = false
+        this.createImage(files[0])
+
+        this.emitInput()
       },
 
-      isChecked (type) {
+      createImage(file) {
+        let reader = new FileReader()
+
+        let vm = this
+        vm.mediaResource = false
+        reader.onload = (e) => {
+          vm.mediaResource = e.target.result
+        };
+
+        reader.readAsDataURL(file)
+      },
+
+      isChecked(type) {
         return this.resource.resource_type === type
       },
 
-      switchResourceType (type) {
+      switchResourceType(type) {
         this.resource.resource_type = type
+        this.type = type
         this.resource.resource_url = false
       },
 
-      resourceUrl () {
-        return ''
+      onClickChangeFlag () {
+        this.changeFlag = true
       },
 
-      emitInput () {
+      isAvailable (type) {
+        return this.types.includes(type)
+      },
+
+      emitInput() {
+        this.resource.resource_url = false
+
         this.$emit('input', this.resource)
       }
     }
