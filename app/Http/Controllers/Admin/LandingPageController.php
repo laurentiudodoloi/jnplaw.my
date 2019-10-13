@@ -33,6 +33,8 @@ class LandingPageController extends Controller
             'subtitle' => 'required|string|max:191',
         ]);
 
+        $device = $request->input('device') === '0' ? 'desktop' : $request->input('device');
+
         $fileNameToStore = '';
         if ($request->hasFile('resource')) {
             $uploaded = FileUploader::store($request->file('resource'));
@@ -50,6 +52,7 @@ class LandingPageController extends Controller
         $data = [
             'title' => $title,
             'subtitle' => $subtitle,
+            'device' => $device,
         ];
 
         if ($fileNameToStore && $fileNameToStore !== '') {

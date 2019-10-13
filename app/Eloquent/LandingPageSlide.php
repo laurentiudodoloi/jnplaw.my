@@ -8,5 +8,6 @@ class LandingPageSlide extends Model
         'title',
         'subtitle',
         'resource_url',
+        'device',
     ];
 }

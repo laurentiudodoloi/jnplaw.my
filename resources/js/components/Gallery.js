@@ -142,12 +142,14 @@ export default class Gallery {
         return (this.currentSlideIndex + 1) % n
     }
 
-    onScroll = (event) => {
+    onScroll = (event, forMobile = false, deltaY = false) => {
         if (!event) {
             return false
         }
 
-        let deltaY = event.deltaY
+        if (!forMobile || !deltaY) {
+            deltaY = event.deltaY
+        }
 
         if (deltaY < 0) {
             deltaY -= 55.0

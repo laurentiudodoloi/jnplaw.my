@@ -5,7 +5,7 @@
     <a v-if="resource.resource_url" href="#" @click.prevent="onClickChangeFlag">Change</a>
 
     <div v-if="changeFlag" class="my-2">
-      <div class="custom-control custom-radio custom-control-inline">
+      <div v-if="isAvailable(IMAGE_RESOURCE)" class="custom-control custom-radio custom-control-inline">
         <input
           :checked="isChecked(IMAGE_RESOURCE)"
           type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"
@@ -14,7 +14,7 @@
         <label class="custom-control-label" for="customRadioInline1">Image</label>
       </div>
 
-      <div class="custom-control custom-radio custom-control-inline">
+      <div v-if="isAvailable(VIDEO_RESOURCE)" class="custom-control custom-radio custom-control-inline">
         <input :checked="isChecked(VIDEO_RESOURCE)"
                type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input"
                @change="switchResourceType('video')"
@@ -57,6 +57,11 @@
         type: Object,
         default: () => {
         }
+      },
+
+      types: {
+        type: Array,
+        default: () => ['image', 'video']
       }
     },
 
@@ -141,6 +146,10 @@
 
       onClickChangeFlag () {
         this.changeFlag = true
+      },
+
+      isAvailable (type) {
+        return this.types.includes(type)
       },
 
       emitInput() {

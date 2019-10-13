@@ -4,23 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Eloquent\LandingPageSlide;
 use App\Eloquent\LayoutSize;
-use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
 {
     public function index()
     {
-        $localPath = 'uploads/';
-        $livePath = 'jnplaw/public/uploads/';
+        $slides = LandingPageSlide::all()
+            ->transform(function ($el) {
+                $el->resource_url = 'storage/uploads/'.$el->resource_url;
 
-        $path = $livePath;
-
-        $projects = LandingPageSlide::all();
+                return $el;
+            })
+            ->groupBy('device');
 
         $logoLayouts = LayoutSize::query()
             ->where('element', 'logo')
             ->get();
 
-        return view('welcome', compact('projects', 'path', 'logoLayouts'));
+        return view('welcome', compact('slides', 'path', 'logoLayouts'));
     }
 }

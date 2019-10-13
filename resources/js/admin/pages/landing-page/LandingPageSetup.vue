@@ -36,7 +36,20 @@
             <input :value="csrf()" type="hidden" name="_token">
 
             <div class="form-group">
-              <label for="title" class=" font-weight-bold">Title</label>
+              <select
+                  v-model="entity.device"
+                  name="device"
+                  class="browser-default custom-select"
+                  @change="onChangeDevice"
+              >
+                <option value="0" selected>Select device</option>
+                <option value="desktop">Desktop</option>
+                <option value="mobile">Mobile</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="title" class="font-weight-bold">Title</label>
 
               <input
                 v-model="entity.title"
@@ -60,7 +73,7 @@
               >
             </div>
 
-            <file-uploader :value="entity"/>
+            <file-uploader :value="entity" :types="resourceTypes"/>
 
             <button
               type="submit"
@@ -98,6 +111,7 @@
 
     data () {
       return {
+        onlyImage: false,
         localPath: 'uploads/',
         livePath: 'jnplaw.local.my/public/uploads/',
         loading: false,
@@ -107,7 +121,8 @@
           title: '',
           subtitle: '',
           resource_url: '',
-          resource_type: false
+          resource_type: false,
+          device: 0
         },
         image: false,
         editMode: false
@@ -119,6 +134,14 @@
     },
 
     computed: {
+      resourceTypes () {
+        if (this.entity.device === 'mobile') {
+          return ['image']
+        }
+
+        return ['image', 'video']
+      },
+
       formAction () {
         let path = '/admin/landing-page/slide/store'
 
@@ -136,7 +159,8 @@
           title: '',
           subtitle: '',
           resource_url: '',
-          resource_type: false
+          resource_type: false,
+          device: 0,
         }
       },
 
@@ -144,7 +168,8 @@
         return [
           'Title',
           'Subtitle',
-          'Media resource'
+          'Media resource',
+          'Device'
         ]
       },
 
@@ -173,6 +198,10 @@
 
             this.loading = false
           })
+      },
+
+      onChangeDevice (evt) {
+        this.entity.device = evt.target.value
       },
 
       csrf () {

@@ -19,16 +19,9 @@
 @endsection
 
 @section('content')
-
     <div class="open-page">
         <div id="gallery-target"
-             data-feed="{{ json_encode(['projects' => $projects, 'company_logo' => asset("images/company_logo.png")]) }}"></div>
-
-        <div class="video-sliders" style="display: none;">
-            @foreach($projects as $project)
-                <div class="video-slider">{{ 'storage/uploads/'.$project->resource_url }}</div>
-            @endforeach
-        </div>
+             data-feed="{{ json_encode(['slides' => $slides, 'company_logo' => asset("images/company_logo.png")]) }}"></div>
     </div>
 @endsection
 

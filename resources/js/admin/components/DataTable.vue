@@ -14,6 +14,7 @@
         <td>{{ shortText(row.title) }}</td>
         <td>{{ shortText(row.subtitle) }}</td>
         <td>{{ shortText(row.resource_url) }}</td>
+        <td>{{ shortText(row.device) }}</td>
 
         <td class="text-center">
           <a href="#" @click.prevent="edit(index)">
