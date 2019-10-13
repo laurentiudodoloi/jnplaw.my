@@ -23,6 +23,10 @@ class App extends React.Component {
             this.slides = feed.slides.desktop
         }
 
+        if (!this.slides) {
+            this.slides = []
+        }
+
         this.logo = feed.company_logo
 
         this.stopLoading = this.stopLoading.bind(this)
