@@ -10,11 +10,6 @@ class AboutController extends Controller
 {
     public function index()
     {
-        $localPath = 'uploads/';
-        $livePath = 'jnplaw/public/uploads/';
-
-        $path = $livePath;
-
         $settings = AboutUsSetting::query()->first();
         $sections = AboutUsSection::query()
             ->with([
@@ -28,6 +23,8 @@ class AboutController extends Controller
             ->where('element', 'logo')
             ->get();
 
-        return view('pages.about-us', compact('settings', 'sections', 'path', 'logoLayouts'));
+        $path = config('app.upload_path');
+
+        return view('pages.about-us', compact('settings', 'sections', 'logoLayouts', 'path'));
     }
 }

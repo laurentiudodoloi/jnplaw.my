@@ -19,7 +19,7 @@
         </a>
 
         <section class="open-page">
-            <img class="open-image" src="{{ (isset($settings) ? $settings->image_url : '') }}" alt="Cover image">
+            <img class="open-image" src="{{ (isset($settings) ? $path.'/'.$settings->image_url : '') }}" alt="Cover image">
 
             <div class="section-wrapper">
                 <div class="header-wrap">
@@ -76,38 +76,36 @@
                                     {{ $section->description }}
                                 </div>
 
-                                @if($section->has_subsections)
-                                    <div class="accordion" id="subsectionsAccordion">
-                                        @foreach($section->subsections as $index => $subsection)
-                                            <div class="card">
-                                                <div class="card-header" id="{{ 'heading'.$index }}" data-toggle="collapse"
-                                                     data-target="{{ '#collapse'.$index }}" aria-expanded="false"
-                                                     aria-controls="collapseOne">
-                                                    <div>{{ $subsection->title }}</div>
-                                                    <div class="icon"></div>
-                                                </div>
+                                <div class="accordion" id="subsectionsAccordion">
+                                    @foreach($section->subsections as $index => $subsection)
+                                        <div class="card">
+                                            <div class="card-header" id="{{ 'heading'.$index }}" data-toggle="collapse"
+                                                 data-target="{{ '#collapse'.$index }}" aria-expanded="false"
+                                                 aria-controls="collapseOne">
+                                                <div>{{ $subsection->title }}</div>
+                                                <div class="icon"></div>
+                                            </div>
 
-                                                <div id="{{ 'collapse'.$index }}" class="collapse"
-                                                     aria-labelledby="{{ 'heading'.$index }}"
-                                                     data-parent="#subsectionsAccordion">
-                                                    <div class="card-body text">
-                                                        {{ $subsection->content }}
-                                                    </div>
+                                            <div id="{{ 'collapse'.$index }}" class="collapse"
+                                                 aria-labelledby="{{ 'heading'.$index }}"
+                                                 data-parent="#subsectionsAccordion">
+                                                <div class="card-body text">
+                                                    {{ $subsection->content }}
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </div>
-                                @endif
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
 
                             <div class="col-sm-3 item-left item-right"></div>
                         </div>
                     </section>
 
-                    @if($section->has_image && $section->image_url)
+                    @if($section->image_url)
                         <section class="section2 mb-2">
                             <div class="img-wrap">
-                                <img src="{{ $section->image_url }}"
+                                <img src="{{ $path.'/'.$section->image_url }}"
                                      alt="" class="img-fluid"
                                 >
 
@@ -119,12 +117,12 @@
                         </section>
                     @endif
 
-                    @if($section->has_image_slider)
+                    @if($section->images && count($section->images))
                         <section class="section4 mb-2">
                             <div class="owl-carousel owl-theme">
                                 @foreach($section->images as $image)
                                     <div>
-                                        <img src="{{ $image->image_url }}"
+                                        <img src="{{ $path.'/'.$image->image_url }}"
                                              class="img-fluid" alt=""
                                              style="height: 285px;"
                                         >
@@ -134,7 +132,7 @@
                         </section>
                     @endif
 
-                    @if($section->has_text_boxes)
+                    @if($section->textBoxes && count($section->textBoxes))
                         <section class="section section6">
                             <div class="row">
                                 @foreach($section->textBoxes as $textBox)

@@ -101,6 +101,7 @@
       <image-slider
         :value="sliders"
         :index="index"
+        :path="path"
       />
 
       <div class="header-line">
@@ -139,14 +140,17 @@
       index: {
         type: Number,
         required: true
+      },
+
+      path: {
+        type: String,
+        required: true
       }
     },
 
     data() {
       return {
         removeImage: false,
-        localPath: 'uploads/',
-        path: 'storage/uploads/',
         sliders: [],
         section: {},
         image: false,
@@ -178,7 +182,7 @@
     created () {
       if (this.value.images) {
         this.value.images.forEach(image => {
-          this.sliders.push(this.path + image.image_url)
+          this.sliders.push(image.image_url)
         })
       }
     },
@@ -230,7 +234,7 @@
           return false
         }
 
-        return this.section.image ? this.section.image : this.path + this.section.image_url
+        return this.section.image ? this.section.image : this.path + '/' + this.section.image_url
       },
 
       removeSectionImage () {

@@ -3,11 +3,14 @@
 namespace App\Util;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class FileUploader
 {
     public static function store(UploadedFile $fileToUpload)
     {
+        $uploadPath = config('app.upload_path');
+
         $resourceType = 'image';
         $success = true;
 
@@ -23,9 +26,9 @@ class FileUploader
 
         $fileNameToStore = $fileName.'_'.time().'.'.$extension;
 
-        $path = $fileToUpload->storeAs('public/uploads', $fileNameToStore);
+//        $path = $fileToUpload->storeAs($uploadPath, $fileNameToStore);
 
-        $success = !!$path;
+        $success = !!Storage::disk('uploads')->put($fileNameToStore, $fileToUpload->get());
 
         return [
             'success' => $success,

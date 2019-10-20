@@ -25,6 +25,7 @@ class AdminController extends Controller
         ];
 
         $data = [
+            'upload_path' => config('app.upload_path'),
             'slides' => LandingPageSlide::all(),
             'about' => $aboutPageContent,
         ];

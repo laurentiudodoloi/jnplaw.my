@@ -73,7 +73,7 @@
               >
             </div>
 
-            <file-uploader :value="entity" :types="resourceTypes"/>
+            <file-uploader :value="entity" :path="data.upload_path" :types="resourceTypes"/>
 
             <button
               type="submit"
@@ -88,7 +88,6 @@
 </template>
 
 <script>
-
   import DataTable from '../../components/DataTable'
   import { cloneDeep } from 'lodash'
   import axios from 'axios'
@@ -111,9 +110,8 @@
 
     data () {
       return {
+        path: '',
         onlyImage: false,
-        localPath: 'uploads/',
-        livePath: 'jnplaw.local.my/public/uploads/',
         loading: false,
         loadingFullScreen: true,
         rows: [],

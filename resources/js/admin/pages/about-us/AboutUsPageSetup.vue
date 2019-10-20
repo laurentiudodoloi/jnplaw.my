@@ -96,7 +96,7 @@
 
       </div>
 
-      <section-list :value="sections" @add="addSection" @input="onChangeSections"/>
+      <section-list :value="sections" :path="path" @add="addSection" @input="onChangeSections"/>
 
       <div class="tab-pane" id="setting-sections">
 
@@ -116,7 +116,6 @@
 </template>
 
 <script>
-
   import SectionList from "./components/SectionList";
   import axios from 'axios'
   import {cloneDeep} from 'lodash'
@@ -128,9 +127,16 @@
       SectionList
     },
 
+    props: {
+      data: {
+        type: Object,
+        default: () => {}
+      }
+    },
+
     data () {
       return {
-        path: 'storage/uploads/',
+        path: '',
         loading: false,
         loadingFullScreen: true,
         headerImage: false,
@@ -147,16 +153,14 @@
     },
 
     created () {
+      this.path = this.data.upload_path
+
       this.loading = true
 
-      axios
-        .get('/admin/about-us-content')
-        .then(r => {
-          this.settings = r.data.settings || this.settings
-          this.sections = r.data.sections
+      this.settings = this.data.about.settings ? cloneDeep(this.data.about.settings) : this.settings
+      this.sections = cloneDeep(this.data.about.sections)
 
-          this.loading = false
-        })
+      this.loading = false
     },
 
     methods: {
@@ -188,7 +192,7 @@
 
       getHeaderImage() {
         if (!this.headerImage && this.settings.image_url && this.settings.image_url !== '') {
-          return this.path + this.settings.image_url
+          return this.path + '/' + this.settings.image_url
         }
 
         this.loading = false

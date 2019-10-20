@@ -1,4 +1,4 @@
-<template>
+localPath<template>
   <div class="form-group">
     <div class="custom-file">
       <input
@@ -24,7 +24,7 @@
          :key="'imageIndex' + imageIndex"
     >
       <div class="d-flex justify-content-center align-items-center flex-column">
-        <img :src="image" class="img-fluid"
+        <img :src="imagePath(image)" class="img-fluid"
              style="max-width: 120px; max-height: 120px; padding: 12px 16px;"
         >
       </div>
@@ -52,6 +52,11 @@
 
       index: {
         type: Number,
+        required: true
+      },
+
+      path: {
+        type: String,
         required: true
       }
     },
@@ -95,6 +100,10 @@
         Object.values(files).forEach(file => {
           this.createSliderImage(file)
         })
+      },
+
+      imagePath (image) {
+        return this.path + '/' + image
       },
 
       createSliderImage (file) {

@@ -21,26 +21,9 @@
     props: {
       data: {
         type: Object,
-        default: () => {}
+        default: () => {
+        }
       }
-    },
-
-    data () {
-      return {
-        //
-      }
-    },
-
-    mounted() {
-      //
-    },
-
-    created() {
-      //
-    },
-
-    methods: {
-      //
     }
   }
 

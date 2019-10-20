@@ -63,7 +63,7 @@ class LandingPageController extends Controller
             $entity = LandingPageSlide::query()->find($id);
 
             if ($entity && isset($data['resource_url']) && $entity->resource_url !== $fileNameToStore) {
-                Storage::delete('public/uploads/'.$entity->resource_url);
+                Storage::disk('uploads')->delete($entity->resource_url);
             }
         }
 
@@ -85,7 +85,7 @@ class LandingPageController extends Controller
 
         $entity = LandingPageSlide::query()->findOrFail($id);
 
-        Storage::delete('public/uploads/'.$entity->resource_url);
+        Storage::disk('uploads')->delete($entity->resource_url);
 
         $delete = $entity->delete();
 

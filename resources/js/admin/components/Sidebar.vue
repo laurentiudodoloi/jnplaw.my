@@ -88,35 +88,7 @@
 </template>
 
 <script>
-
   export default {
-    props: {
-      //
-    },
-
-    data () {
-      return {
-        //
-      }
-    },
-
-    // watch: {
-    //   '$route': {
-    //     handler (val) {
-    //       console.log('val', val)
-    //     },
-    //     immediate: true
-    //   }
-    // },
-
-    mounted() {
-      //
-    },
-
-    created() {
-      //
-    },
-
     methods: {
       logoUrl () {
         return window.location.origin + '/images/company_logo_black.png'

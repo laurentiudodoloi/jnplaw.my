@@ -21,7 +21,11 @@
 @section('content')
     <div class="open-page">
         <div id="gallery-target"
-             data-feed="{{ json_encode(['slides' => $slides, 'company_logo' => asset("images/company_logo.png")]) }}"></div>
+             data-feed="{{ json_encode([
+                'slides' => $slides,
+                'path' => $path,
+                'company_logo' => asset("images/company_logo.png"),
+             ]) }}"></div>
     </div>
 @endsection
 

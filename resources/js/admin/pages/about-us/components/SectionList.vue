@@ -28,7 +28,7 @@
             <b>Section {{ index + 1 }}</b>
           </div>
 
-          <section-item :index="index" :value="section" @input="onChangeSection($event, index)"/>
+          <section-item :index="index" :path="path" :value="section" @input="onChangeSection($event, index)"/>
 
           <div class="text-right">
             <button class="btn btn-sm btn-outline-danger" @click.prevent="removeSection(index)">
@@ -57,6 +57,11 @@
       value: {
         type: Array,
         default: () => []
+      },
+
+      path: {
+        type: String,
+        required: true
       }
     },
 
@@ -77,7 +82,6 @@
       value: {
         handler (val) {
           this.sections = cloneDeep(val)
-          console.log('sections', this.sections)
         },
         immediate: true
       }

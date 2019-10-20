@@ -9,9 +9,11 @@ class WelcomeController extends Controller
 {
     public function index()
     {
+        $path = config('app.upload_path');
+
         $slides = LandingPageSlide::all()
-            ->transform(function ($el) {
-                $el->resource_url = 'storage/uploads/'.$el->resource_url;
+            ->transform(function ($el) use ($path) {
+                $el->resource_url = $path.'/'.$el->resource_url;
 
                 return $el;
             })
@@ -21,6 +23,6 @@ class WelcomeController extends Controller
             ->where('element', 'logo')
             ->get();
 
-        return view('welcome', compact('slides', 'path', 'logoLayouts'));
+        return view('welcome', compact('slides', 'logoLayouts', 'path'));
     }
 }

@@ -279,7 +279,6 @@
         this.rightItem = rightDataId
         this.leftItem = leftDataId
         this.sliderItems = sliderItems
-        console.log(sliderItems)
       },
 
       updateSliderState: function () {

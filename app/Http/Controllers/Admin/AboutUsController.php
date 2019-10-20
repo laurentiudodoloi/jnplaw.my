@@ -33,7 +33,7 @@ class AboutUsController extends Controller
 
         $settings = AboutUsSetting::query()->first();
         if ($settings) {
-            Storage::delete('public/uploads/'.$settings->image_url);
+            Storage::disk('uploads')->delete($settings->image_url);
         }
 
         AboutUsSetting::query()->delete();
@@ -74,7 +74,7 @@ class AboutUsController extends Controller
                     if (isset($files, $files[$index], $files[$index]['image'])
                         && $files[$index]['image'] !== $saveSection->image_url
                         && $saveSection->image_url !== '') {
-                        Storage::delete('public/uploads/'.$saveSection->image_url);
+                        Storage::disk('uploads')->delete($saveSection->image_url);
                     } else {
                         $storeFileName = $saveSection->image_url;
                     }
@@ -82,7 +82,7 @@ class AboutUsController extends Controller
             }
 
             if (isset($section['remove_image'], $saveSection)) {
-                Storage::delete('public/uploads/'.$saveSection->image_url);
+                Storage::disk('uploads')->delete($saveSection->image_url);
                 $storeFileName = '';
             } else {
                 $uploaded = isset($files[$index], $files[$index]['image'])
@@ -146,7 +146,7 @@ class AboutUsController extends Controller
                     ->get();
 
                 foreach ($images as $image) {
-                    Storage::delete('public/uploads/'.$image->image_url);
+                    Storage::disk('uploads')->delete($image->image_url);
                     $image->delete();
                 }
 

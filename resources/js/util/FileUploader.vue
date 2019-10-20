@@ -59,6 +59,11 @@
         }
       },
 
+      path: {
+        type: String,
+        default: () => ''
+      },
+
       types: {
         type: Array,
         default: () => ['image', 'video']
@@ -105,7 +110,7 @@
         }
 
         return this.resource.resource_url
-          ? 'storage/uploads/' + this.resource.resource_url
+          ? this.path + '/' + this.resource.resource_url
           : this.mediaResource
       }
     },

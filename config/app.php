@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'upload_path' => env('UPLOAD_PATH', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

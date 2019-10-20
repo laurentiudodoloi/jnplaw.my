@@ -1,20 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Player } from 'video-react'
+import {Player} from 'video-react'
 
 import Fade from 'react-reveal/Fade';
 import Reveal from 'react-reveal/Reveal';
 
 import raf from 'raf'
 import sizeMe from 'react-sizeme'
-import { Swipeable } from 'react-swipeable'
+import {Swipeable} from 'react-swipeable'
 
 import Gallery from './Gallery'
 
 const noop = () => undefined
 
-import { throttle } from 'lodash';
+import {throttle} from 'lodash';
 
 class ScrollableGallery extends React.Component {
     state = {
@@ -29,8 +29,8 @@ class ScrollableGallery extends React.Component {
         this._onPressEscape = this._onPressEscape.bind(this);
     }
 
-    _onPressEscape (event){
-        if(event.keyCode === 27) {
+    _onPressEscape(event) {
+        if (event.keyCode === 27) {
             this.resourceOff()
         }
     }
@@ -79,7 +79,7 @@ class ScrollableGallery extends React.Component {
         document.addEventListener("keydown", this._onPressEscape);
 
         if (typeof this.props.onChange === 'function') {
-            const { onLoaded } = this.props
+            const {onLoaded} = this.props
 
             onLoaded(5);
         }
@@ -89,7 +89,7 @@ class ScrollableGallery extends React.Component {
         this._tick()
     }
 
-    onClickPlay (evt, index) {
+    onClickPlay(evt, index) {
         evt.preventDefault();
 
         this.setState({
@@ -98,11 +98,11 @@ class ScrollableGallery extends React.Component {
         })
     }
 
-    addWheelEvent () {
+    addWheelEvent() {
         window.addEventListener('wheel', throttle(this._onWheel, 100));
     }
 
-    removeWheelEvent () {
+    removeWheelEvent() {
         window.removeEventListener('wheel', throttle(this._onWheel, 100));
     }
 
@@ -117,7 +117,7 @@ class ScrollableGallery extends React.Component {
         }
     }
 
-    render () {
+    render() {
         const {
             slides,
             startAt,
@@ -141,27 +141,27 @@ class ScrollableGallery extends React.Component {
             >
                 <div>
                     {this.state.playResource &&
-                        <div className={'slider-resource-player'}>
-                            <a href={'#'} className={'close-btn'} onClick={this.resourceOff}>x</a>
+                    <div className={'slider-resource-player'}>
+                        <a href={'#'} className={'close-btn'} onClick={this.resourceOff}>x</a>
 
-                            {this.state.playResource.includes('mp4') &&
-                                <Player
-                                    className={'canvas-video-player'}
-                                    aspectRatio={'16:9'}
-                                    isFullscreen
-                                    src={this.state.playResource}
-                                    autoPlay={true}
-                                    preload={'auto'}
-                                />
-                            }
+                        {this.state.playResource.includes('mp4') &&
+                        <Player
+                            className={'canvas-video-player'}
+                            aspectRatio={'16:9'}
+                            isFullscreen
+                            src={this.state.playResource}
+                            autoPlay={true}
+                            preload={'auto'}
+                        />
+                        }
 
-                            {!this.state.playResource.includes('mp4') &&
-                                <img
-                                    src={this.state.playResource}
-                                    className={'canvas-image-player'}
-                                />
-                            }
-                        </div>
+                        {!this.state.playResource.includes('mp4') &&
+                        <img
+                            src={this.state.playResource}
+                            className={'canvas-image-player'}
+                        />
+                        }
+                    </div>
                     }
 
                     <canvas
@@ -260,7 +260,7 @@ class ScrollableGallery extends React.Component {
         this._canvas = ref
     }
 
-    processCurrentSlide (event) {
+    processCurrentSlide(event) {
         let currentSlide = this.state.currentSlide
 
         if (event.deltaY > 0) {
@@ -293,13 +293,13 @@ class ScrollableGallery extends React.Component {
         }
     }
 
-    hideTextAnimation (animatedText) {
+    hideTextAnimation(animatedText) {
         animatedText.style.top = 0;
         animatedText.style.opacity = 0;
         animatedText.classList.remove('move-text');
     }
 
-    showTextAnimation (animatedText) {
+    showTextAnimation(animatedText) {
         animatedText.style.opacity = 1;
         animatedText.style.top = 0;
         animatedText.classList.add('move-text');
@@ -372,4 +372,4 @@ class ScrollableGallery extends React.Component {
     }
 }
 
-export default sizeMe({ monitorWidth: true, monitorHeight: true })(ScrollableGallery)
+export default sizeMe({monitorWidth: true, monitorHeight: true})(ScrollableGallery)

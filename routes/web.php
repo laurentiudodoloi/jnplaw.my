@@ -45,7 +45,7 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('about-us')->group(function () {
-        Route::post('store-settings', 'Admin\AboutUsController@storeSettings')
+      Route::post('store-settings', 'Admin\AboutUsController@storeSettings')
             ->name('admin.about-us.store-settings');
 
         Route::post('store-sections', 'Admin\AboutUsController@storeSections')

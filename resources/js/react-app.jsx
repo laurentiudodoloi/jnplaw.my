@@ -17,6 +17,8 @@ class App extends React.Component {
         const root = document.getElementById('gallery-target')
         const feed = JSON.parse(root.dataset.feed)
 
+        this.path = feed.path
+
         if (isMobile) {
             this.slides = feed.slides.mobile
         } else {
@@ -37,7 +39,7 @@ class App extends React.Component {
             this.setState({
                 loading: false
             })
-        }, 500)
+        }, 250)
     }
 
     render() {
@@ -55,6 +57,7 @@ class App extends React.Component {
                 <ScrollableGallery
                     style={ { width: '100vw', height: '100vh' } }
                     slides={this.slides}
+                    path={this.path}
                     logo={this.logo}
                     onLoaded={(val) => this.stopLoading(val)}
                 />

@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
   import Sidebar from './Sidebar'
   import Navbar from './Navbar'
 
@@ -26,24 +25,6 @@
         type: Object,
         default: () => {}
       }
-    },
-
-    data () {
-      return {
-        //
-      }
-    },
-
-    mounted() {
-      //
-    },
-
-    created() {
-      //
-    },
-
-    methods: {
-      //
     }
   }
 
